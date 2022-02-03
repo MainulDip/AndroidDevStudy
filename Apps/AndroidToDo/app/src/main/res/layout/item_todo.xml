@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="49dp"
     android:paddingStart="10dp"
-    android:paddingEnd="10dp" >
+    android:paddingEnd="10dp"
+    tools:context=".TodoAdapter" >
 
     <TextView
         android:id="@+id/tvTodoTitle"
