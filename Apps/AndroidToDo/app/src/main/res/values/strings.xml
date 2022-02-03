@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AndroidToDo</string>
+    <string name="android_hint">Android Hint</string>
+    <string name="delete">Delete</string>
+    <string name="add_item">Add Item</string>
+    <string name="todo_single_item">Todo single Item</string>
+</resources>
