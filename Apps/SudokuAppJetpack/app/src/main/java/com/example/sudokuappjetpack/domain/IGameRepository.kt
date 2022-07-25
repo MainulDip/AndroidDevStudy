@@ -23,4 +23,20 @@ interface IGameRepository {
         onSuccess: (isComplete: Boolean) -> Unit,
         onError: (Exception) -> Unit
     )
+
+    suspend fun getCurrentGame(
+        onSuccess: (currentGame: SudokuPuzzle, isComplete: Boolean) -> Unit,
+        onError: (Exception) -> Unit
+    )
+
+    suspend fun getSettings(
+        onSuccess: (Settings) -> Unit,
+        onError: (Exception) -> Unit
+    )
+
+    suspend fun updateSettings(
+        settings: Settings,
+        onSuccess: (Unit) -> Unit,
+        onError: (Exception) -> Unit
+    )
 }
