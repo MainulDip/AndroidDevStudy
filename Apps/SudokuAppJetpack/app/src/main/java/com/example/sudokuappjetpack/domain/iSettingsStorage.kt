@@ -3,6 +3,8 @@ package com.example.sudokuappjetpack.domain
 import java.lang.Exception
 
 interface iSettingsStorage {
+    suspend fun getSettings(): SettingsStorageResult
+    suspend fun updateSettings(settings: Settings): SettingsStorageResult
 }
 
 sealed class SettingsStorageResult {
