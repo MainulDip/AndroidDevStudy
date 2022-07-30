@@ -24,4 +24,24 @@ override fun provideIOContext(): CoroutineContext {
 - File system storage
 - Repository and Data Source implementation
 ### Protocol Buffers:
-Like JSON, it's a serialization language using .proto files
+Docs : [developers.google.com/protocol-buffers/docs/proto3](https://developers.google.com/protocol-buffers/docs/proto3)
+
+Like JSON, it's a serialization language using .proto files.
+```proto
+syntax = "proto3";
+
+option java_package = "com.bracketcove.sudokuappjetpack";
+option java_multiple_files = true; // for multiple file rather than single file
+
+message GameSettings {
+  int32 boundary = 9;
+  ProtoDifficulty difficulty = 2;
+
+  enum ProtoDifficulty {
+    UNKNOWN = 0;
+    EASY = 1;
+    MEDIUM = 2;
+    HARD = 3;
+  }
+}
+```
