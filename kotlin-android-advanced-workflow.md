@@ -1,7 +1,6 @@
 ## Birds Eye view (Overviw):
-Kotlin provide some advanced feature like "Jetpack Compose" to build android apps. Here are some personalized workflow docs.
+Building Android/Spring (Java/Kotlin) Apps from scratch should have some standardalized workflow to build it quickly, more systamically, also maintain and running Tests. Here are some personalized workflow docs and why cases.
 
-(Kotlin OOP Tour)[https://github.com/MainulDip/KotlinEveryday/blob/master/oop-tour-kotlin.md]
 
 ### Why Interface and Abstract Classesz? How those help:
 Interfaces don’t have a constructor, one class can inherit multiple interfaces. Where only one abstract class can be inherited.
