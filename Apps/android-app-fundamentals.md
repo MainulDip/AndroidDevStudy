@@ -31,8 +31,15 @@ From AndroidStudio go to View > Tool Windows > Resource Manager and then "Import
 
 To add a image: LayoutEditor >Palette then drag/add an ImageView, then use "Pick a Resource" dialog. use the image listed under the Drawable tab.
 
+Image can be referenced using R.drawable.image_name from java/kotlin. To set an Image use 
+```kt
+val diceImage: ImageView = findViewById(R.id.imageView)
+diceImage.setImageResource(R.drawable.di)
+```
+
 ImageView attributes:
 - scaleType: to scale the image. centerCrop value for filling the screen without distortion.
+- srcCompat: hold the image reference for developer only
 
 ### Folder and File Structure:
 - app: contains most of the files for the app to change.
@@ -54,7 +61,7 @@ ImageView attributes:
 
 > Always use sp for font sizes and dip for everything else.
 
-### Translation:
+### Language Translation:
 Extract strings into a resource file (app > res > values > strings.xml).
 
 ### Accessibility:
@@ -104,3 +111,5 @@ rollButton.setOnClickListener {
     toast.show()
 }
 ```
+### Coding Best Practice:
+- Pseudocode: It is is an informal description of how some code might work. It uses some elements of computer language like if / else, but describes things in a human understandable way. It can be useful for planning the correct approach to take before all the details have been decided.
