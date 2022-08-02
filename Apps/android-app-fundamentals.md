@@ -53,3 +53,54 @@ ImageView attributes:
 - pt (Points) - 1/72 of an inch.
 
 > Always use sp for font sizes and dip for everything else.
+
+### Translation:
+Extract strings into a resource file (app > res > values > strings.xml).
+
+### Accessibility:
+- contentDescription: For image description
+- importantForAccessibility: Set "no" for decorative elements only.
+
+### Activity:
+An Activity provides the window in which your app draws its UI. In Android, each screen is an Activity. The top-level or first activity is often called the MainActivity and is provided by the project template. App can have single or multiple Activities. Each Activity has a specific purpose.
+
+I.E: in a photo gallery app, you could have an Activity for displaying a grid of photos, a second Activity for viewing an individual photo, and a third Activity for editing an individual photo
+
+```kt
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+       super.onCreate(savedInstanceState)
+       setContentView(R.layout.activity_main)
+   }
+}
+
+// open class AppCompatActivity : FragmentActivity, AppCompatCallback, TaskStackBuilder.SupportParentable, ActionBarDrawerToggle.DelegateProvider
+
+// class FragmentActivity : ComponentActivity, ActivityCompat.OnRequestPermissionsResultCallback, ActivityCompat.RequestPermissionsRequestCodeValidator
+
+// interface AppCompatCallback
+```
+
+```java
+// public class AppCompatActivity extends FragmentActivity implements AppCompatCallback, TaskStackBuilder.SupportParentable, ActionBarDrawerToggle.DelegateProvider
+
+// public class FragmentActivity extends ComponentActivity implements ActivityCompat.OnRequestPermissionsResultCallback, ActivityCompat.RequestPermissionsRequestCodeValidator
+
+// public interface AppCompatCallback
+```
+
+Note: Android apps operate differently unlike raw Kotlin. Instead of calling a main() function, the Android system calls the onCreate() method of the MainActivity when your app is opened for the first time.
+
+Auto-Import: File > Settings > Editor > General > Auto Import."Unambiguous imports on the fly" and "Optimize imports on the fly" (for current project) should be checked. Optimize imports settings for removing un-used imports.
+
+### Listeners (event):
+```kt
+val rollButton: Button = findViewById(R.id.button)
+rollButton.setOnClickListener {
+    val resultTextView: TextView = findViewById(R.id.textView)
+    resultTextView.text = "6"
+
+    val toast = Toast.makeText(this, "Dice Rolled!", Toast.LENGTH_SHORT)
+    toast.show()
+}
+```
