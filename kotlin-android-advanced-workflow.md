@@ -8,4 +8,4 @@ Interfaces don’t have a constructor, one class can inherit multiple interfaces
 Abstract classes can’t be final because the main reason they exist is for other classes to extend them. However, their methods and properties can be final. In fact, they’re final by default.
 
 ### Map For Kotlin Interface, Abstract Class and JUnit Testing With Spring Boot:
-Task: make the map of the kotlin springboot repository (That is inside of the KotlinEveryday Repository)
+Task: make the map of the kotlin springboot repository (That is inside of the KotlinEveryday Spring Repository)
