@@ -14,7 +14,32 @@ ___
 ---
 
 ### Test (Unit-test) and Android-Test (instrumentation-test/UI):
-There are 2 directory inside app's src directory. The "test" directory is for Unit testing and "androidTest" is for instrumentation-test or UI test.
+There are 2 directory inside app's src directory for automated testing. The "test" directory is for Unit testing and "androidTest" is for instrumentation-test or UI test. These are set inside app/build.gradle
+
+> Unit Testing inside test directory:
+
+- Test functions must first be annotated with the @ Test annotation imported from the org.junit.test
+```kt
+class ExampleUnitTest {
+   @Test
+   fun addition_isCorrect() {
+       assertEquals(4, 2 + 2) // Assertion methods are the end goal of a unit test.
+
+
+    //val rollResult: Int = 4
+    // assertTrue("The value of rollResult was not between 1 and 6", rollResult in 1..6) // this will return true as 4 is in between 1 to 6 range. So this test will return true
+   }
+   
+   // assertEquals()
+   // assertNotEquals()
+   // assertThat()
+   // assertTrue()
+   // assertFalse()
+   // assertNull()
+   // assertNotNull()
+}
+```
+
 
 ### UI, View and ViewGroup:
 The user interface (UI) of an app like text, images, buttons, etc are called Views. Each view has relationship with other views. A ViewGroup (ConstraintLayout, RelativeLayout, etc) is a container that View objects can sit in, and is responsible for arranging the Views inside it. LayoutEditor helps to customize layout elements (Views).
@@ -95,6 +120,7 @@ class MainActivity : AppCompatActivity() {
 
 // public interface AppCompatCallback
 ```
+Note: setContentView() must be called before findViewById()
 
 Note: Android apps operate differently unlike raw Kotlin. Instead of calling a main() function, the Android system calls the onCreate() method of the MainActivity when your app is opened for the first time.
 
@@ -110,6 +136,68 @@ rollButton.setOnClickListener {
     val toast = Toast.makeText(this, "Dice Rolled!", Toast.LENGTH_SHORT)
     toast.show()
 }
+```
+
+### Debug and Logging:
+
+Logging: There are several functions for logging output, taking the form Log.v(//Verbose), Log.d(//Debug), Log.i(//Info), Log.w(//Warning), or Log.e(//Error), Log.wtf() (What a Terrible Failure). These methods take two parameters: the first, called the "tag", is a string identifying the source of the log message (such as the name of the class that logged the text). The second is the actual log message. These logs are ASSERT level, a log level above ERROR
+
+```kt
+private const val TAG = "MainActivity"
+
+fun logging() {
+    Log.v(TAG, "Hello, world!")
+}
+
+fun division() {
+    val numerator = 60
+    var denominator = 4
+    repeat(5) {
+        Log.v(TAG, "${numerator / denominator}")
+        denominator--
+    }
+}
+
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_main)
+    logging()
+    division() // app will crash
+    // java.lang.RuntimeException: Unable to start activity ComponentInfo{com.example.debugging/com.example.debugging.MainActivity}: java.lang.ArithmeticException: divide by zero
+}
+```
+> Note/Warning: Because Logs are removed from release builds, always avoid introducing side effects (modifying variables, etc values) from log statements.
+
+### Stack trace:
+When one function calls another function, the device won't run any code from the first function until the second function finishes. Once the second function finishes executing, the first function resumes where it left off. This is similar to a stack in the physical world, such as a stack of plates or a stack of cards. If you want to take a plate, you're going to take the top most one. It's impossible to take a plate lower in the stack without first removing all the plates above it.
+
+```kt
+val TAG = ...
+
+fun first() {
+    second()
+    Log.v(TAG, "1")
+}
+
+fun second() {
+    third()
+    Log.v(TAG, "2")
+    fourth()
+}
+
+fun third() {
+    Log.v(TAG, "3")
+}
+
+fun fourth() {
+    Log.v(TAG, "4")
+}
+
+// If you call first(), then the numbers will be logged in the following order.
+// 3
+// 2
+// 4
+// 1
 ```
 ### Coding Best Practice:
 - Pseudocode: It is is an informal description of how some code might work. It uses some elements of computer language like if / else, but describes things in a human understandable way. It can be useful for planning the correct approach to take before all the details have been decided.
