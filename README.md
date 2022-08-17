@@ -24,6 +24,6 @@ In Android we cannot just pass objects to activities. To do this the objects mus
 
 - Apache Thrift: Originally developed by Facebook and is currently maintained by Apache. It supports cross-language serialization with lower overhead. It has TJSONProtocol, TCompactProtocol, TBinaryProtocol, etc.
 
-- YAML Based: YAML Beans, SnakeYAML, etc.
+- YAML Based: YAML Beans, SnakeYAML etc.
 
 ### Android Coroutine:

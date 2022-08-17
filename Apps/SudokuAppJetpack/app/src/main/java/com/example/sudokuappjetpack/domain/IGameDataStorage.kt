@@ -4,7 +4,7 @@ import java.lang.Exception
 
 interface IGameDataStorage  {
     suspend fun updateGame(game: SudokuPuzzle): GameStorageResult
-    suspend fun updateNode(x: Int, y: Int, elapseTime: Long): GameStorageResult
+    suspend fun updateNode(x: Int, y: Int, color: Int, elapseTime: Long): GameStorageResult
     suspend fun getCurrentGame(): GameStorageResult
 }
 

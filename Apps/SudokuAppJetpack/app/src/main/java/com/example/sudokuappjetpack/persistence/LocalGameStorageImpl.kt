@@ -3,11 +3,10 @@ package com.example.sudokuappjetpack.persistence
 import com.example.sudokuappjetpack.domain.GameStorageResult
 import com.example.sudokuappjetpack.domain.IGameDataStorage
 import com.example.sudokuappjetpack.domain.SudokuPuzzle
+import com.example.sudokuappjetpack.domain.getHash
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.File
-import java.io.FileOutputStream
-import java.io.ObjectOutputStream
+import java.io.*
 
 private const val FILE_NAME = "game_state.txt"
 
@@ -36,8 +35,31 @@ class LocalGameStorageImpl ( fileStorageDirectory: String,
         }
     }
 
-    override suspend fun updateNode(x: Int, y: Int, elapseTime: Long): GameStorageResult {
-        TODO("Not yet implemented")
+    override suspend fun updateNode(x: Int, y: Int, color: Int, elapseTime: Long): GameStorageResult = withContext(Dispatchers.IO){
+        try {
+            val game = getGame()
+//            game.graph[getHash(x,y)]!!.first.color = color
+            game.elapsedTime = elapseTime
+            updateGame(game)
+            GameStorageResult.OnSuccess(game)
+        } catch (e: Exception) {
+            GameStorageResult.OnError(e)
+        }
+    }
+
+    private fun getGame() : SudokuPuzzle {
+        try {
+            var game: SudokuPuzzle
+
+            val fileInputStream = FileInputStream(pathToStorageFile)
+            val objectInputStream = ObjectInputStream(fileInputStream)
+            game = objectInputStream.readObject() as SudokuPuzzle
+            objectInputStream.close()
+
+            return game
+        } catch (e: Exception) {
+            throw e
+        }
     }
 
     override suspend fun getCurrentGame(): GameStorageResult {
