@@ -23,7 +23,12 @@ The UI for an Android app is built as a containment hierarchy of components (wid
 
 ### Get User Input:
 
-### View binding:
+### View binding and findViewById:
+Quick access to a view element using findViewById. like
+```kotlin
+val Button myButton = findViewById(R.id.my_button); // tied with the xlm view elemnt "android:id="@+id/my_button"
+```
+
 View Binding makes it much easier and faster to call methods on the views in your UI. You'll need to enable view binding for your app in Gradle, and make some code changes.
 
 Enable View Binding:  app's build.gradle
