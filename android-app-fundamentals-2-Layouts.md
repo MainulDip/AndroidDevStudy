@@ -78,7 +78,18 @@ On activity
 binding.tipResult.text = getString(R.string.tip_amount, formattedTip)
 ```
 
-* Development Placeholder Text Attribute: tools:text="Tip Amount: $7"
+* Development Placeholder Text Attribute in activity xml: tools:text="Tip Amount: $7"
+
+### Theming and Colors:
+As standered practice with Material UI Design, there can be 12 named color attributes.
+* 1st group: Primary, Primary Variand, Secondary, Secondary variant
+* 2nd group: Backgroun, Surface, Error
+* 3rd group: On Primary, On Secondary, 
+* 4th group: On Backgroun, On Surface, On Error
+
+=> Those are mapped into theme xml by camelCase (Not PascalCase, not snake_case) with 'color' prefix like => colorPrimary, colorPrimaryVariant, colorOnPrimary.
+
+* Dark Mode Variant: theme.xml night
 
 ### Tasks:
 * Fragments
