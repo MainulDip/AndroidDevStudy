@@ -103,6 +103,8 @@ For a medium-density device (mdpi), there are 160 dots per inch on the screen wh
 * nodpi - resources that are not meant to be scaled, regardless of the screen's pixel density
 * anydpi - resources that scale to any density
 
+### Material Design Components (MDC):
+
 ### Tasks:
 * Fragments
 * ViewModel, Observable Data Objects and LiveData, 
