@@ -91,6 +91,18 @@ As standered practice with Material UI Design, there can be 12 named color attri
 
 * Dark Mode Variant: theme.xml night
 
+### Apps Icon 
+From project view app > src > main > res > mipmap-hdpi to mipmap-xxxhdpi, all the app's icons are there.
+launcher icon assets are located in mipmap directories separate from other app assets located in drawable directories. This is because some launchers may display your app icon at a larger size than what's provided by the device's default density bucket.
+For a medium-density device (mdpi), there are 160 dots per inch on the screen while an extra-extra-extra-high-density device (xxxhdpi) has 640 dots per inch on the screen. that's why the folder structure *hdpi to *xxxhdpi. Android will select the resource at the closest larger density bucket and then scale down for applicable divices
+* mdpi - resources for medium-density screens (~160 dpi)
+* hdpi - resources for high-density screens (~240 dpi)
+* xhdpi - resources for extra-high-density screens (~320 dpi)
+* xxhdpi - resources for extra-extra-high-density screens (~480dpi)
+* xxxhdpi - resources for extra-extra-extra-high-density screens (~640dpi)
+* nodpi - resources that are not meant to be scaled, regardless of the screen's pixel density
+* anydpi - resources that scale to any density
+
 ### Tasks:
 * Fragments
 * ViewModel, Observable Data Objects and LiveData, 
