@@ -104,6 +104,13 @@ For a medium-density device (mdpi), there are 160 dots per inch on the screen wh
 * anydpi - resources that scale to any density
 
 ### Material Design Components (MDC):
+It's recommended to use Material Components whenever possible. By using Material Components, the app will operate in a more consistent way alongside other apps on the user's device. That way the UI patterns learned in one app can be carried over to the next one. Hence users will be able to learn how to use the app much faster intuitively.
+```kotlin
+// app/build.gradle
+dependencies {
+    implementation 'com.google.android.material:material:<version>'
+}
+```
 
 ### Tasks:
 * Fragments
