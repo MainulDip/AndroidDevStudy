@@ -31,7 +31,7 @@ val Button myButton = findViewById(R.id.my_button); // tied with the xlm view el
 
 View Binding makes it much easier and faster to call methods on the views in your UI. You'll need to enable view binding for your app in Gradle, and make some code changes.
 
-Enable View Binding:  app's build.gradle
+Enable View Binding:  pn app's build.gradle
 ```gradle
 buildFeatures {
     viewBinding = true

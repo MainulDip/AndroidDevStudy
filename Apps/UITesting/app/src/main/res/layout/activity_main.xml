@@ -8,6 +8,7 @@
     android:padding="20dp">
 
     <com.google.android.material.textfield.TextInputLayout
+        style="?attr/textInputOutlinedStyle"
         android:id="@+id/cost_of_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
