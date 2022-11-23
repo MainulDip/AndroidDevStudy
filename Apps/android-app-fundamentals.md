@@ -1,5 +1,5 @@
 ## Overview:
-Personalized Jump Start Docs regarding android app's API, Fundamental Concepts And Communication between components.......
+Personalized Jump Start Docs regarding android app's API, Fundamental Concepts And Communication between components
 
 <br>
 
