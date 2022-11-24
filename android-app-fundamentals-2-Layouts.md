@@ -115,8 +115,25 @@ dependencies {
 Note: Material 2 to 3 => Theme.MaterialComponents.* become Theme.Material3.* for themes and Widget.MaterialComponents.* become Widget.Material3.* for widget styles.
 
 ### Extending Theme or calling other resource files attribute:
+Themes defaul value can be changed by defining inside theme file (usually themes.xml). Theme's name is defiened inside resources' style "name" attribute, and usually there will be a parent theme like "<style name="Theme.UITesting" parent="Theme.MaterialComponents.DayNight.DarkActionBar">". The Theme is hooked by the AndroidManifest.xml application attribute's android:theme="@style/Theme.UITesting" entry.
+
+Gradle will enlist all defiend attributes inside res directory, filename can be anything (stick with best practice) but attribute name should be specific like style, dimen, bool, color, etc. When referencing from other xml files, use @attributetype/attribute_unique_name convension. 
 
 Docs : Resources Type https://developer.android.com/guide/topics/resources/more-resources
+
+* Widget : For a specific view type, widget can also be defiend to extend the style at component basis. Widget name should be on "Widget.AppName.ViewName" convension where parent name is "Widget.MaterialComponent.ViewName". Several attributes can be set once for a targeted view and can be reused maintaining DRY principle.
+
+### Activity xml's parent view:
+Parent view should define the xml namespaces
+```xml
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    .......
+
+</ScrollView>
+```
 
 ### Tasks:
 * Fragments
