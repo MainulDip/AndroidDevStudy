@@ -112,6 +112,12 @@ dependencies {
 }
 ```
 
+Note: Material 2 to 3 => Theme.MaterialComponents.* become Theme.Material3.* for themes and Widget.MaterialComponents.* become Widget.Material3.* for widget styles.
+
+### Extending Theme or calling other resource files attribute:
+
+Docs : Resources Type https://developer.android.com/guide/topics/resources/more-resources
+
 ### Tasks:
 * Fragments
 * ViewModel, Observable Data Objects and LiveData, 
