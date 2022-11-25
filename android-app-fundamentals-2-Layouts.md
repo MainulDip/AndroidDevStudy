@@ -135,6 +135,37 @@ Parent view should define the xml namespaces
 </ScrollView>
 ```
 
+
+### Hiding Keyboar | using view.setOnFocusChangeListener :
+Keyboard can be hide when enter is pressed and when focus is changed. To utilize view.setOnFocusChangeListener, activity's (xml) layout container should be enlist android:clickable="true" and android:focusableInTouchMode="true" (Not inside non-layout container like scrollview). Then use view.setOnFocusChangeListener. To hide keyboar on enter press, its simple
+```kotlin
+// inside onCreate func
+view.apply {
+    setOnKeyListener { view, keycode, _ -> handleKeyEvent(view, keycode) }
+    setOnFocusChangeListener { view, bool ->
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (bool) {
+            inputMethodManager.showSoftInput(view, 0)
+        } else {
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+
+        Toast.makeText(this.context, "Focus changed $bool", Toast.LENGTH_SHORT).show()
+    }
+}
+
+// inside the class
+private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_ENTER) {
+            // Hide the keyboard
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            return true
+        }
+        return false
+    }
+```
+
 ### Tasks:
 * Fragments
 * ViewModel, Observable Data Objects and LiveData, 
