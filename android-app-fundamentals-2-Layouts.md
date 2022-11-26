@@ -169,5 +169,5 @@ private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
 ### Tasks:
 * Fragments
 * ViewModel, Observable Data Objects and LiveData, 
-* Kotlin Flow.......
+* Kotlin Flow..............
 * Everyting on -> App Architecture (Android Developers Docs)
