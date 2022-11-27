@@ -169,7 +169,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 > Note/Warning: Because Logs are removed from release builds, always avoid introducing side effects (modifying variables, etc values) from log statements.
 
 ### Stack trace:
-When one function calls another function, the device won't run any code from the first function until the second function finishes. Once the second function finishes executing, the first function resumes where it left off. This is similar to a stack in the physical world, such as a stack of plates or a stack of cards. If you want to take a plate, you're going to take the top most one. It's impossible to take a plate lower in the stack without first removing all the plates above it.
+When one function calls another function, the device won't run any code from the first function until the second function finishes. Once the second function finishes executing, the first function resumes where it left off. This is similar to a stack in the physical world, such as a stack of plates or a stack of cards. If you want to take a plate, you're going to take the top most one. It's impossible to take a plate lower in the stack without first removing all the plates above it
 
 ```kt
 val TAG = ...

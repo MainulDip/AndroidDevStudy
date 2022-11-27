@@ -171,3 +171,4 @@ private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
 * ViewModel, Observable Data Objects and LiveData, 
 * Kotlin Flow..............
 * Everyting on -> App Architecture (Android Developers Docs)
+* Custom Annotation Java Kotlin
