@@ -198,7 +198,7 @@ class CalculatorTests {
 ```
 
 ### Design Pattern Common:
-* Adapter: Adapter is a design pattern that adapts the data into something that can be used by RecyclerView
+* Adapter: Adapter is a design pattern that adapts the data into something that can be used by RecyclerView.
 
 
 ### Tasks:
