@@ -136,7 +136,7 @@ Parent view should define the xml namespaces
 ```
 
 
-### Hiding Keyboar | using view.setOnFocusChangeListener :
+### Hiding Keyboard | using view.setOnFocusChangeListener :
 Keyboard can be hide when enter is pressed and when focus is changed. To utilize view.setOnFocusChangeListener, activity's (xml) layout container should be enlist android:clickable="true" and android:focusableInTouchMode="true" (Not inside non-layout container like scrollview). Then use view.setOnFocusChangeListener. To hide keyboar on enter press, its simple
 ```kotlin
 // inside onCreate func
@@ -166,8 +166,39 @@ private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
     }
 ```
 
+### Android Test (Instrumented + Local + etc):
+* Instrumented (End-to-End, Integration Tests): tests are usually automated UI tests, launching an app (on emulator or physical devices) and then interacting with it.
+* Local Test (Unit, Integration): automated tests those are execute on development machine or a server, so they're also called host-side tests. They're usually small and fast, isolating the subject under test from the rest of the app.
+* Not all unit tests are local, and not all end-to-end tests run on a device.
+* Unit tests or small tests only verify a very small portion of the app, such as a method or class.
+* End-to-end tests or big tests verify larger parts of the app at the same time, such as a whole screen or user flow.
+* Medium tests are in between and check the integration between two or more units.
+
+#### Instumented/UI testing example using espresso:
+
+```kotlin
+@RunWith(AndroidJUnit4::class)
+class CalculatorTests {
+    @get:Rule()
+    val activity = ActivityScenarioRule(MainActivity::class.java)
+
+    @Test()
+    fun calculate_20_percent_tip() {
+        onView(withId(R.id.cost_of_service_edit_text))
+            .perform(typeText("50.00"))
+            .perform(ViewActions.closeSoftKeyboard())
+
+        onView(withId(R.id.calculate_button))
+            .perform(click())
+
+        onView(withId(R.id.tip_result))
+            .check(ViewAssertions.matches(withText(CoreMatchers.containsString("$10.00"))))
+    }
+}
+```
+
 ### Tasks:
-* Fragments
+* Fragments, proto datastore (https://developer.android.com/codelabs/android-proto-datastore?hl=en#2)
 * ViewModel, Observable Data Objects and LiveData, 
 * Kotlin Flow..............
 * Everyting on -> App Architecture (Android Developers Docs)
