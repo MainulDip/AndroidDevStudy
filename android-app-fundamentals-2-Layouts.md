@@ -197,6 +197,10 @@ class CalculatorTests {
 }
 ```
 
+### Design Pattern Common:
+* Adapter: Adapter is a design pattern that adapts the data into something that can be used by RecyclerView
+
+
 ### Tasks:
 * Fragments, proto datastore (https://developer.android.com/codelabs/android-proto-datastore?hl=en#2)
 * ViewModel, Observable Data Objects and LiveData, 
