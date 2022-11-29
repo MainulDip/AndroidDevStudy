@@ -26,4 +26,4 @@ In Android we cannot just pass objects to activities. To do this the objects mus
 
 - YAML Based: YAML Beans, SnakeYAML etc.
 
-### Android Coroutine:
+### Android Coroutine
