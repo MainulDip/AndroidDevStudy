@@ -13,7 +13,7 @@ In Android we cannot just pass objects to activities. To do this the objects mus
 
 > JSON (JavaScript): JSON Serialization means to convert an JavaScript object into a string format to save into a file, database or tranfer over network. JSON deserialization is its inverse operation, to convert string to JavaScript Object.
 
-### Java/Kotlin Serialization, JSON Libraries:
+### Java/Kotlin Serialization, JSON Libraries
 - Standard Native Serialization Library: This is a native Java solution, so it doesn't require any external libraries
 
 - Gson: Open-source library from Google. it provides toJson() and fromJson() methods to convert Java objects to JSON and vice versa.
