@@ -203,6 +203,9 @@ class CalculatorTests {
 * ViewHolders: RecyclerView doesn't interact directly with item views, but deals with ViewHolders. A ViewHolder represents a single list item view in RecyclerView, and can be reused when possible. A ViewHolder instance holds references to the individual views within a list item layout (hence the name "view holder"). This makes it easier to update the list item view with new data. View holders also add information that RecyclerView uses to efficiently move views around the screen
 * LayoutInflater: inflate an XML layout into a hierarchy of view objects. Or simply it converts xml layout file into a view object.
 
+### Layout placeholder text/images:
+Use "xmlns:tools="http://schemas.android.com/tools" namespace and assaign text or image using "tools:text="Place Holder Text" or "tools:src="@drawable/placeholderimage"
+
 
 ### Tasks:
 * Fragments, proto datastore (https://developer.android.com/codelabs/android-proto-datastore?hl=en#2)
