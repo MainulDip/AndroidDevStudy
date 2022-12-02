@@ -207,6 +207,10 @@ class CalculatorTests {
 Use "xmlns:tools="http://schemas.android.com/tools" namespace and assaign text or image using "tools:text="Place Holder Text" or "tools:src="@drawable/placeholderimage"
 
 
+### App's Gradle Dependencies:
+* implementation: is for dependencies that will be used in the application itself 
+* testImplementation is for dependencies that are used in unit tests, and 
+* androidTestImplementation is for dependencies that are used in instrumentation tests
 ### Tasks:
 * Fragments, proto datastore (https://developer.android.com/codelabs/android-proto-datastore?hl=en#2)
 * ViewModel, Observable Data Objects and LiveData, 

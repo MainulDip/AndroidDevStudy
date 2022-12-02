@@ -4,7 +4,7 @@ This is a personlized study repo to jump start Android app development using Kot
 ### Android DataStore (jetpack exclusive)
 Jetpack DataStore is a data storage option using key-value pairs (Preferences DataStore) or typed objects with protocol buffers. It uses coroutines and Flow to store data asynchronously, consistently, and transactionally.
 
-DataStore Docs: https://developer.android.com/topic/libraries/architecture/datastore..............
+DataStore Docs: https://developer.android.com/topic/libraries/architecture/datastore.....................
 
 ### Serialization, Deserialization and Data Persistance:
 Serialization is a mechanism of converting the state (Data) of an object into a byte stream. That object can then be saved to a database or transferred over a network. Deserialization is the reverse process where the byte stream is used to recreate the actual Java object in memory. This mechanism is used to persist the object (Data).
