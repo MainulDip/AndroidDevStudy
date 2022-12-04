@@ -211,6 +211,12 @@ Use "xmlns:tools="http://schemas.android.com/tools" namespace and assaign text o
 * implementation: is for dependencies that will be used in the application itself 
 * testImplementation is for dependencies that are used in unit tests, and 
 * androidTestImplementation is for dependencies that are used in instrumentation tests
+### Mockito Unit Test Library:
+```kotlin
+testImplementation 'org.mockito:mockito-core:3.12.4'
+```
+
+* unit tests run on the JVM and not on an actual device, so there is no Context. The mock method allows us to create a "mocked" instance of a Context. It doesn't have any real functionality, but it can be used to test methods that require a context.
 ### Tasks:
 * Fragments, proto datastore (https://developer.android.com/codelabs/android-proto-datastore?hl=en#2)
 * ViewModel, Observable Data Objects and LiveData, 
