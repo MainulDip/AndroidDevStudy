@@ -126,6 +126,15 @@ Note: Android apps operate differently unlike raw Kotlin. Instead of calling a m
 
 Auto-Import: File > Settings > Editor > General > Auto Import."Unambiguous imports on the fly" and "Optimize imports on the fly" (for current project) should be checked. Optimize imports settings for removing un-used imports.
 
+### Context in Android:
+The Context class itself is declared as an abstract class, whose implementation is provided by the Android OS.
+
+Simply it is the context of the current state of the app. It provides current state of the application/object/system resources. It lets newly-created objects understand what has been going on and how to hook things with the system os (android).
+
+The context can be retrived by invoking getApplicationContext(), getContext(), getBaseContext() or this (when in a class that extends from Context, such as the Application, Activity, Service and IntentService classes).
+
+* https://stackoverflow.com/questions/3572463/what-is-context-on-android
+
 ### Listeners (event):
 ```kt
 val rollButton: Button = findViewById(R.id.button)
