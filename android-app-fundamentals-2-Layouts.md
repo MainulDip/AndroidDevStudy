@@ -210,7 +210,7 @@ Use "xmlns:tools="http://schemas.android.com/tools" namespace and assaign text o
 ### App's Gradle Dependencies:
 * implementation: is for dependencies that will be used in the application itself 
 * testImplementation is for dependencies that are used in unit tests, and 
-* androidTestImplementation is for dependencies that are used in instrumentation tests
+* androidTestImplementation is for dependencies that are used in instrumentation tests.
 ### Mockito Unit Test Library:
 ```kotlin
 testImplementation 'org.mockito:mockito-core:3.12.4'

@@ -103,6 +103,8 @@ local.properties
 .idea/vcs.xml
 *.iml
 
+.idea/*
+
 # OS-specific files
 .DS_Store
 .DS_Store?
