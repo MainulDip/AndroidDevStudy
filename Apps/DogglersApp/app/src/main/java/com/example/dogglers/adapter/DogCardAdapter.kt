@@ -36,7 +36,7 @@ class DogCardAdapter(
 ): RecyclerView.Adapter<DogCardAdapter.DogCardViewHolder>() {
 
     // TODO: Initialize the data using the List found in data/DataSource
-    val allDogs = DataSource.dogs
+    private val allDogs = DataSource.dogs
 
     /**
      * Initialize view elements
@@ -53,35 +53,38 @@ class DogCardAdapter(
         // TODO: Use a conditional to determine the layout type and set it accordingly.
         //  if the layout variable is Layout.GRID the grid list item should be used. Otherwise the
         //  the vertical/horizontal list item should be used.
-
-        val adapterLayout = when(viewType) {
-            Layout.GRID -> LayoutInflater.from(parent.context).inflate(R.layout.activity_grid_list, parent, false)
-            Layout.HORIZONTAL -> LayoutInflater.from(parent.context).inflate(R.layout.activity_horizontal_list, parent, false)
-            Layout.VERTICAL -> LayoutInflater.from(parent.context).inflate(R.layout.activity_vertical_list, parent, false)
+        println(layout)
+        val adapterLayout = when(layout) {
+            Layout.GRID -> R.layout.grid_list_item
+            Layout.HORIZONTAL -> R.layout.vertical_horizontal_list_item
+            Layout.VERTICAL -> R.layout.vertical_horizontal_list_item
             else -> throw IllegalArgumentException("Layout Type Need Fixing")
         }
 
         // TODO Inflate the layout
+        val inflatedAdapterLayout = LayoutInflater.from(parent.context).inflate(adapterLayout, parent, false)
 
         // TODO: Null should not be passed into the view holder. This should be updated to reflect
         //  the inflated layout.
-        return DogCardViewHolder(adapterLayout)
+        return DogCardViewHolder(inflatedAdapterLayout)
     }
 
     override fun getItemCount(): Int = allDogs.size // TODO: return the size of the data set instead of 0
 
     override fun onBindViewHolder(holder: DogCardViewHolder, position: Int) {
         // TODO: Get the data at the current position
+        val itemPos = allDogs[position]
         // TODO: Set the image resource for the current dog
+        holder.dogImage.setImageResource(itemPos.imageResourceId)
         // TODO: Set the text for the current dog's name
+        holder.dogName.text = itemPos.name
         // TODO: Set the text for the current dog's age
+        holder.dogAge.text = itemPos.age
         val resources = context?.resources
         // TODO: Set the text for the current dog's hobbies by passing the hobbies to the
         //  R.string.dog_hobbies string constant.
         //  Passing an argument to the string resource looks like:
         //  resources?.getString(R.string.dog_hobbies, dog.hobbies)
+        holder.dogHobby.text = itemPos.hobbies
     }
-
-    val <T> T.exhaustive : T
-        get() = this
 }

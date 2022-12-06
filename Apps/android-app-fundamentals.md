@@ -129,7 +129,7 @@ Auto-Import: File > Settings > Editor > General > Auto Import."Unambiguous impor
 ### Context in Android
 The Context class itself is declared as an abstract class, whose implementation is provided by the Android OS.
 
-Simply it is the context of the current state of the app. It provides current state of the application/object/system resources. It lets newly-created objects understand what has been going on and how to hook things with the system os (android).
+Simply it is the context of the current state of the app. It provides current state of the application/object/system resources. It lets newly-created objects understand what has been going on and how to hook things with the system os (android)
 
 The context can be retrived by invoking getApplicationContext(), getContext(), getBaseContext() or this (when in a class that extends from Context, such as the Application, Activity, Service and IntentService classes).
 
