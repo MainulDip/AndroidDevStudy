@@ -38,11 +38,48 @@
                The width should match the with of the card
                The scaleType should be set to centerCrop-->
 
+
         <!-- TODO: Create a TextView for each of the following:
                 The dog's name
                 The dog's age
                 The dog's hobbies-->
 
+
+        <ImageView
+            android:id="@+id/dogImg"
+            android:layout_width="wrap_content"
+            android:layout_height="194dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/dogName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Dog's Name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dogImg"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/dogAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Dog's Age"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dogName"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/dogHobby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Dog's Hobby"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dogAge"
+            android:layout_marginTop="10dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
