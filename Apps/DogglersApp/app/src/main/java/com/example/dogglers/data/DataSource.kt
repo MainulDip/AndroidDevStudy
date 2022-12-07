@@ -23,6 +23,12 @@ import com.example.dogglers.model.Dog
  */
 object DataSource {
 
+    val mdog: Int
+
+    fun somef() {
+        mdog.add(4)
+    }
+
     val dogs: List<Dog> = listOf(
         Dog(
             R.drawable.tzeitel,
