@@ -36,11 +36,11 @@ class DetailActivity : AppCompatActivity() {
         // Retrieve the LETTER from the Intent extras
         // intent.extras.getString returns String? (String or null)
         // so toString() guarantees that the value will be a String
-        val letterId = "A"
+        val letterId = intent.extras?.getString("letter", "g")
 
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = WordAdapter(letterId, this)
+        recyclerView.adapter = WordAdapter(letterId!!, this)
 
         // Adds a [DividerItemDecoration] between items
         recyclerView.addItemDecoration(
