@@ -197,11 +197,7 @@ class CalculatorTests {
 }
 ```
 
-### Design Pattern Common:
-* Adapter: Adapter is a design pattern that adapts the data into something that can be used by RecyclerView. Usually adapter fetch data from a datastore/databases and format the data to feed the ui/recyclerview.
 
-* ViewHolders: RecyclerView doesn't interact directly with item views, but deals with ViewHolders. A ViewHolder represents a single list item view in RecyclerView, and can be reused when possible. A ViewHolder instance holds references to the individual views within a list item layout (hence the name "view holder"). This makes it easier to update the list item view with new data. View holders also add information that RecyclerView uses to efficiently move views around the screen
-* LayoutInflater: inflate an XML layout into a hierarchy of view objects. Or simply it converts xml layout file into a view object.
 
 ### Layout placeholder text/images:
 Use "xmlns:tools="http://schemas.android.com/tools" namespace and assaign text or image using "tools:text="Place Holder Text" or "tools:src="@drawable/placeholderimage"
@@ -217,6 +213,24 @@ testImplementation 'org.mockito:mockito-core:3.12.4'
 ```
 
 * unit tests run on the JVM and not on an actual device, so there is no Context. The mock method allows us to create a "mocked" instance of a Context. It doesn't have any real functionality, but it can be used to test methods that require a context.......
+
+### RecyclerView, Adapter, ViewHolder, Layout Inflatter:
+Note: For design pattery about this, see the design-pattern-kotlin.md file
+* RecyclerView: Android optimized view for list items.
+* Adapter: Adapter is a design pattern that adapts the data into something that can be used by RecyclerView. Usually adapter fetch data from a datastore/databases and format the data to feed the ui/recyclerview.
+
+* ViewHolders: It provides the api to interact from the onBindViewHolder.
+* LayoutInflater: inflate an XML layout into a hierarchy of view objects. Or simply it converts xml layout file into a view object.
+
+* Process:
+- Define the CustomViewHolder(view) class inheriting RecyclerView.ViewHolder(view). Provide all the view members that we need to access later.
+- Define the CustomAdapter class with necessary constructor args and inherit from the RecyclerView.Adapter<CustomViewHolder>(). Then override all 3 abstract methods as IDE Suggest.
+- The 3 Adapter methods are
+    - getItemCount: Provide the size of the data/list
+    - onCreateViewHolder: Create view object from the layout file using LayoutInFlatter. Then return the CustomViewHolder(inflatedLayout). On background it passess the object to the onBindViewHolder method's holder parameter.
+    - onBindViewHolder: It binds data using the CustomViewHolder class members through holder parameter. It also provide the position of the exact view element by position parameter to bind data exactly. We can attatch onClickListener to fire another activity or all sort of things here.
+    - 
+
 ### Tasks:
 * Fragments, proto datastore (https://developer.android.com/codelabs/android-proto-datastore?hl=en#2)
 * ViewModel, Observable Data Objects and LiveData, 

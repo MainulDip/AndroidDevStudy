@@ -10,6 +10,7 @@ An intent is an object representing some action to be performed. Like lanuching 
 
 ### Setting Up Explicit Intent Steps:
 1: get the context
-2: create intent passing the context and the destination activity.
+2: create intent passing the context and the destination activity. On Recycler view, 
 3: Inject data to the intent with putExtra
 4: Call the startActivity() method on the context object, passing in the intent object.
+5: Get data to the targated 
