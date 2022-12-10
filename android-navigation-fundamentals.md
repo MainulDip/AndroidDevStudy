@@ -14,3 +14,13 @@ An intent is an object representing some action to be performed. Like lanuching 
 3: Inject data to the intent with putExtra
 4: Call the startActivity() method on the context object, passing in the intent object.
 5: Get data to the targated 
+
+
+### Setting Implicit Intent:
+* types: Action_VIEW (Open in browser), CATEGORY_APP_MAPS (Launhes Maps), CATEGORY_APP_EMAIL (launching the email app), CATEGORY_APP_GALLERY (launching the gallery (photos), ACTION_SET_ALARM, ACTION_DIAL (phone call)
+* Commont Types: https://developer.android.com/guide/components/intents-common
+
+* Steps:
+    - Define intent like val intent = Intent(Intent.ACTION_VIEW, query_url)
+    - Fire context.startActivity(intent)
+
