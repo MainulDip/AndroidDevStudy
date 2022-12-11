@@ -224,7 +224,7 @@ Note: For design pattery about this, see the design-pattern-kotlin.md file
 
 * Process:
 - Define the CustomViewHolder(view) class inheriting RecyclerView.ViewHolder(view). Provide all the view members that we need to access later.
-- Define the CustomAdapter class with necessary constructor args and inherit from the RecyclerView.Adapter<CustomViewHolder>(). Then override all 3 abstract methods as IDE Suggest.
+- Define the CustomAdapter class with necessary constructor args and inherit from the RecyclerView.Adapter<CustomViewHolder>(). Then override all 3 abstract methods as IDE Suggest
 - The 3 Adapter methods are
     - getItemCount: Provide the size of the data/list
     - onCreateViewHolder: Create view object from the layout file using LayoutInFlatter. Then return the CustomViewHolder(inflatedLayout). On background it passess the object to the onBindViewHolder method's holder parameter.
