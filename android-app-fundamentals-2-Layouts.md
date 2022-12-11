@@ -229,7 +229,8 @@ Note: For design pattery about this, see the design-pattern-kotlin.md file
     - getItemCount: Provide the size of the data/list
     - onCreateViewHolder: Create view object from the layout file using LayoutInFlatter. Then return the CustomViewHolder(inflatedLayout). On background it passess the object to the onBindViewHolder method's holder parameter.
     - onBindViewHolder: It binds data using the CustomViewHolder class members through holder parameter. It also provide the position of the exact view element by position parameter to bind data exactly. We can attatch onClickListener to fire another activity or all sort of things here.
-    - 
+
+### Menu Item (On App Bar):
 
 ### Tasks:
 * Fragments, proto datastore (https://developer.android.com/codelabs/android-proto-datastore?hl=en#2)

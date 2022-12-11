@@ -26,3 +26,4 @@ An intent is an object representing some action to be performed. Like lanuching 
 
 ### Menu:
 * Add Menu Resource Files by new > android resource file. The Resource type should be menu and file name can be layout_menu. A new directory should be created in res with layout_menu.xml file
+*
