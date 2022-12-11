@@ -24,3 +24,5 @@ An intent is an object representing some action to be performed. Like lanuching 
     - Define intent like val intent = Intent(Intent.ACTION_VIEW, query_url)
     - Fire context.startActivity(intent)
 
+### Menu:
+* Add Menu Resource Files by new > android resource file. The Resource type should be menu and file name can be layout_menu. A new directory should be created in res with layout_menu.xml file
