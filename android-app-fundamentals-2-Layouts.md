@@ -231,6 +231,7 @@ Note: For design pattery about this, see the design-pattern-kotlin.md file
     - onBindViewHolder: It binds data using the CustomViewHolder class members through holder parameter. It also provide the position of the exact view element by position parameter to bind data exactly. We can attatch onClickListener to fire another activity or all sort of things here.
 
 ### Menu Item (On App Bar):
+see android-navigation-fundamental.md
 
 ### Tasks:
 * Fragments, proto datastore (https://developer.android.com/codelabs/android-proto-datastore?hl=en#2)
