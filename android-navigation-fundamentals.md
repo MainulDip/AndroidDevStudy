@@ -68,4 +68,9 @@ An intent is an object representing some action to be performed. Like lanuching 
         }
     }
 ```
-###
+### Activity Lyfecycle Methods:
+* onCreate() : called once, just after the activity is initialized (when the new Activity object is created in memory). Tasks here are inflate the layout, define click listeners, or set up view binding.
+
+* onStart(): is called just after onCreate(). After onStart() runs, the activity is visible on the screen. Unlike onCreate(), which is called only once to initialize the activity, onStart() can be called many times in the lifecycle of your activity. onStart() is paired with a corresponding onStop().
+
+* onStop(): If the user starts your app and then returns to the device's home screen, the activity is stopped and is no longer visible on screen.
