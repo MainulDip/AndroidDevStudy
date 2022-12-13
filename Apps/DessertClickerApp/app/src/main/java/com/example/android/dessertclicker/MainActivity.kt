@@ -18,6 +18,7 @@ package com.example.android.dessertclicker
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -25,6 +26,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import com.example.android.dessertclicker.databinding.ActivityMainBinding
+
+const val activity = "MainActivity"
+const val markerlog = "------------------------------------------------"
 
 class MainActivity : AppCompatActivity() {
 
@@ -63,6 +67,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Log.d(activity, "$markerlog onCreate $markerlog")
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
@@ -143,5 +149,36 @@ class MainActivity : AppCompatActivity() {
             R.id.shareMenuButton -> onShare()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(activity, "$markerlog onStart Call $markerlog ")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(activity, "$markerlog onStop $markerlog ")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(activity, "$markerlog onResume Called $markerlog")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(activity, "$markerlog onPause Called $markerlog")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(activity, "$markerlog onDestroy Called $markerlog")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(activity, "$markerlog onRestart Called $markerlog")
     }
 }

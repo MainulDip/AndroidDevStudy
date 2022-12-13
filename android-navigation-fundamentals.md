@@ -74,3 +74,31 @@ An intent is an object representing some action to be performed. Like lanuching 
 * onStart(): is called just after onCreate(). After onStart() runs, the activity is visible on the screen. Unlike onCreate(), which is called only once to initialize the activity, onStart() can be called many times in the lifecycle of your activity. onStart() is paired with a corresponding onStop().
 
 * onStop(): If the user starts your app and then returns to the device's home screen, the activity is stopped and is no longer visible on screen.
+
+
+```kotlin
+override fun onResume() {
+   super.onResume()
+   Log.d(TAG, "onResume Called")
+}
+
+override fun onPause() {
+   super.onPause()
+   Log.d(TAG, "onPause Called")
+}
+
+override fun onStop() {
+   super.onStop()
+   Log.d(TAG, "onStop Called")
+}
+
+override fun onDestroy() {
+   super.onDestroy()
+   Log.d(TAG, "onDestroy Called")
+}
+
+override fun onRestart() {
+   super.onRestart()
+   Log.d(TAG, "onRestart Called")
+}
+``` 

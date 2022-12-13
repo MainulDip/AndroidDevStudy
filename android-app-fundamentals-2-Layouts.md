@@ -228,7 +228,7 @@ Note: For design pattery about this, see the design-pattern-kotlin.md file
 - The 3 Adapter methods are
     - getItemCount: Provide the size of the data/list
     - onCreateViewHolder: Create view object from the layout file using LayoutInFlatter. Then return the CustomViewHolder(inflatedLayout). On background it passess the object to the onBindViewHolder method's holder parameter.
-    - onBindViewHolder: It binds data using the CustomViewHolder class members through holder parameter. It also provide the position of the exact view element by position parameter to bind data exactly. We can attatch onClickListener to fire another activity or all sort of things here.
+    - onBindViewHolder: It binds data using the CustomViewHolder class members through holder parameter. It also provide the position of the exact view element by position parameter to bind data exactly. We can attatch onClickListener to fire another activity or all sort of things here
 
 ### Menu Item (On App Bar):
 see android-navigation-fundamental.md
@@ -238,4 +238,4 @@ see android-navigation-fundamental.md
 * ViewModel, Observable Data Objects and LiveData, 
 * Kotlin Flow..............
 * Everyting on -> App Architecture (Android Developers Docs)
-* Custom Annotation Java Kotlin
+* Custom Annotation Java Kotlin.
