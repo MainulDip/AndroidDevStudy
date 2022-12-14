@@ -4,8 +4,7 @@ This is part two of the continued android-app-fundamentals. It's the compiled fo
 ### Some UI-Elements/Views:
 - EditText - for entering and editing text
 
-- TextView - to display text like the service question and tip 
-amount
+- TextView - to display text like the service question and tip amount
 - RadioButton - a selectable radio button for each tip option
 
 - RadioGroup - to group the radio button options, android:checkedButton="@id/option_twenty_percent" checked initially/default
