@@ -69,11 +69,16 @@ An intent is an object representing some action to be performed. Like lanuching 
     }
 ```
 ### Activity Lyfecycle Methods:
-* onCreate() : called once, just after the activity is initialized (when the new Activity object is created in memory). Tasks here are inflate the layout, define click listeners, or set up view binding.
+* onCreate() : called once, just after the activity is initialized (when the new Activity object is created in memory). Tasks here are inflate the layout, initialized variables, define click listeners, or set up view binding.
 
 * onStart(): is called just after onCreate(). After onStart() runs, the activity is visible on the screen. Unlike onCreate(), which is called only once to initialize the activity, onStart() can be called many times in the lifecycle of your activity. onStart() is paired with a corresponding onStop().
 
-* onStop(): If the user starts your app and then returns to the device's home screen, the activity is stopped and is no longer visible on screen.
+* onPause & onResume: OnPause is called when the app's focus is lost but still visible. onResume is called when the app get focus.
+* onStop(): is called when the app is no longer visible on screen.
+
+* onDestroy: called once when activity is completely shut down and ready for garbage collection.
+
+
 
 
 ```kotlin
@@ -102,3 +107,13 @@ override fun onRestart() {
    Log.d(TAG, "onRestart Called")
 }
 ``` 
+
+* When an activity start for the first time: onCreate(), onStart(), and onResume() callbacks are called
+* When app is closed: onPause(), onStop(), and onDestroy() are called, in that order. After onDestroy(), Garbage Collection will happen.
+* when home is pressed: onPause(), onStop() are called. The app is now on background. onRestart(), onStart(), and onResume() are called.
+* app from background to foreground: 
+* finish(): this activity method will completely shut down the activity. 
+
+* when configuration change happens: like screen rotate, language change, desktop mode etc. The activity is completely shut down and rebuild, the activity starts up with default values.
+
+* onSaveInstanceState(): this callback is called each time after the activity has been stopped and goes into background. It's a way to save application data/state and passed back to onCreate(savedInstanceState: Bundle?)
