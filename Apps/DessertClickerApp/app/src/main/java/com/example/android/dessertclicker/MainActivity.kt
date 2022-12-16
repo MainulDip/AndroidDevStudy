@@ -30,6 +30,8 @@ import com.example.android.dessertclicker.databinding.ActivityMainBinding
 
 const val activity = "MainActivity"
 const val markerlog = "------------------------------------------------"
+const val KEY_REVENUE = "revenue_key"
+const val KEY_DESSERT_SOLD = "dessert_sold_key"
 
 class MainActivity : AppCompatActivity() {
 
@@ -77,6 +79,12 @@ class MainActivity : AppCompatActivity() {
             onDessertClicked()
         }
 
+        if (savedInstanceState != null) {
+            revenue = savedInstanceState.getInt(KEY_REVENUE)
+            dessertsSold = savedInstanceState.getInt(KEY_DESSERT_SOLD)
+            showCurrentDessert()
+        }
+
         // Set the TextViews to the right values
         binding.revenue = revenue
         binding.amountSold = dessertsSold
@@ -85,9 +93,18 @@ class MainActivity : AppCompatActivity() {
         binding.dessertButton.setImageResource(currentDessert.imageId)
     }
 
+    override fun onSaveInstanceState(outState: Bundle ) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_REVENUE, revenue)
+        outState.putInt(KEY_DESSERT_SOLD, dessertsSold)
+        Log.d("Main Activity", "$markerlog onSaveInstanceState called $markerlog")
+    }
+
+    /**
+     * */
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
-        Log.d("Main Activity", "$markerlog onSaveInstanceState called $markerlog")
+        Log.d("Main Activity", "$markerlog onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) called $markerlog")
     }
 
     /**
