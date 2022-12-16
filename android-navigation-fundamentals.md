@@ -117,3 +117,38 @@ override fun onRestart() {
 * when configuration change happens: like screen rotate, language change, desktop mode etc. The activity is completely shut down and rebuild, the activity starts up with default values.
 
 * onSaveInstanceState(outState: Bundle): this callback is called each time after the activity has been stopped and goes into background. It's a way to save application data/state and passed back to onCreate(savedInstanceState: Bundle?). A Bundle is a collection of key-value pairs, where the keys are always strings and values can be int or boolean. If bundle data is too large it will throw error. So keep the bundle data small. (Note: onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) is not a replacement of this single bundle param method)
+```kotlin
+const val KEY_REVENUE = "revenue_key"
+const val KEY_DESSERT_SOLD = "dessert_sold_key"
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        /**
+        * read the state and update variables.
+        */
+
+        if (savedInstanceState != null) {
+            revenue = savedInstanceState.getInt(KEY_REVENUE)
+            dessertsSold = savedInstanceState.getInt(KEY_DESSERT_SOLD)
+            /**
+            * then update the UI according to state
+            */
+            showCurrentDessert()
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle ) {
+        super.onSaveInstanceState(outState)
+        /**
+        * update the current state in outState, then read back from onCreate override
+        */
+        outState.putInt(KEY_REVENUE, revenue)
+        outState.putInt(KEY_DESSERT_SOLD, dessertsSold)
+    }
+```
+
+### Fragments:
+it's simply a reusable piece of app's ui. Like activities, fragments have a lifecycle and can respond to user input. A fragment is always contained within the view hierarchy of an activity when it is shown onscreen. Each fragment manages its own separate lifecycle.
+
+### Navigational Components:
