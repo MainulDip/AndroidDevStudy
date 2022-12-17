@@ -1,7 +1,7 @@
 ## Overview:
 This is part two of the continued android-app-fundamentals. It's the compiled form of https://developer.android.com/courses/android-basics-kotlin/unit-2 and some more.
 
-### Some UI-Elements/Views:
+### Some UI-Elements/Views
 - EditText - for entering and editing text
 
 - TextView - to display text like the service question and tip amount.
