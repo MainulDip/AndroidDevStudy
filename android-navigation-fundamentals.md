@@ -175,4 +175,6 @@ With activities, onCreate() method is used to inflate the layout and bind views.
 
 ### Fragment Creation:
 Like activity, each fragment will consist of two files, an XML file + a Kotlin class to display data and handle user interactions.
+
+With app selected in the Project Navigator, add the following fragments (File > New > Fragment > Fragment (Blank)), select name for the fragment (layout name will be generated automatically) and both a class and layout file should be generated for each.
 ### Navigational Components:
