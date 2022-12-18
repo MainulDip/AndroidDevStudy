@@ -177,4 +177,8 @@ With activities, onCreate() method is used to inflate the layout and bind views.
 Like activity, each fragment will consist of two files, an XML file + a Kotlin class to display data and handle user interactions.
 
 With app selected in the Project Navigator, add the following fragments (File > New > Fragment > Fragment (Blank)), select name for the fragment (layout name will be generated automatically) and both a class and layout file should be generated for each.
+
+* context in Fragment: Unlike an activity, a fragment is not a Context. You can't pass in this (referring to the fragment object) as the layout manager's context. However, fragments provide a context property you can use instead.
+
+* intent in Fragment: fragments don't have direct access to the intent, so can be referenced it with activity.intent
 ### Navigational Components:

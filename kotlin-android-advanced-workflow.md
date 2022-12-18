@@ -9,7 +9,7 @@ Interfaces don’t have a constructor, one class can inherit multiple interfaces
 
 Abstract classes can’t be final because the main reason they exist is for other classes to extend them. However, their methods and properties can be final. In fact, they’re final by default.
 
-### When to use an abstract class (For closely related classes, abstract Animal is closely related to Dog/Cat class).
+### When to use an abstract class (For closely related classes, abstract Animal is closely related to Dog/Cat class)
 - An abstract class is a good choice if we are using the inheritance concept since it provides a common base class implementation to derived classes.
 
 - An abstract class is also good if we want to declare non-public members. In an interface, all methods must be public.
