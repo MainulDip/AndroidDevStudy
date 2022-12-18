@@ -18,6 +18,8 @@ package com.example.wordsapp
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -39,7 +41,9 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        recyclerView = binding.recyclerView
+
+
+//        recyclerView = binding.recyclerView
         // Sets the LinearLayoutManager of the recyclerview
 //        chooseLayout()
     }
