@@ -181,4 +181,28 @@ With app selected in the Project Navigator, add the following fragments (File > 
 * context in Fragment: Unlike an activity, a fragment is not a Context. You can't pass in this (referring to the fragment object) as the layout manager's context. However, fragments provide a context property you can use instead.
 
 * intent in Fragment: fragments don't have direct access to the intent, so can be referenced it with activity.intent
+
+
+### Jetpack Navigation Component:
+The Navigation component has three key parts
+1. Navigation Graph: xml file like layout, it consists of destinations which correspond to individual activities and fragments also actions between them to navigate from one destination to another.
+
+2. NavHost: used to display destinations from a navigation graph within an activity. When you navigate between fragments, the destination shown in the NavHost is updated. You'll use a built-in implementation, called NavHostFragment, in your MainActivity
+
+3. NavController: this object control the navigation between destinations displayed in the NavHost. When working with intents, you had to call startActivity to navigate to a new screen. With the Navigation component, you can call the NavController's navigate() method to swap the fragment that's displayed.
+
+* Navigation Dependency Adding:
+    - in project build.gradle (also top level) add nav_version equal to 2.5.2 in buildscript ext object.
+    - then in app build.gradle add
+        - implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+        - implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+* Safe Args—a Gradle plugin that will assist you with type safety when passing data between fragments.
+
+* SafeArgs Plugin Adding: 
+    - top/project level build.gradle inside buildscript > dependencies add
+        - classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+    - app-level build.gradle file, within plugins at the top, add
+        - id 'androidx.navigation.safeargs.kotlin'
+### Activiti to Fragment to Intent Summary:
 ### Navigational Components:
