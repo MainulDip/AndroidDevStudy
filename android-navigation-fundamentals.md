@@ -184,8 +184,23 @@ With app selected in the Project Navigator, add the following fragments (File > 
 
 
 ### Jetpack Navigation Component:
+ The navigation component simply refers to the collection of tools for implementing navigation, particularly between fragments.
+
 The Navigation component has three key parts
-1. Navigation Graph: xml file like layout, it consists of destinations which correspond to individual activities and fragments also actions between them to navigate from one destination to another.
+1. Navigation Graph: its is a virtual mapping of app's navigation described in xml file like layout, it consists of destinations which correspond to individual activities and fragments, also actions between them to navigate from one destination to another. 
+
+Note: (Navigation Graph -> NavGraph, accessed by FragmentContainerView) Behind the scenes, this actually creates a new instance of the NavGraph class. However, destinations from the navigation graph are displayed to the user by the FragmentContainerView.
+```xml
+<androidx.fragment.app.FragmentContainerView
+android:id="@+id/nav_host_fragment"
+android:name="androidx.navigation.fragment.NavHostFragment"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+app:defaultNavHost="true"
+app:navGraph="@navigation/nav_graph" />
+```
+
+* on name attribute of the FragmentContainerView, specifying androidx.navigation.fragment.NavHostFragment other than a specific fragment for this attribute, allows FragmentContainerView to navigate between fragments.
 
 2. NavHost: used to display destinations from a navigation graph within an activity. When you navigate between fragments, the destination shown in the NavHost is updated. You'll use a built-in implementation, called NavHostFragment, in your MainActivity
 
