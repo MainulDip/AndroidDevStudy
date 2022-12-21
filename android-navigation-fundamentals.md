@@ -196,7 +196,7 @@ android:id="@+id/nav_host_fragment"
 android:name="androidx.navigation.fragment.NavHostFragment"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-app:defaultNavHost="true"
+app:defaultNavHost="true" <!-- allows the fragment container to interact with the system navigation hierarchy, like if the system back button is pressed, then the container will navigate back to the previously shown fragment -->
 app:navGraph="@navigation/nav_graph" />
 ```
 
