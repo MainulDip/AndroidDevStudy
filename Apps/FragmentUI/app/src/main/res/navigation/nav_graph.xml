@@ -12,10 +12,11 @@
         tools:layout="@layout/fragment_letter_list" >
         <action
             android:id="@+id/action_letterListFragment_to_wordListFragment"
-            app:destination="@id/wordListFragment" >
+            app:destination="@id/wordListFragment">
             <argument
                 android:name="letter"
-                app:argType="string" />
+                app:argType="string"
+                android:defaultValue=""/>
         </action>
     </fragment>
     <fragment

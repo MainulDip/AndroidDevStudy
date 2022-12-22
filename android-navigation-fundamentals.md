@@ -228,6 +228,6 @@ app:navGraph="@navigation/nav_graph" />
 - Create Navigation Action: Destinations Handle Can be dragged like Node Editor to link the action/navigation.
 - extra data as argument: inside attribute panel's argument section, a new argument can be created. The safe args plugin can be helpful for the type safety here.
 - Rebuild: Do Build > Rebuild Project To generate the code based on the navigation graph the project needs to rebuild
-### Activiti to Fragment to Intent Summary:
+### Activiti to Fragment to Intent Summary
 - Setup a container for Fragment inside an activity. 
 ### Navigational Components:
