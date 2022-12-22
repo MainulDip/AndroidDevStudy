@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/letterListFragment">
-
     <fragment
         android:id="@+id/letterListFragment"
         android:name="com.example.wordsapp.LetterListFragment"
@@ -12,11 +11,10 @@
         tools:layout="@layout/fragment_letter_list" >
         <action
             android:id="@+id/action_letterListFragment_to_wordListFragment"
-            app:destination="@id/wordListFragment">
+            app:destination="@id/wordListFragment" >
             <argument
                 android:name="letter"
-                app:argType="string"
-                android:defaultValue=""/>
+                app:argType="string" />
         </action>
     </fragment>
     <fragment

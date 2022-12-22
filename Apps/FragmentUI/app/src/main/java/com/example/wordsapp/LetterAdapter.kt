@@ -78,9 +78,9 @@ class LetterAdapter :
 //            intent.putExtra(WordListFragment.LETTER, holder.button.text.toString())
 //            // Start an activity using the data and destination from the Intent.
 //            context.startActivity(intent)
+//            val action = LetterListFragmentDirections.actionLetterListFragmentToWordListFragment(letter = holder.button.text.toString())
             val action = LetterListFragmentDirections.actionLetterListFragmentToWordListFragment(letter = holder.button.text.toString())
             holder.view.findNavController().navigate(action)
-
         }
     }
 

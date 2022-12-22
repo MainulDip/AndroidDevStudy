@@ -228,6 +228,23 @@ app:navGraph="@navigation/nav_graph" />
 - Create Navigation Action: Destinations Handle Can be dragged like Node Editor to link the action/navigation.
 - extra data as argument: inside attribute panel's argument section, a new argument can be created. The safe args plugin can be helpful for the type safety here.
 - Rebuild: Do Build > Rebuild Project To generate the code based on the navigation graph the project needs to rebuild
+- Destination Arguments vs destination level arguments: the 1st type is where the argument is not nested inside action and the 2nd type is where it is. Destination-level arguments and default values are used by all actions that navigate to the destination with some data
+```xml
+<!-- Showing destinatin level argument -->
+<fragment
+        android:id="@+id/letterListFragment"
+        android:name="com.example.wordsapp.LetterListFragment"
+        android:label="fragment_letter_list"
+        tools:layout="@layout/fragment_letter_list" >
+        <action
+            android:id="@+id/action_letterListFragment_to_wordListFragment"
+            app:destination="@id/wordListFragment" >
+            <argument
+                android:name="letter"
+                app:argType="string" />
+        </action>
+    </fragment>
+```
 ### Activiti to Fragment to Intent Summary
 - Setup a container for Fragment inside an activity. 
 ### Navigational Components:
