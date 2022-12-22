@@ -183,7 +183,22 @@ With app selected in the Project Navigator, add the following fragments (File > 
 * intent in Fragment: fragments don't have direct access to the intent, so can be referenced it with activity.intent
 
 
-### Jetpack Navigation Component:
+### Setting Up Jetpck Navigaiton Component:
+* Navigation Dependency Adding:
+    - in project build.gradle (also top level) add nav_version equal to 2.5.2 in buildscript ext object.
+    - then in app build.gradle add
+        - implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+        - implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+* Safe Args—a Gradle plugin that will assist you with type safety when passing data between fragments.
+
+* SafeArgs Plugin Adding: 
+    - top/project level build.gradle inside buildscript > dependencies add
+        - classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+    - app-level build.gradle file, within plugins at the top, add
+        - id 'androidx.navigation.safeargs.kotlin'
+
+### Jetpack Navigation Component Brif:
  The navigation component simply refers to the collection of tools for implementing navigation, particularly between fragments.
 
 The Navigation component has three key parts
@@ -200,24 +215,19 @@ app:defaultNavHost="true" <!-- allows the fragment container to interact with th
 app:navGraph="@navigation/nav_graph" />
 ```
 
-* on name attribute of the FragmentContainerView, specifying androidx.navigation.fragment.NavHostFragment other than a specific fragment for this attribute, allows FragmentContainerView to navigate between fragments.
+* on name attribute of the FragmentContainerView, specifying androidx.navigation.fragment.NavHostFragment other than a specific fragment, allows FragmentContainerView to navigate between fragments in editor panel.
 
 2. NavHost: used to display destinations from a navigation graph within an activity. When you navigate between fragments, the destination shown in the NavHost is updated. You'll use a built-in implementation, called NavHostFragment, in your MainActivity
 
 3. NavController: this object control the navigation between destinations displayed in the NavHost. When working with intents, you had to call startActivity to navigate to a new screen. With the Navigation component, you can call the NavController's navigate() method to swap the fragment that's displayed.
 
-* Navigation Dependency Adding:
-    - in project build.gradle (also top level) add nav_version equal to 2.5.2 in buildscript ext object.
-    - then in app build.gradle add
-        - implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-        - implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+### Brif Start up of the Jetpack Navigation Component:
+- Creating Navigation Graph: File > New > Android Resource File and create Resource Type "Navigation", give it a name (which is referenced from FragmentContainerView's' app:navGraph attribute inside of an activity).
 
-* Safe Args—a Gradle plugin that will assist you with type safety when passing data between fragments.
-
-* SafeArgs Plugin Adding: 
-    - top/project level build.gradle inside buildscript > dependencies add
-        - classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
-    - app-level build.gradle file, within plugins at the top, add
-        - id 'androidx.navigation.safeargs.kotlin'
+- Destination: Inside the newly created file, add destinations. 
+- Create Navigation Action: Destinations Handle Can be dragged like Node Editor to link the action/navigation.
+- extra data as argument: inside attribute panel's argument section, a new argument can be created. The safe args plugin can be helpful for the type safety here.
+- Rebuild: Do Build > Rebuild Project To generate the code based on the navigation graph the project needs to rebuild
 ### Activiti to Fragment to Intent Summary:
+- Setup a container for Fragment inside an activity. 
 ### Navigational Components:
