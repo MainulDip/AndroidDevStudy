@@ -262,3 +262,16 @@ app:navGraph="@navigation/nav_graph" />
 ### Activiti to Fragment to Intent Summary
 - Setup a container for Fragment inside an activity. 
 ### Navigational Components:
+* NavHostFragment: Container for home/destinations fragments, provide destination direction/action's info. But the actual navigation is done using code by NavController.
+
+* NavController: Conducts Actual Navigation Using the NavHostFragment's NavDirections info.
+```kotlin
+val action: NavDirections = LetterListFragmentDirections.actionLetterListFragmentToWordListFragment(letter = holder.button.text.toString())
+holder.view.findNavController().navigate(action)
+```
+
+* NavigationView: Menu for DrawerLayout or BottomNavBar
+* NavigationUI: Updates content outside NavHostFragment
+
+
+### ViewModel (Android Jetpack Architecture Components):

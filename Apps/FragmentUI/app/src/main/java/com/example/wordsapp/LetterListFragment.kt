@@ -1,6 +1,7 @@
 package com.example.wordsapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -15,6 +16,8 @@ class LetterListFragment : Fragment() {
 
     private var isLinearLayoutManager = true
     private lateinit var recyclerView: RecyclerView
+
+    var counter = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +34,7 @@ class LetterListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("onCreateView Count", "onCreateView: Calling ${counter++} times")
         _binding = FragmentLetterListBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -56,13 +60,12 @@ class LetterListFragment : Fragment() {
         when (isLinearLayoutManager) {
             true -> {
                 recyclerView.layoutManager = LinearLayoutManager(context)
-                recyclerView.adapter = LetterAdapter()
             }
             false -> {
                 recyclerView.layoutManager = GridLayoutManager(context, 4)
-                recyclerView.adapter = LetterAdapter()
             }
         }
+        recyclerView.adapter = LetterAdapter()
     }
 
     private fun setIcon(menuItem: MenuItem?) {
@@ -96,5 +99,6 @@ class LetterListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        Log.d("onDestroyView", "--------------------------------------------- onDestroyView: Called")
     }
 }
