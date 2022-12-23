@@ -248,7 +248,17 @@ app:navGraph="@navigation/nav_graph" />
 
 - arguments vs intent.extra: in fragment there are no intent.extra available because when navigation between fragments, we don't fire new intents. Data is transfered between fragments using FragmentDirection/action and can be get using arguments?.getString(Key).toString()
 
-- Fragment Labeling:
+- Fragment Labeling: Set title/lebel name in app/action bar from main activity using
+```kotlin
+/**
+         * setting action/top bar's title as Fragment's title
+         * supportFragmentManager.findFragmentById(R.id.nav_host_fragment) returns a Fragment? (nullable), but we need NavHost and Fragment together
+         * NavHostFragment implements Fragment and NavHost
+         * so we can cast Fragment as NavHostFragment to use it's controller (navController) */
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+        setupActionBarWithNavController(navController)
+```
 ### Activiti to Fragment to Intent Summary
 - Setup a container for Fragment inside an activity. 
 ### Navigational Components:
