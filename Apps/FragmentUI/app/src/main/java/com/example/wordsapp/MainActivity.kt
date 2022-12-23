@@ -22,6 +22,10 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +36,8 @@ import com.example.wordsapp.databinding.ActivityMainBinding
  */
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
+    private lateinit var navController: NavController
+
     // Keeps track of which LayoutManager is in use for the [RecyclerView]
     private var isLinearLayoutManager = true
 
@@ -41,13 +47,27 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        /**
+         * supportFragmentManager.findFragmentById(R.id.nav_host_fragment) returns a Fragment? (nullable), but we need NavHost and Fragment together
+         * NavHostFragment implements Fragment and NavHost
+         * so we can cast Fragment as NavHostFragment to use it's controller (navController) */
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+
+        setupActionBarWithNavController(navController)
+
 
 
 //        recyclerView = binding.recyclerView
         // Sets the LinearLayoutManager of the recyclerview
 //        chooseLayout()
     }
-//
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    //
 //    /**
 //     * Sets the LayoutManager for the [RecyclerView] based on the desired orientation of the list.
 //     */

@@ -245,6 +245,8 @@ app:navGraph="@navigation/nav_graph" />
         </action>
     </fragment>
 ```
+
+- arguments vs intent.extra: in fragment there are no intent.extra available because when navigation between fragments, we don't fire new intents. Data is transfered between fragments using FragmentDirection/action and can be get using arguments?.getString(Key).toString()
 ### Activiti to Fragment to Intent Summary
 - Setup a container for Fragment inside an activity. 
 ### Navigational Components:

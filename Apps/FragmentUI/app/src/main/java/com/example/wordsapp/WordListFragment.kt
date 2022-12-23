@@ -2,9 +2,11 @@ package com.example.wordsapp
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +28,14 @@ class WordListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var letterId: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            letterId = it.getString(LETTER).toString()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,8 +51,11 @@ class WordListFragment : Fragment() {
         recyclerView = binding.recyclerView
         val letterId = activity?.intent?.extras?.getString(LETTER).toString()
 
+        Toast.makeText(context, "letterId: $letterId activity: $activity and activity?.intent?: ${activity?.intent}  on onViewCreated", Toast.LENGTH_SHORT).show()
+        Log.d("WordListFragment: ", "\"letterId: $letterId activity: $activity and activity?.intent?: ${activity?.intent}  on onViewCreated\"")
+
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = WordAdapter(letterId, requireContext())
+        recyclerView.adapter = WordAdapter(arguments?.getString("letter").toString(), requireContext())
 
         // Adds a [DividerItemDecoration] between items
         recyclerView.addItemDecoration(
