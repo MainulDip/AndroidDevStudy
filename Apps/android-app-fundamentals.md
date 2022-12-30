@@ -126,7 +126,7 @@ Note: Android apps operate differently unlike raw Kotlin. Instead of calling a m
 
 Auto-Import: File > Settings > Editor > General > Auto Import."Unambiguous imports on the fly" and "Optimize imports on the fly" (for current project) should be checked. Optimize imports settings for removing un-used imports.
 
-### Context in Android
+### Context in Android:
 The Context class itself is declared as an abstract class, whose implementation is provided by the Android OS.
 
 Simply it is the context of the current state of the app. It provides current state of the application/object/system resources. It lets newly-created objects understand what has been going on and how to hook things with the system os (android)

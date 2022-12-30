@@ -1,7 +1,7 @@
 ## Overview:
 This Docs is aming towards the app's navigation workflow of the android framework.
 
-### Intent:
+### Intent
 An intent is an object representing some action to be performed. Like lanuching an activity. Intent describes the request, not the actual result.
 
 * explicit intent: it is highly specific, where you know the exact activity to be launched, often a screen in your own app
