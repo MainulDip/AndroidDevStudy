@@ -274,4 +274,4 @@ holder.view.findNavController().navigate(action)
 * NavigationUI: Updates content outside NavHostFragment
 
 
-### ViewModel (Android Jetpack Architecture Components)
+### ViewModel (Android Jetpack Architecture Components):
