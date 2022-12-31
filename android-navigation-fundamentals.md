@@ -275,3 +275,17 @@ holder.view.findNavController().navigate(action)
 
 
 ### ViewModel (Android Jetpack Architecture Components):
+The ViewModel is a model of the app data that is displayed in the views. Models are components that are responsible for handling the data for an app. ViewModels are Models Specific to Views. ViewModel allow your app to follow the architecture principle, driving the UI from the model.
+### UI Controllers(activity/fragment) vs ViewModel:
+ The Android system can destroy UI controllers at any time based on certain user interactions or because of system conditions like low memory. Thats why it's not a good place to store app's state. Instead, the decision-making logic about the data should be added in your ViewModel. The ViewModel stores the app related data that isn't destroyed when activity or fragment is destroyed and recreated by the Android framework.
+
+ * Activities and fragments are responsible for drawing views and data to the screen and responding to the user events. As licycle of this is not on developers hand, application state should never live here.
+
+ * ViewModel is responsible for holding and processing all the data needed for the UI. It should never access the view hierarchy (like view binding object) or hold a reference to the activity or the fragment. It will only process and deliver the data to the UI controllers.
+
+ ### ViewModel Implementation:
+ 1. add the ViewModel Dependencies inside module's build.gradle
+ 2. create Model class Inheriting form ViewModel()
+ 3. Inside UI-Controller (Framgment/Activity) delegate property of the Model class by viewModels()
+
+ NB: by delegating, the android system handles the data persistance of the Model class.
