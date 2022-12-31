@@ -288,4 +288,7 @@ The ViewModel is a model of the app data that is displayed in the views. Models 
  2. create Model class Inheriting form ViewModel()
  3. Inside UI-Controller (Framgment/Activity) delegate property of the Model class by viewModels()
 
- NB: by delegating, the android system handles the data persistance of the Model class.
+ NB: by delegating from viewModels(), the android system handles the data persistance of the Model class. The delegate class creates the viewModel object for you on the first access, and retains its value through configuration changes and returns the value when requested.
+
+ ### ViewModel Lifecycle:
+ The framework keeps the ViewModel alive as long as the scope of the activity or fragment is alive. A ViewModel is not destroyed if its owner is destroyed for a configuration change, such as screen rotation. The new instance of the owner reconnects to the existing ViewModel instance.
