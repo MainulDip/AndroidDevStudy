@@ -294,3 +294,23 @@ The ViewModel is a model of the app data that is displayed in the views. Models 
 
  ### ViewModel Lifecycle:
  The framework keeps the ViewModel alive as long as the scope of the activity or fragment is alive. A ViewModel is not destroyed if its owner is destroyed for a configuration change, such as screen rotation. The new instance of the owner reconnects to the existing ViewModel instance.
+
+ ### Livedata:
+ LiveData is an observable data holder class that is lifecycle-aware.
+ - LiveData holds data; LiveData is a wrapper that can be used with any type of data.
+ - LiveData is observable, which means that an observer is notified when the data held by the LiveData object changes.
+ - LiveData is lifecycle-aware, meaning it only updates observers that are in an active lifecycle state. When you attach an observer to the LiveData, the observer is associated with a LifecycleOwner (usually an activity or fragment). The LiveData only updates observers that are in an active lifecycle state such as STARTED or RESUMED. You can read more about LiveData and observation : https://developer.android.com/topic/libraries/architecture/livedata.html#work_livedata .
+
+ ### Creating Livedata and hooking observer:
+ When data is changed hooked observer will be notified and it will update the UI according to the observer callback in fragment/activity.
+ 1. MutableLiveData : private val _something = MutableLiveData<String>() [Or initial value using MutableLiveData(InitialValue)]
+ 2. LiveData<T>: For getter only (for the newly created val above)
+ 3. Set Livedata Value: by calling _something.value = "something" 
+ 4. Set Observer : Inside Fragment's onViewCreated, attatch the observer for the targated by
+ ```kotlin
+viewModel.currentScrambledWord.observe(viewLifecycleOwner, Observer { newWord ->
+    Log.d("GameFrammentObserve", "viewModel.currentScrambledWord.observe calling, it will be called if the data changes")
+    binding.textViewUnscrambledWord.text = newWord
+})
+ ```
+ Note : if observed data is changed, it will call the lambda.
