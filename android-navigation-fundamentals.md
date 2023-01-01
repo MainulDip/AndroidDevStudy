@@ -288,6 +288,8 @@ The ViewModel is a model of the app data that is displayed in the views. Models 
  2. create Model class Inheriting form ViewModel()
  3. Inside UI-Controller (Framgment/Activity) delegate property of the Model class by viewModels()
 
+ * viewModels() return Lazyly, so when the reference is first access, it will be created.
+
  NB: by delegating from viewModels(), the android system handles the data persistance of the Model class. The delegate class creates the viewModel object for you on the first access, and retains its value through configuration changes and returns the value when requested.
 
  ### ViewModel Lifecycle:
