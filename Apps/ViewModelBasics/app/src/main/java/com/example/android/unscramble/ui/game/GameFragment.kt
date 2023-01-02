@@ -66,9 +66,18 @@ class GameFragment : Fragment() {
         // Update the UI
         Log.d("GameFragment-onViewCreated", "Accessing the lazy viewModel first time by updateNextWordOnScreen() function")
 //        updateNextWordOnScreen()
-        binding.score.text = getString(R.string.score, viewModel.score)
-        binding.wordCount.text = getString(
-                R.string.word_count, viewModel.currentWordCount, MAX_NO_OF_WORDS)
+//        binding.score.text = getString(R.string.score, viewModel.score)
+//        binding.wordCount.text = getString(
+//                R.string.word_count, viewModel.currentWordCount, MAX_NO_OF_WORDS)
+
+        viewModel.score.observe(viewLifecycleOwner) { newS ->
+            binding.score.text = getString(R.string.score, newS)
+        }
+
+        viewModel.currentWordCount.observe(viewLifecycleOwner) { newW ->
+            binding.wordCount.text = getString(
+                R.string.word_count, newW, MAX_NO_OF_WORDS)
+        }
     }
 
     /*
@@ -95,7 +104,7 @@ class GameFragment : Fragment() {
     private fun onSkipWord() {
         if (viewModel.nextWord(shouldSkip = true)) {
             setErrorTextField(false)
-            updateNextWordOnScreen()
+//            updateNextWordOnScreen()
         } else {
             showFinalScoreDialog()
         }
@@ -145,15 +154,15 @@ class GameFragment : Fragment() {
      */
     private fun updateNextWordOnScreen() {
         binding.textViewUnscrambledWord.text = viewModel.currentScrambledWord.value
-        binding.score.text = getString(R.string.score, viewModel.score)
-        binding.wordCount.text = viewModel.currentWordCount.toString()
+        binding.score.text = getString(R.string.score, viewModel.score.value)
+        binding.wordCount.text = viewModel.currentWordCount.value.toString()
     }
 
 
     private fun showFinalScoreDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.congratulations))
-            .setMessage(getString(R.string.you_scored, viewModel.score))
+            .setMessage(getString(R.string.you_scored, viewModel.score.value))
             .setCancelable(false)
             .setNegativeButton(getString(R.string.exit)) { _, _ ->
                 exitGame()

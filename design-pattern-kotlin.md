@@ -103,9 +103,69 @@ fun main() {
 
  * The main classes or components in Android Architecture are UI Controller (activity/fragment), ViewModel, LiveData and Room.
 
+ ### ViewModel:
+ It's a Model to feed data to View(UI Controller's like activity/fragment) Closely. It separate the data from the UI/View so that the data/state can persist untill UI finishes (garbase collected).
+
+ * the viewModel is created by delegating viewModels() UI Controller's method so that the Android system can persist the viewModel object state internally and keep that until the UI is garbase collected or finished.
+
+ ```kotlin
+ // 1. add the ViewModel Dependencies inside module's build.gradle
+ // 2. create Model class Inheriting form ViewModel()
+class GameViewModel: ViewModel() {}
+ // 3. Inside UI-Controller (Framgment/Activity) delegate property of the Model class by viewModels()
+ private val viewModel: GameViewModel by viewModels()
+ ```
+
  ### UI Controllers(activity/fragment) vs ViewModel:
  The Android system can destroy UI controllers at any time based on certain user interactions or because of system conditions like low memory. Thats why it's not a good place to store app's state. Instead, the decision-making logic about the data should be added in your ViewModel. The ViewModel stores the app related data that isn't destroyed when activity or fragment is destroyed and recreated by the Android framework.
 
  * Activities and fragments are responsible for drawing views and data to the screen and responding to the user events. As licycle of this is not on developers hand, application state should never live here.
 
  * ViewModel is responsible for holding and processing all the data needed for the UI. It should never access the view hierarchy (like view binding object) or hold a reference to the activity or the fragment. It will only process and deliver the data to the UI controllers.
+
+ ### ViewBindings:
+View binding is a feature that allows you to more easily access views in code. It generates a binding class for each XML layout file. An instance of a binding class contains direct references to all views that have an ID in the corresponding layout.
+
+* Binding is accomplished by inflating the layout file with the activity/fragment Binding object. Binding is also a View Object.
+```kotlin
+// top level
+private lateinit var binding: GameFragmentBinding
+// inside specific lifecycle method
+binding = GameFragmentBinding.inflate(inflater, container, false)
+
+return binding.root // binding.root is the parent View containing all the child views
+
+// inside another lificycle method
+binding.textViewUnscrambledWord.text = newWord
+binding.score.text = getString(R.string.score, newScore)
+binding.wordCount.text =
+                  getString(R.string.word_count, newWordCount, MAX_NO_OF_WORDS)
+```
+
+### LiveData and Observer:
+* LiveData is a observable data that can update the specific data ui when state changes
+* Observer is a concept that automatically update the ui if the targated live data changes.
+```kotlin
+// defining livedata | Usually inside a viewmodel class
+private val _currentWordCount = MutableLiveData<Int>(0) // default value is 0
+val currentWordCount: LiveData<Int> get() = _currentWordCount // public getter
+    
+private val _currentScrambledWord = MutableLiveData<String>() // no initial/default value
+val currentScrambledWord: LiveData<String> get() = _currentScrambledWord // public getter
+
+
+// setting live data as observable inside UI controller, like activity or fragment class's specific lifycle method (when the view is created)
+// so if the observed live data changes, everytime the callback will be tiggered.
+viewModel.currentWordCount.observe(viewLifecycleOwner) { newW ->
+    binding.wordCount.text = getString(R.string.word_count, newW, MAX_NO_OF_WORDS)
+}
+viewModel.currentScrambledWord.observe(viewLifecycleOwner, Observer { newWord ->
+    binding.textViewUnscrambledWord.text = newWord
+})
+
+
+```
+
+### DataBinding and LiveData:
+Data binding binds the UI components in layouts to data sources using a declarative format. It's a part of the Android Jetpack library.
+* In simpler terms Data binding is binding data (from code) to views + view binding (binding views to code)

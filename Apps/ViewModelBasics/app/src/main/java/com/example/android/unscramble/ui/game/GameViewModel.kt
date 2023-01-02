@@ -13,10 +13,12 @@ class GameViewModel: ViewModel() {
 // ViewModel is an abstract class. In Java/Kotlin, abstract class can have constructors
 
 
-    private var _score = 0
-    val score get() = _score
-    private var _currentWordCount = 0
-    val currentWordCount get() = _currentWordCount
+    private val _score: MutableLiveData<Int> = MutableLiveData(0)
+    val score: LiveData<Int> get() = _score
+
+    private val _currentWordCount = MutableLiveData<Int>(0)
+    val currentWordCount: LiveData<Int> get() = _currentWordCount
+
     private val _currentScrambledWord = MutableLiveData<String>()
     val currentScrambledWord: LiveData<String> get() = _currentScrambledWord
 
@@ -42,16 +44,13 @@ class GameViewModel: ViewModel() {
             getNextWord()
         } else {
             _currentScrambledWord.value = String(tempWord)
-
-            if(!skipping) {
-                ++_currentWordCount
-            }
+            _currentWordCount.value = (_currentWordCount.value)?.inc()
             wordsList.add(currentWord)
         }
     }
 
     fun nextWord(shouldSkip: Boolean = false): Boolean {
-        return if (currentWordCount < MAX_NO_OF_WORDS) {
+        return if (currentWordCount.value!! < MAX_NO_OF_WORDS) {
             getNextWord(shouldSkip)
             true
         } else false
@@ -63,7 +62,7 @@ class GameViewModel: ViewModel() {
     }
 
     private fun increaseScore() {
-        _score += SCORE_INCREASE
+        _score.value = (_score.value)?.plus(SCORE_INCREASE)
     }
 
     fun isUserWordCorrect(playerWord: String): Boolean {
@@ -75,8 +74,8 @@ class GameViewModel: ViewModel() {
     }
 
     fun reinitializeData() {
-        _score = 0
-        _currentWordCount = 0
+        _score.value = 0
+        _currentWordCount.value = 0
         wordsList.clear()
         getNextWord()
     }

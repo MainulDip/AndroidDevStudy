@@ -314,3 +314,4 @@ viewModel.currentScrambledWord.observe(viewLifecycleOwner, Observer { newWord ->
 })
  ```
  Note : if observed data is changed, it will call the lambda.
+ ### LiveData With DataBindings:
