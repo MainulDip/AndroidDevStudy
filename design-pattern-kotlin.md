@@ -169,3 +169,41 @@ viewModel.currentScrambledWord.observe(viewLifecycleOwner, Observer { newWord ->
 ### DataBinding and LiveData:
 Data binding binds the UI components in layouts to data sources using a declarative format. It's a part of the Android Jetpack library.
 * In simpler terms Data binding is binding data (from code) to views + view binding (binding views to code)
+```kotlin
+// Here viewModel is the delegated GameViewModel : ViewModel() instance.
+// ViewBinding in UI Controllers view created lificycle method
+binding.textViewUnscrambledWord.text = viewModel.currentScrambledWord
+
+// Databindings in layout xml file. 
+// Here gameViewModel is the delegated GameViewModel : ViewModel() instance.
+android:text="@{gameViewModel.currentScrambledWord}"
+```
+
+* Steps For DataBindings:
+ - build.gradle add buildFeatures => dataBinding = true and add => id 'kotlin-kapt as plugins
+    - this generates a binary file for every layout xml file. For activity_main.xml, the auto generated class will be ActivityMainBinding (Like View Binding)
+ - To use DataBinding, the layout file will start with <layout> followed by an optional <data> element and a view (ScrollView or other type of view) root element.
+    - use IDE feature to auto convert into databinding layout by alt+enter while keeping cursor on the parent view and select "convert to databinding......."
+ ```xml
+ <layout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   xmlns:tools="http://schemas.android.com/tools">
+
+   <data>
+
+   </data>
+
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+         ...
+       </androidx.constraintlayout.widget.ConstraintLayout>
+   </ScrollView>
+</layout>
+ ```
+ - instantiate binding as DataBindingUtil
+    - like => binding = DataBindingUtil.inflate(inflater, R.layout.game_fragment, container, false)
+    - instade of viewBinding => binding = GameFragmentBinding.inflate(inflater, container, false)
+    - Note: the lateinit declaration will remain same as viewBinding => private val viewModel: GameViewModel by viewModels()
