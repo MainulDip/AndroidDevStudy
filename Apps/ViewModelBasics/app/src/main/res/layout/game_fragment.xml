@@ -19,7 +19,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="gameViewModel"
+            type="com.example.android.unscramble.ui.game.GameViewModel" />
 
+        <variable
+            name="maxNoOfWords"
+            type="int" />
     </data>
 
     <ScrollView
@@ -67,6 +73,7 @@
 
             <TextView
                 android:id="@+id/textView_unscrambled_word"
+                android:text="@{gameViewModel.currentScrambledWord}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/default_margin"

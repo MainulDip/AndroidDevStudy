@@ -57,10 +57,15 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.currentScrambledWord.observe(viewLifecycleOwner, Observer { newWord ->
-            Log.d("GameFrammentObserve", "viewModel.currentScrambledWord.observe calling")
-            binding.textViewUnscrambledWord.text = newWord
-        })
+        // Bind data-binding variables with binding object, also bind the lifecycleOwner
+        binding.gameViewModel = viewModel
+        binding.maxNoOfWords = MAX_NO_OF_WORDS
+        binding.lifecycleOwner = viewLifecycleOwner
+
+//        viewModel.currentScrambledWord.observe(viewLifecycleOwner, Observer { newWord ->
+//            Log.d("GameFrammentObserve", "viewModel.currentScrambledWord.observe calling")
+//            binding.textViewUnscrambledWord.text = newWord
+//        })
 
         // Setup a click listener for the Submit and Skip buttons.
         binding.submit.setOnClickListener { onSubmitWord() }

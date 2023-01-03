@@ -182,8 +182,10 @@ android:text="@{gameViewModel.currentScrambledWord}"
 * Steps For DataBindings:
  - build.gradle add buildFeatures => dataBinding = true and add => id 'kotlin-kapt as plugins
     - this generates a binary file for every layout xml file. For activity_main.xml, the auto generated class will be ActivityMainBinding (Like View Binding)
+ 
  - To use DataBinding, the layout file will start with <layout> followed by an optional <data> element and a view (ScrollView or other type of view) root element.
     - use IDE feature to auto convert into databinding layout by alt+enter while keeping cursor on the parent view and select "convert to databinding......."
+ 
  ```xml
  <layout xmlns:android="http://schemas.android.com/apk/res/android"
    xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -203,7 +205,37 @@ android:text="@{gameViewModel.currentScrambledWord}"
    </ScrollView>
 </layout>
  ```
- - instantiate binding as DataBindingUtil
+ 
+ - instantiate binding as DataBindingUtil on "onCreateView" (for fragment) lifecycle method
     - like => binding = DataBindingUtil.inflate(inflater, R.layout.game_fragment, container, false)
     - instade of viewBinding => binding = GameFragmentBinding.inflate(inflater, container, false)
-    - Note: the lateinit declaration will remain same as viewBinding => private val viewModel: GameViewModel by viewModels()
+    - Note: the lateinit declaration of the ViewModel will remain same like ViewBinding => private val viewModel: GameViewModel by viewModels()
+
+- bind the layout variables and lifecycleOwner with the binding object in onCreateView (for fragment) lifecycle method. Like
+
+```kotlin
+ binding.gameViewModel = viewModel
+ binding.maxNoOfWords = MAX_NO_OF_WORDS
+ binding.lifecycleOwner = viewLifecycleOwner
+```
+- connect layout view using binding expression "@{}" with the layout's declared variables directly, like
+
+```xml
+<!-- databinding layout attaching variables with view -->
+<data>
+    <variable
+        name="gameViewModel"
+        type="com.example.android.unscramble.ui.game.GameViewModel" />
+
+    <variable
+        name="maxNoOfWords"
+        type="int" />
+</data>
+...
+<TextView
+   android:id="@+id/textView_unscrambled_word"
+   ...
+   android:text="@{gameViewModel.currentScrambledWord}"
+   .../>
+``` 
+- No LiveData Observer Required: The layout will receive the updates of the changes to the LiveData defined in the custom ViewModel() inherited classes
