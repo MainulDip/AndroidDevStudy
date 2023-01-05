@@ -77,14 +77,14 @@ class GameFragment : Fragment() {
 //        binding.wordCount.text = getString(
 //                R.string.word_count, viewModel.currentWordCount, MAX_NO_OF_WORDS)
 
-        viewModel.score.observe(viewLifecycleOwner) { newS ->
-            binding.score.text = getString(R.string.score, newS)
-        }
-
-        viewModel.currentWordCount.observe(viewLifecycleOwner) { newW ->
-            binding.wordCount.text = getString(
-                R.string.word_count, newW, MAX_NO_OF_WORDS)
-        }
+//        viewModel.score.observe(viewLifecycleOwner) { newS ->
+//            binding.score.text = getString(R.string.score, newS)
+//        }
+//
+//        viewModel.currentWordCount.observe(viewLifecycleOwner) { newW ->
+//            binding.wordCount.text = getString(
+//                R.string.word_count, newW, MAX_NO_OF_WORDS)
+//        }
     }
 
     /*
@@ -160,9 +160,9 @@ class GameFragment : Fragment() {
      * Displays the next scrambled word on screen.
      */
     private fun updateNextWordOnScreen() {
-        binding.textViewUnscrambledWord.text = viewModel.currentScrambledWord.value
-        binding.score.text = getString(R.string.score, viewModel.score.value)
-        binding.wordCount.text = viewModel.currentWordCount.value.toString()
+//        binding.textViewUnscrambledWord.text = viewModel.currentScrambledWord.value
+//        binding.score.text = getString(R.string.score, viewModel.score.value)
+//        binding.wordCount.text = viewModel.currentWordCount.value.toString()
     }
 
 
