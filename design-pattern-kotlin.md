@@ -243,9 +243,30 @@ android:text="@{gameViewModel.currentScrambledWord}"
 ### Resources in data binding expressions:
 A data binding expression can reference app resources using
 ```xml
-<!-- layout.xml -->
+<!-- layout.xml || pass the value as function params -->
 android:text="@{@string/example_resource(user.lastName)}"
 
 <!-- strings.xml, here %s will be replaced with "user.lastname" defined in layout file above -->
 <string name="example_resource">Last Name: %s</string>
+```
+
+### LiveData to Talkback:
+Convert LiveData to LiveData<Spanable> and transform
+```kotlin
+private val _currentScrambledWord = MutableLiveData<String>()
+val currentScrambledWord: LiveData<Spannable> get() = Transformations.map(_currentScrambledWord) {
+    if (it == null) {
+        SpannableString("")
+    } else {
+        val scrambledWord = it.toString()
+        val spannable: Spannable = SpannableString(scrambledWord)
+        spannable.setSpan(
+            TtsSpan.VerbatimBuilder(scrambledWord).build(),
+            0,
+            scrambledWord.length,
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        spannable
+    }
+}
 ```

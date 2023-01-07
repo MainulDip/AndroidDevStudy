@@ -315,3 +315,106 @@ viewModel.currentScrambledWord.observe(viewLifecycleOwner, Observer { newWord ->
  ```
  Note : if observed data is changed, it will call the lambda.
  ### LiveData With DataBindings:
+Data binding binds the UI components in layouts to data sources using a declarative format. It's a part of the Android Jetpack library.
+* In simpler terms Data binding is binding data (from code) to views + view binding (binding views to code)
+```kotlin
+// Here viewModel is the delegated GameViewModel : ViewModel() instance.
+// ViewBinding in UI Controllers view created lificycle method
+binding.textViewUnscrambledWord.text = viewModel.currentScrambledWord
+
+// Databindings in layout xml file. 
+// Here gameViewModel is the delegated GameViewModel : ViewModel() instance.
+android:text="@{gameViewModel.currentScrambledWord}"
+```
+
+* Steps For DataBindings:
+ - build.gradle add buildFeatures => dataBinding = true and add => id 'kotlin-kapt as plugins
+    - this generates a binary file for every layout xml file. For activity_main.xml, the auto generated class will be ActivityMainBinding (Like View Binding)
+ 
+ - To use DataBinding, the layout file will start with <layout> followed by an optional <data> element and a view (ScrollView or other type of view) root element.
+    - use IDE feature to auto convert into databinding layout by alt+enter while keeping cursor on the parent view and select "convert to databinding......."
+ 
+ ```xml
+ <layout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   xmlns:tools="http://schemas.android.com/tools">
+
+   <data>
+
+   </data>
+
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+         ...
+       </androidx.constraintlayout.widget.ConstraintLayout>
+   </ScrollView>
+</layout>
+ ```
+ 
+ - instantiate binding as DataBindingUtil on "onCreateView" (for fragment) lifecycle method
+    - like => binding = DataBindingUtil.inflate(inflater, R.layout.game_fragment, container, false)
+    - instade of viewBinding => binding = GameFragmentBinding.inflate(inflater, container, false)
+    - Note: the lateinit declaration of the ViewModel will remain same like ViewBinding => private val viewModel: GameViewModel by viewModels()
+
+- bind the layout variables and lifecycleOwner with the binding object in onCreateView (for fragment) lifecycle method. Like
+
+```kotlin
+ binding.gameViewModel = viewModel
+ binding.maxNoOfWords = MAX_NO_OF_WORDS
+ binding.lifecycleOwner = viewLifecycleOwner
+```
+- connect layout view using binding expression "@{}" with the layout's declared variables directly, like
+
+```xml
+<!-- databinding layout attaching variables with view -->
+<data>
+    <variable
+        name="gameViewModel"
+        type="com.example.android.unscramble.ui.game.GameViewModel" />
+
+    <variable
+        name="maxNoOfWords"
+        type="int" />
+</data>
+...
+<TextView
+   android:id="@+id/textView_unscrambled_word"
+   ...
+   android:text="@{gameViewModel.currentScrambledWord}"
+   .../>
+``` 
+- No LiveData Observer Required: The layout (xml) will receive the updates of the changes to the LiveData defined in the custom viewModel (ViewModel() inherited classes) through data binding in variables.
+
+### Resources in data binding expressions:
+A data binding expression can reference app resources using
+```xml
+<!-- layout.xml || pass the value as function params -->
+android:text="@{@string/example_resource(user.lastName)}"
+
+<!-- strings.xml, here %s will be replaced with "user.lastname" defined in layout file above -->
+<string name="example_resource">Last Name: %s</string>
+```
+
+### LiveData to Talkback:
+Convert LiveData to LiveData<Spanable> and transform
+```kotlin
+private val _currentScrambledWord = MutableLiveData<String>()
+val currentScrambledWord: LiveData<Spannable> get() = Transformations.map(_currentScrambledWord) {
+    if (it == null) {
+        SpannableString("")
+    } else {
+        val scrambledWord = it.toString()
+        val spannable: Spannable = SpannableString(scrambledWord)
+        spannable.setSpan(
+            TtsSpan.VerbatimBuilder(scrambledWord).build(),
+            0,
+            scrambledWord.length,
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        spannable
+    }
+}
+```
