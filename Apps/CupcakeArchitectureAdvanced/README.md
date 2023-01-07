@@ -1,3 +1,5 @@
+## Overview:
+
 Cupcake app
 =================================
 
@@ -8,19 +10,25 @@ send the order.
 This app demonstrates multiple fragments in an activity, a shared ViewModel across fragments,
 data binding, LiveData, and the Jetpack Navigation component.
 
+### Topics:
+Activities, fragments, intents, data binding, navigation components, and the basics of architecture components.
 
-Pre-requisites
---------------
-* Familiar with activities and fragments
-* How to use styles and themes in the UI
-* Basic understanding of Jetpack architecture components including ViewModel and LiveData
-* Data binding and binding expressions
-* Kotlin syntax basics
+### Using AppCompatActivity Constructor Inheritance in MainActivity:
+MainActivity can inherit from parameterized constructor of the AppCompatActivity
 
-
-Getting Started
----------------
-1. Install Android Studio, if you don't already have it.
-2. Download the sample.
-3. Import the sample into Android Studio.
-4. Build and run the sample.
+* This code uses a parameterized constructor AppCompatActivity(@LayoutRes int contentLayoutId) 
+* which takes in a layout that will be inflated as part of super.onCreate(savedInstanceState)
+```kotlin
+class MainActivity : AppCompatActivity(R.layout.activity_main)
+/**
+ * Same as below.
+    class MainActivity : AppCompatActivity() {
+        override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        }
+    }
+ * This code uses a parameterized constructor AppCompatActivity(@LayoutRes int contentLayoutId) 
+ * which takes in a layout that will be inflated as part of super.onCreate(savedInstanceState)
+ */
+```

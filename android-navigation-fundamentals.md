@@ -418,3 +418,24 @@ val currentScrambledWord: LiveData<Spannable> get() = Transformations.map(_curre
     }
 }
 ```
+
+### AppCompatActivity inheritance with constructor:
+MainActivity can inherit from parameterized constructor of the AppCompatActivity
+
+* This code uses a parameterized constructor AppCompatActivity(@LayoutRes int contentLayoutId) 
+* which takes in a layout that will be inflated as part of super.onCreate(savedInstanceState)
+```kotlin
+
+class MainActivity : AppCompatActivity(R.layout.activity_main)
+/**
+ * Same as below.
+    class MainActivity : AppCompatActivity() {
+        override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        }
+    }
+ * This code uses a parameterized constructor AppCompatActivity(@LayoutRes int contentLayoutId) 
+ * which takes in a layout that will be inflated as part of super.onCreate(savedInstanceState)
+ */
+```
