@@ -168,7 +168,7 @@ viewModel.currentScrambledWord.observe(viewLifecycleOwner, Observer { newWord ->
 
 ### DataBinding and LiveData:
 Data binding binds the UI components in layouts to data sources using a declarative format. It's a part of the Android Jetpack library.
-* In simpler terms Data binding is binding data (from code) to views + view binding (binding views to code)
+* In simpler terms Data binding is binding data (from code) to views + view binding (binding views to code).
 ```kotlin
 // Here viewModel is the delegated GameViewModel : ViewModel() instance.
 // ViewBinding in UI Controllers view created lificycle method

@@ -186,6 +186,7 @@ With app selected in the Project Navigator, add the following fragments (File > 
 ### Setting Up Jetpck Navigaiton Component:
 * Navigation Dependency Adding:
     - in project build.gradle (also top level) add nav_version equal to 2.5.2 in buildscript ext object.
+        - or constant can also be defiend inside dsl object by > def constantName = "constantValue"
     - then in app build.gradle add
         - implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
         - implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
