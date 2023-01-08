@@ -447,3 +447,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main)
  * which takes in a layout that will be inflated as part of super.onCreate(savedInstanceState)
  */
 ```
+
+### Fragment to Framment Navigation:
+```kotlin
+findNavController().navigate(R.id.action_startFragment_to_flavorFragment)
+```
+
+### Shared ViewModel:
+ Multiple fragments in the app will access the shared ViewModel using their activity scope.
