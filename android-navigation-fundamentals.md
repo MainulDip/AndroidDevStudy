@@ -274,6 +274,11 @@ holder.view.findNavController().navigate(action)
 * NavigationView: Menu for DrawerLayout or BottomNavBar
 * NavigationUI: Updates content outside NavHostFragment
 
+### Fragment to Framment Navigation:
+```kotlin
+findNavController().navigate(R.id.action_startFragment_to_flavorFragment)
+```
+
 
 ### ViewModel (Android Jetpack Architecture Components):
 The ViewModel is a model of the app data that is displayed in the views. Models are components that are responsible for handling the data for an app. ViewModels are Models Specific to Views. ViewModel allow your app to follow the architecture principle, driving the UI from the model.

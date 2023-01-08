@@ -15,12 +15,24 @@
  */
 package com.example.cupcake
 
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
 
 
-class MainActivity : AppCompatActivity(R.layout.activity_main)
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        setupActionBarWithNavController(navController)
+    }
+}
 
 /**
+ * class MainActivity : AppCompatActivity(R.layout.activity_main)
  * Same as below.
     class MainActivity : AppCompatActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
