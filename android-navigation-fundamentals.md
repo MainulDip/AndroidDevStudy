@@ -419,6 +419,8 @@ val currentScrambledWord: LiveData<Spannable> get() = Transformations.map(_curre
 }
 ```
 
+### NavigaitonAdvanced App | Deep on Navigation:
+
 ### AppCompatActivity inheritance with constructor:
 MainActivity can inherit from parameterized constructor of the AppCompatActivity
 
