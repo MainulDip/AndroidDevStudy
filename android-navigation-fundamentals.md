@@ -305,6 +305,10 @@ The ViewModel is a model of the app data that is displayed in the views. Models 
  To persist a ViewModel object within a Fragment (Not entire Activity), viewModels() is used. The delegated object is only destroyed if the fragment is destroyed.
 ```kotlin
 private val myViewModel: MyViewModel by viewModels()
+
+// or
+
+private val myViewModel by viewModels<MyViewModel>()
 ```
 
  ### Multiple Fragments/Shared ViewModel:
@@ -463,10 +467,20 @@ class MainActivity : AppCompatActivity(R.layout.activity_main)
  */
 ```
 
-### Fragment to Framment Navigation:
+### Fragment to Framment Navigation or Navigation to a destination:
+To retrieve the NavController, Use
+* Form Fragment: Fragment.findNavController()
+* From View: View.findNavController()
+* From Activity: Activity.findNavController(viewId: Int)
+
 ```kotlin
+// Navigatie to a destination from a fragment
+import androidx.navigation.fragment.findNavController
+
 findNavController().navigate(R.id.action_startFragment_to_flavorFragment)
 ```
+Note: as the navController is tied with the activity/fragment 's layout by NavHostFragment's attribute, this object is generated behind the scene and can be accessed by those methods.
+Docs: https://developer.android.com/guide/navigation/navigation-navigate
 
 ### Shared ViewModel:
  Multiple fragments in an activity can share same ViewModel Object using the Activity scope. activityViewModel() is used to delegate ViewModel which will persist throughout a Activity and it's fragment.
@@ -475,6 +489,8 @@ findNavController().navigate(R.id.action_startFragment_to_flavorFragment)
 
  ```kotlin
  private val sharedViewModel: OrderViewModel by activityViewModels()
+ // or
+ private val sharedViewModel by activityViewModels<OrderViewModel>()
  ```
 
  ### viewModels() vs activityViewModels vs navGraphViewModels() :
