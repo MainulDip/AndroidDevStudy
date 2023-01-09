@@ -514,3 +514,9 @@ android:onClick="@{() -> domething()}"
 ```
 
 Docs: Binding Expression : https://developer.android.com/topic/libraries/data-binding/expressions
+
+
+### Date Formatter:
+The Android framework provides a class called SimpleDateFormat, which is a class for formatting and parsing dates in a locale-sensitive manner. It allows for formatting (date → text) and parsing (text → date) of dates.
+* SimpleDateFormat("E MMM d", Locale.getDefault())
+Docs: https://developer.android.com/reference/java/text/SimpleDateFormat#date-and-time-patterns

@@ -46,7 +46,7 @@
 
                 <RadioButton
                     android:id="@+id/vanilla"
-                    android:checked="@{viewModel.flavor.equals(@string/vanilla)}"
+                    android:checked="@{ viewModel.flavor.equals(@string/vanilla)}"
                     android:onClick="@{ () -> viewModel.setFlavor(@string/vanilla) }"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
