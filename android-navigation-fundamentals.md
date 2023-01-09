@@ -502,3 +502,15 @@ Docs: https://developer.android.com/guide/navigation/navigation-navigate
 
  * navGraphViewModels() is ViewModel that bind to navigation graph and will persist throughout the entire backstack of that navigation graph. This is how we persist our data throughout certain Fragment and dispose these when exit this navigation graph.
     => private val viewModel: TheViewModel by navGraphViewModels(R.navigation.nav_graph)
+
+
+### Listener bindings with layout/fragment.xml:
+
+With Data Binding, listeners (click/event listeners) can be bind directly to call methods using lambda expression.
+
+When a callback is used in an expression, data binding automatically creates the necessary listener and registers it for the event. When the view fires the event, data binding evaluates the given expression.
+```kotlin
+android:onClick="@{() -> domething()}"
+```
+
+Docs: Binding Expression : https://developer.android.com/topic/libraries/data-binding/expressions
