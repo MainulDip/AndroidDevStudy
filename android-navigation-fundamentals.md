@@ -301,6 +301,21 @@ The ViewModel is a model of the app data that is displayed in the views. Models 
  ### ViewModel Lifecycle:
  The framework keeps the ViewModel alive as long as the scope of the activity or fragment is alive. A ViewModel is not destroyed if its owner is destroyed for a configuration change, such as screen rotation. The new instance of the owner reconnects to the existing ViewModel instance.
 
+ ### Single Fragment's ViewModel:
+ To persist a ViewModel object within a Fragment (Not entire Activity), viewModels() is used. The delegated object is only destroyed if the fragment is destroyed.
+```kotlin
+private val myViewModel: MyViewModel by viewModels()
+```
+
+ ### Multiple Fragments/Shared ViewModel:
+ Multiple fragments in an activity can share same ViewModel Object using the Activity scope. activityViewModel() is used to delegate ViewModel which will persist throughout a Activity and it's fragment.
+
+ When its activity get destroy, activityViewModels() will be destroyed as well.
+
+ ```kotlin
+ private val sharedViewModel: OrderViewModel by activityViewModels()
+ ```
+
  ### Livedata:
  LiveData is an observable data holder class that is lifecycle-aware.
  - LiveData holds data; LiveData is a wrapper that can be used with any type of data.
@@ -454,4 +469,20 @@ findNavController().navigate(R.id.action_startFragment_to_flavorFragment)
 ```
 
 ### Shared ViewModel:
- Multiple fragments in the app will access the shared ViewModel using their activity scope.
+ Multiple fragments in an activity can share same ViewModel Object using the Activity scope. activityViewModel() is used to delegate ViewModel which will persist throughout a Activity and it's fragment.
+
+ When its activity get destroy, activityViewModels() will be destroyed as well.
+
+ ```kotlin
+ private val sharedViewModel: OrderViewModel by activityViewModels()
+ ```
+
+ ### viewModels() vs activityViewModels vs navGraphViewModels() :
+ * viewModels() is used to scoped to the fragment where it initialised. When that attached fragment get destroy, viewModels() will also get destroyed.
+    => private val sharedViewModel: OrderViewModel by viewModels()
+
+ * activityViewModels() is used to scoped to its activity and when its activity get destroy, activityViewModels() will be destroyed as well.
+    => private val sharedViewModel: OrderViewModel by activityViewModels()
+
+ * navGraphViewModels() is ViewModel that bind to navigation graph and will persist throughout the entire backstack of that navigation graph. This is how we persist our data throughout certain Fragment and dispose these when exit this navigation graph.
+    => private val viewModel: TheViewModel by navGraphViewModels(R.navigation.nav_graph)
