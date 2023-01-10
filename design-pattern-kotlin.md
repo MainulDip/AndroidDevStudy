@@ -238,7 +238,7 @@ android:text="@{gameViewModel.currentScrambledWord}"
    android:text="@{gameViewModel.currentScrambledWord}"
    .../>
 ``` 
-- No LiveData Observer Required: The layout (xml) will receive the updates of the changes to the LiveData defined in the custom viewModel (ViewModel() inherited classes) through data binding in variables.
+- No LiveData Observer Required: The layout (xml) will receive the updates of the changes to the LiveData defined in the custom viewModel (ViewModel() inherited classes) through data binding in variables
 
 ### Resources in data binding expressions:
 A data binding expression can reference app resources using
