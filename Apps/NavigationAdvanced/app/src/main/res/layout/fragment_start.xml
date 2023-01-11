@@ -22,8 +22,9 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="com.example.cupcake.OrderViewModel" />
+            name="startFragment"
+            type="com.example.cupcake.StartFragment" />
+
     </data>
 
     <ScrollView
@@ -61,7 +62,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_between_elements"
                 android:minWidth="@dimen/order_cupcake_button_width"
-                android:text="@string/one_cupcake" />
+                android:text="@string/one_cupcake"
+                android:onClick="@{() -> startFragment.orderCupcake(1)}"/>
 
             <Button
                 android:id="@+id/order_six_cupcakes"
@@ -70,7 +72,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_between_elements"
                 android:minWidth="@dimen/order_cupcake_button_width"
-                android:text="@string/six_cupcakes" />
+                android:text="@string/six_cupcakes"
+                android:onClick="@{() -> startFragment.orderCupcake(2)}"/>
 
             <Button
                 android:id="@+id/order_twelve_cupcakes"
@@ -79,7 +82,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_between_elements"
                 android:minWidth="@dimen/order_cupcake_button_width"
-                android:text="@string/twelve_cupcakes" />
+                android:text="@string/twelve_cupcakes"
+                android:onClick="@{() -> startFragment.orderCupcake(3)}"/>
         </LinearLayout>
     </ScrollView>
 </layout>

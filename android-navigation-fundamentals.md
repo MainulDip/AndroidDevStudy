@@ -530,6 +530,8 @@ A LiveData observer observes the changes to the app's livedata only if the lifec
 
 In dataBinding, UI controllers read the data when first read. To update UI instantly when a livedata changes, lificycle owner is also need to be bound. It's the way of setting observer on LiveData.
 
+* viewLifecycleOwner is tied to when the fragment has (and loses) its UI (onCreateView(), onDestroyView())
+
 ```kotlin
 ```kotlin
 private var binding: FragmentSomethingBinding? = null
@@ -539,6 +541,8 @@ binding = FragmentSomethingBinding.inflate(inflater, container, false)
 binding?.apply {
     ...
     lifecycleOwner = viewLifecycleOwner
+    // lifecycleOwner = this@PickupFragment // is also possible, but can make mamory leack
+    // this is tied to the fragment's overall lifecycle (onCreate(), onDestroy()), which may be substantially longer than onCreateView to onDestroyView
 }
 ```
 
@@ -571,4 +575,39 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 ```
 
 </details>
+
+### LiveData transformation (Convert LiveData While Being Observable):
+The LiveData transformation method(s) provides a way to perform data manipulations on the source LiveData and return a resulting LiveData object. In simple terms, it transforms the value of LiveData into another value. These transformations aren't calculated unless an observer is observing the LiveData object.# LiveData transformation:
+
+The Transformations.map() is one of the transformation functions, this method takes the source LiveData and a function as parameters. The function manipulates the source LiveData and returns an updated value which is also observable.
+
+```kotlin
+private val _price = MutableLiveData<Double>()
+    val price: LiveData<String> = Transformations.map(_price) {
+        NumberFormat.getCurrencyInstance().format(it)
+    }
+```
+
+### Listener Binding With Click Listener (2nd way):
+Listener can be bind from layout.xml using data variable binding with the controller (UI) class itself in data binding.
+
+Instade of binding listener from the ui controller, this can be more clean option
+
+```xml
+<data>
+    <variable
+        name="startFragment"
+        type="com.example.cupcake.StartFragment" />
+</data>
+
+<Button
+    android:id="@+id/order_one_cupcake"
+    android:onClick="@{() -> startFragment.orderCupcake(1)}"  />
+```
+
+```kotlin
+binding?.startFragment = this // bind onViewCreated
+
+public fun orderCupcake(quantity: Int) { } // after binding this method is available to call from layout.xml
+```
 
