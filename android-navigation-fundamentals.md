@@ -521,3 +521,54 @@ The Android framework provides a class called SimpleDateFormat, which is a class
 * SimpleDateFormat("E MMM d", Locale.getDefault())
 * Locale.getDefault() will retrive the local info set on the user's devices
 Docs: https://developer.android.com/reference/java/text/SimpleDateFormat#date-and-time-patterns
+
+
+### LivecycleOwner and Livedata observer:
+Fragments/UI controllers are the lifecycle owner. LifecycleOwner is a class that has an Android lifecycle, such as an activity or a fragment. 
+
+A LiveData observer observes the changes to the app's livedata only if the lifecycle owner is in active states.
+
+In dataBinding, UI controllers read the data when first read. To update UI instantly when a livedata changes, lificycle owner is also need to be bound. It's the way of setting observer on LiveData.
+
+```kotlin
+```kotlin
+private var binding: FragmentSomethingBinding? = null
+
+binding = FragmentSomethingBinding.inflate(inflater, container, false)
+
+binding?.apply {
+    ...
+    lifecycleOwner = viewLifecycleOwner
+}
+```
+
+<details>
+
+<summary>More Detail Example</summary>
+
+```kotlin
+private var binding: FragmentPickupBinding? = null
+private val sharedViewModel by activityViewModels<OrderViewModel>()
+
+override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+): View? {
+    val fragmentBinding = FragmentPickupBinding.inflate(inflater, container, false)
+    binding = fragmentBinding
+    return fragmentBinding.root
+}
+
+override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+
+    binding?.apply {
+        viewModel = sharedViewModel
+        lifecycleOwner = viewLifecycleOwner
+        nextButton.setOnClickListener { goToNextScreen() }
+    }
+}
+```
+
+</details>
+
