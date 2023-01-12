@@ -130,6 +130,8 @@
                     android:text="@{@string/total_price(viewModel.price.toString())}"
                     tools:text="Total $5.00" />
 
+
+
             </LinearLayout>
 
             <Button
@@ -139,6 +141,13 @@
                 android:layout_marginTop="@dimen/side_margin"
                 android:text="@string/send"
                 android:onClick="@{() -> summaryFragment.sendOrder()}"/>
+
+            <Button
+                android:id="@+id/cancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/cancel"/>
 
         </LinearLayout>
     </ScrollView>

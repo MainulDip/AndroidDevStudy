@@ -611,3 +611,19 @@ binding?.startFragment = this // bind onViewCreated
 public fun orderCupcake(quantity: Int) { } // after binding this method is available to call from layout.xml
 ```
 
+### Tasks, Activity and BackStack:
+Activities in Android exist within tasks. A task is a collection of activities that the user interacts with when performing a certain job (i.e. checking email, creating a cupcake order, taking a photo).
+
+Activities are arranged in a stack, known as a back stack, where each new activity the user visits gets pushed onto the back stack for the task. The activity on the top of the stack is the current activity the user is interacting with. The activities below it on the stack have been put in the background and have been stopped.
+
+The back stack is useful for when the user wants to navigate backwards. Android can remove the current activity from the top of the stack, destroy it, and start the activity underneath it again. It's known as popping an activity off the stack, and bringing the previous activity to the foreground for the user to interact with. If the user wants to go back multiple times, Android will keep popping the activities off the top of the stack until you get closer to the bottom of the stack. When there are no more activities in the backstack, the user is brought back to the launcher screen of the device (or to the app that launched this one).
+
+Note: After opening the app, if you tap Home on the device, the whole task for the app is put into the background. If you tap the launcher icon for the app again, Android will see if there's an existing task for your app and bring that to the foreground (with the back stack intact). If no existing task exists, then Android will create a new task for you and launch the main activity, pushing that onto the back stack.
+
+* the back stack can also track the fragment destinations the user has visited with the help of the Jetpack Navigation component.
+
+* The Navigation library allows you to pop a fragment destination off the back stack each time the user hits the Back button. This default behavior comes for free, without you needing to implement any of it. You would only need to write code if you need custom back stack behavior.
+
+### Custom BackStack Implementation With Navigation Graphs:
+* Add Navigation Actions (like last fragment to home fragment) on navigation graph.
+*  
