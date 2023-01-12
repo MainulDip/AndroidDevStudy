@@ -24,6 +24,9 @@
         <variable
             name="viewModel"
             type="com.example.cupcake.OrderViewModel" />
+        <variable
+            name="pickupFragment"
+            type="com.example.cupcake.PickupFragment" />
     </data>
 
     <ScrollView

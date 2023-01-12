@@ -24,6 +24,9 @@
         <variable
             name="startFragment"
             type="com.example.cupcake.StartFragment" />
+        <variable
+            name="viewModel"
+            type="com.example.cupcake.OrderViewModel" />
 
     </data>
 
