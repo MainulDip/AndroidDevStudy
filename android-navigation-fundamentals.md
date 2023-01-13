@@ -626,4 +626,35 @@ Note: After opening the app, if you tap Home on the device, the whole task for t
 
 ### Custom BackStack Implementation With Navigation Graphs:
 * Add Navigation Actions (like last fragment to home fragment) on navigation graph.
-*  
+* Add popUPTo (up to the destination) and popUpToInclusive (true) in navigation graph's newly created action to remove/pop-off the activit/fragment and in-between of those from the backstack.
+* Then from UI controller, on click listener, navigate using : findNavController().navigate(R.id.action_fromFragment_to_destinationFragment)
+* Using data binding, click listener can be called from layout.xml file using listener binding (@{()->passedClass.method()})
+
+### Testing ViewModel and LiveData:
+* unit test directory: src/test/java/com.example.appname/test.kt
+* instumentation test: inside src/AndroidTest/java/com.example.appname/test.kt
+
+Testing LiveData objects requires an extra step. because LiveData objects cannot access the main thread we have to explicitly state that LiveData objects should not call the main thread.
+
+Note: a unit test assumes that everything runs on the main thread.
+
+* LiveData objects need to be observed in order for changes to be emitted. A simple way of doing this is by using the observeForever method.
+
+```kotlin
+class ViewModelTest {
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    @Test
+    fun quantity_twelve_cupcakes() {
+        /**
+         * LiveData objects need to be observed in order for changes to be emitted. A simple way of doing this is by using the observeForever method.
+         * */
+        val viewModel = OrderViewModel()
+        viewModel.quantity.observeForever {}
+        viewModel.setQuantity(12)
+
+        assertEquals(12, viewModel.quantity.value)
+    }
+}
+```
