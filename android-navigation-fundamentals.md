@@ -638,7 +638,7 @@ Testing LiveData objects requires an extra step. because LiveData objects cannot
 
 Note: a unit test assumes that everything runs on the main thread.
 
-* LiveData objects need to be observed in order for changes to be emitted. A simple way of doing this is by using the observeForever method.
+* LiveData objects need to be observed in order for changes to be emitted. A simple way of doing this is by using the observeForever method
 
 ```kotlin
 class ViewModelTest {
