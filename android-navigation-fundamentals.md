@@ -658,3 +658,22 @@ class ViewModelTest {
     }
 }
 ```
+### Adaptive Layout (SlidingPaneLayout):
+* list UI pattern : just one row of list items. Good for mobile devices (narrow screen devices)
+* list-detail UI (master-detail pattern): a list of item on the left side and details on the selected Item on the right side. It's better for large screen like tablet or desktop mode
+* SlidingPaneLayout : it'a a way to implement list-detail/master-detail layout pattern. Here the details pane overlaps with the list pane when an item from the list is selected. SlidingPaneLayout supports showing two panes side by side on larger devices, while automatically adapting to show only one pane at a time on smaller devices such as phones.
+
+```kotlin
+// adding sliding panel layout in build.gradle (Module Aoo)
+dependencies {
+...
+    implementation "androidx.slidingpanelayout:slidingpanelayout:1.2.0-beta01"
+}
+```
+SlidingPaneLayout provides a horizontal, two pane layout for use at the top level of a UI. This layout uses the first pane as a content list or a browser, subordinate to a primary detail view for displaying content in the other pane.
+
+* Adding Sliding Panel Layout on Fragment instade of FrameLayout:
+ - Change the FrameLayout to androidx.slidingpanelayout.widget.SlidingPaneLayout in the xml file  
+
+
+* Project Configuration on Android Studio: ctrl+alt+shift+s to edit
