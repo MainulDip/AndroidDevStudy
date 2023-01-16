@@ -673,7 +673,19 @@ dependencies {
 SlidingPaneLayout provides a horizontal, two pane layout for use at the top level of a UI. This layout uses the first pane as a content list or a browser, subordinate to a primary detail view for displaying content in the other pane.
 
 * Adding Sliding Panel Layout on Fragment instade of FrameLayout:
- - Change the FrameLayout to androidx.slidingpanelayout.widget.SlidingPaneLayout in the xml file  
+ - Change the FrameLayout to androidx.slidingpanelayout.widget.SlidingPaneLayout in the xml file
 
+
+* Inside the slidingpanellayout we need 2 view. 1 for lists (recyclerview) and another for details. The SlidingPaneLayout uses the width of the two panes to determine whether to show the panes side by side. If the available device with is same or more than the specified width of the slidingpanel layout, it will keep the both view side by side. It uses breakpoint to determine positioning.
+
+* Notes On Devices Width:
+```txt
+Compact width   < 600dp     99.96% of phones in portrait
+
+Medium width    600dp+      93.73% of tablets in portraitLarge unfolded inner displays in portrait
+
+Expanded width  840dp+      97.22% of tablets in landscapeLarge unfolded inner displays in landscape
+```
+* android:layout_weight="1" : this will make the second view go full remaining spaces
 
 * Project Configuration on Android Studio: ctrl+alt+shift+s to edit
