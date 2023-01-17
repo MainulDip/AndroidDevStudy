@@ -672,11 +672,11 @@ dependencies {
 ```
 SlidingPaneLayout provides a horizontal, two pane layout for use at the top level of a UI. This layout uses the first pane as a content list or a browser, subordinate to a primary detail view for displaying content in the other pane.
 
-* Adding Sliding Panel Layout on Fragment instade of FrameLayout:
+* Adding Sliding Pane Layout on Fragment instade of FrameLayout:
  - Change the FrameLayout to androidx.slidingpanelayout.widget.SlidingPaneLayout in the xml file
 
 
-* Inside the slidingpanellayout we need 2 view. 1 for lists (recyclerview) and another for details. The SlidingPaneLayout uses the width of the two panes to determine whether to show the panes side by side. If the available device with is same or more than the specified width of the slidingpanel layout, it will keep the both view side by side. It uses breakpoint to determine positioning.
+* Inside the slidingpanelayout we need 2 view. 1 for lists (recyclerview) and another for details. The SlidingPaneLayout uses the width of the two panes to determine whether to show the panes side by side. If the available device with is same or more than the specified width of the slidingpanel layout, it will keep the both view side by side. It uses breakpoint to determine positioning.
 
 * Notes On Devices Width:
 ```txt
@@ -688,4 +688,30 @@ Expanded width  840dp+      97.22% of tablets in landscapeLarge unfolded inner d
 ```
 * android:layout_weight="1" : this will make the second view go full remaining spaces
 
+* sliding pane layout navigation: Instade of navigating using findNavController().navigate(action), use slidingPaneLayout.openPane() to navigate responsively on both smaller and larger screen at the same time
+```kotlin
+// Here Sports List Fragment is using a recycler view for list item
+override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val binding = FragmentSportsListBinding.bind(view)
+
+        // Initialize the adapter and set it to the RecyclerView.
+        val adapter = SportsAdapter {
+            // Update the user selected sport as the current sport in the shared viewmodel
+            // This will automatically update the dual pane content
+            sportsViewModel.updateCurrentSport(it)
+            // Navigate to the details screen
+            // val action = SportsListFragmentDirections.actionSportsListFragmentToNewsFragment()
+            // this.findNavController().navigate(action)
+
+            // Navigate using SlidingPanelLayout
+            binding.slidingPaneLayout.openPane()
+        }
+        binding.recyclerView.adapter = adapter
+        adapter.submitList(sportsViewModel.sportsData)
+    }
+```
+
 * Project Configuration on Android Studio: ctrl+alt+shift+s to edit
+### Back Navigation Customization:
+For some case, like webview and slidingPaneLayout, we need custom navigation instade of the default to create better ux for the user, so user can navigate inside webview or can navigate slidingpanelayout differently on both smaller and larger screen. If custom behaviout is not implemented, pressing the back button will close the current stack/task
