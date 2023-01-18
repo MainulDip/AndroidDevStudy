@@ -758,3 +758,5 @@ val slidingPaneLayout = binding.slidingPaneLayout
         // lock the gesture navigation on Sliding Pane Layout to Prevent Left-Right Drag option
         slidingPaneLayout.lockMode = SlidingPaneLayout.LOCK_MODE_LOCKED
 ```
+### Lunch Tray Practice Navigation/Fragments:
+Location: 
