@@ -38,24 +38,18 @@ class SportsListFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return FragmentSportsListBinding.inflate(inflater, container, false).root
-    }
+        savedInstanceState: Bundle? ): View? {  return FragmentSportsListBinding.inflate(inflater, container, false).root }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentSportsListBinding.bind(view)
-        Log.d("Testing", "onViewCreated: ")
 
         val slidingPaneLayout = binding.slidingPaneLayout
+        // lock the gesture navigation on Sliding Pane Layout to Prevent Left-Right Drag option
+        slidingPaneLayout.lockMode = SlidingPaneLayout.LOCK_MODE_LOCKED
 
         // register the back-pressed call back custom class
-//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, SportsListOnBackPressedCallback(slidingPaneLayout))
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            SportsListOnBackPressedCallback(slidingPaneLayout)
-        )
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, SportsListOnBackPressedCallback(slidingPaneLayout))
 
         // Initialize the adapter and set it to the RecyclerView.
         val adapter = SportsAdapter {

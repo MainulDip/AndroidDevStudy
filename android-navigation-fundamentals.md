@@ -749,3 +749,12 @@ The base class for FragmentActivity, allows you to control the behavior of the B
 // register the back-pressed call back custom class
 requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, SportsListOnBackPressedCallback(slidingPaneLayout))
 ```
+
+### Customize Sliding Panel Gesture Navigtion by Dragging:
+On Sliding Pane Layout users can swipe in both directions by default because of gesture navigation. To change this 
+```kotlin
+// inside fragment's onViewCreated method
+val slidingPaneLayout = binding.slidingPaneLayout
+        // lock the gesture navigation on Sliding Pane Layout to Prevent Left-Right Drag option
+        slidingPaneLayout.lockMode = SlidingPaneLayout.LOCK_MODE_LOCKED
+```
