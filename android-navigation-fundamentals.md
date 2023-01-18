@@ -759,4 +759,4 @@ val slidingPaneLayout = binding.slidingPaneLayout
         slidingPaneLayout.lockMode = SlidingPaneLayout.LOCK_MODE_LOCKED
 ```
 ### Lunch Tray Practice Navigation/Fragments:
-Location: 
+Locations
