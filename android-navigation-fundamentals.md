@@ -738,7 +738,6 @@ class SportsListOnBackPressedCallback (private val slidingPaneLayout: SlidingPan
 
 ### SlidingPaneLayout's events:
 The interface SlidingPaneLayout.PanelSlideListener contains three abstract methods onPanelSlide(), onPanelOpened(), and onPanelClosed(). These methods are called when the details pane slides, opens, and closes.
-
 ```kotlin
 // implement the SlidingPaneLayout.PanelSlideListener Interface along with OnBackPressedCallback and implement the abstract methods of the newly implemented interface
 class SportsListOnBackPressedCallback (private val slidingPaneLayout: SlidingPaneLayout ): OnBackPressedCallback(slidingPaneLayout.isSlideable && slidingPaneLayout.isOpen), SlidingPaneLayout.PanelSlideListener {...}
