@@ -715,3 +715,38 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 * Project Configuration on Android Studio: ctrl+alt+shift+s to edit
 ### Back Navigation Customization:
 For some case, like webview and slidingPaneLayout, we need custom navigation instade of the default to create better ux for the user, so user can navigate inside webview or can navigate slidingpanelayout differently on both smaller and larger screen. If custom behaviout is not implemented, pressing the back button will close the current stack/task
+
+### SlidingPaneLayout Custom Back Button Implementation:
+SlidingPaneLayout provide the state of the layout through isEnable and isOpen as boolean. The boolean isSlideable will only be true if the second pane is slidable, which would be on a smaller screen and a single pane is being displayed. The value of isOpen will be true if the second pane - the contents pane is completely open.
+
+So, we can implement a new class to override the default behavour of the back button by implementing OnBackPressedCallback class and passing these slidingPaneLayout state as constructor's enable parameter.
+
+This will ensure that the callback is only enabled on the smaller screen devices and when the content pane is open.
+
+```kotlin
+class SportsListOnBackPressedCallback (private val slidingPaneLayout: SlidingPaneLayout ): OnBackPressedCallback(slidingPaneLayout.isSlideable && slidingPaneLayout.isOpen) {
+
+    override fun handleOnBackPressed() {
+        Log.d("Backpressure Callback", "handleOnBackPressed: override the default ")
+
+        slidingPaneLayout.closePane()
+    }
+
+}
+```
+* Note: The SlidingPaneLayout always allows you to manually call open() and close() to transition between the list and detail panes on phones. These methods have no effect if both panes are visible and do not overlap
+
+### SlidingPaneLayout's events:
+The interface SlidingPaneLayout.PanelSlideListener contains three abstract methods onPanelSlide(), onPanelOpened(), and onPanelClosed(). These methods are called when the details pane slides, opens, and closes.
+
+```kotlin
+// implement the SlidingPaneLayout.PanelSlideListener Interface along with OnBackPressedCallback and implement the abstract methods of the newly implemented interface
+class SportsListOnBackPressedCallback (private val slidingPaneLayout: SlidingPaneLayout ): OnBackPressedCallback(slidingPaneLayout.isSlideable && slidingPaneLayout.isOpen), SlidingPaneLayout.PanelSlideListener {...}
+```
+
+The base class for FragmentActivity, allows you to control the behavior of the Back button by using its OnBackPressedDispatcher. The OnBackPressedDispatcher controls how Back button events are dispatched to one or more OnBackPressedCallback objects.
+
+```kotlin
+// register the back-pressed call back custom class
+requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, SportsListOnBackPressedCallback(slidingPaneLayout))
+```
