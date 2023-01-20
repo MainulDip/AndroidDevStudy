@@ -46,7 +46,7 @@ class StartOrderFragment : Fragment() {
         _binding = FragmentStartOrderBinding.inflate(inflater, container, false)
         val root: View = binding.root
         // Navigate to entree menu
-        _binding!!.startOrderFragment  = this
+//        _binding!!.startOrderFragment  = this
         binding.startOrderBtn.setOnClickListener {
             // TODO: navigate to the EntreeMenuFragment
         }
