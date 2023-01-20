@@ -72,5 +72,5 @@ class StartOrderFragment : Fragment() {
         findNavController().navigate(R.id.action_startOrderFragment_to_entreeMenuFragment)
     }
 
-    
+
 }

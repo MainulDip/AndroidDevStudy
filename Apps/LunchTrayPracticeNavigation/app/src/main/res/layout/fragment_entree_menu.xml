@@ -38,7 +38,8 @@
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/side_margin"
             android:paddingEnd="@dimen/side_margin"
-            android:paddingBottom="@dimen/side_margin">
+            android:paddingBottom="@dimen/side_margin"
+            >
 
             <RadioGroup
                 android:id="@+id/entree_options"

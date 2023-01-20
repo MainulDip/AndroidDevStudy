@@ -24,7 +24,7 @@
     <fragment
         android:id="@+id/startOrderFragment"
         android:name="com.example.lunchtray.ui.order.StartOrderFragment"
-        android:label="fragment_start_order"
+        android:label="@string/start_order"
         tools:layout="@layout/fragment_start_order" >
         <action
             android:id="@+id/action_startOrderFragment_to_entreeMenuFragment"
@@ -33,7 +33,7 @@
     <fragment
         android:id="@+id/entreeMenuFragment"
         android:name="com.example.lunchtray.ui.order.EntreeMenuFragment"
-        android:label="fragment_entree_menu"
+        android:label="@string/title_entree_menu"
         tools:layout="@layout/fragment_entree_menu" >
         <action
             android:id="@+id/action_entreeMenuFragment_to_sideMenuFragment"
@@ -45,7 +45,7 @@
     <fragment
         android:id="@+id/sideMenuFragment"
         android:name="com.example.lunchtray.ui.order.SideMenuFragment"
-        android:label="fragment_side_menu"
+        android:label="@string/title_side_menu"
         tools:layout="@layout/fragment_side_menu" >
         <action
             android:id="@+id/action_sideMenuFragment_to_accompanimentMenuFragment"
@@ -57,7 +57,7 @@
     <fragment
         android:id="@+id/accompanimentMenuFragment"
         android:name="com.example.lunchtray.ui.order.AccompanimentMenuFragment"
-        android:label="fragment_accompaniment_menu"
+        android:label="@string/title_accompaniment_menu"
         tools:layout="@layout/fragment_accompaniment_menu" >
         <action
             android:id="@+id/action_accompanimentMenuFragment_to_checkoutFragment"
@@ -69,7 +69,7 @@
     <fragment
         android:id="@+id/checkoutFragment"
         android:name="com.example.lunchtray.ui.order.CheckoutFragment"
-        android:label="fragment_checkout"
+        android:label="@string/title_checkout"
         tools:layout="@layout/fragment_checkout" >
         <action
             android:id="@+id/action_checkoutFragment_to_startOrderFragment"
