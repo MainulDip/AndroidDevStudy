@@ -20,6 +20,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.lunchtray.R
 import com.example.lunchtray.databinding.FragmentStartOrderBinding
 
 /**
@@ -44,10 +46,16 @@ class StartOrderFragment : Fragment() {
         _binding = FragmentStartOrderBinding.inflate(inflater, container, false)
         val root: View = binding.root
         // Navigate to entree menu
+        _binding!!.startOrderFragment  = this
         binding.startOrderBtn.setOnClickListener {
             // TODO: navigate to the EntreeMenuFragment
         }
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        _binding!!.startOrderFragment  = this
     }
 
     /**
@@ -58,4 +66,11 @@ class StartOrderFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    // navigate to next screen using data binding
+    fun nextEntryMenusFragment() {
+        findNavController().navigate(R.id.action_startOrderFragment_to_entreeMenuFragment)
+    }
+
+    
 }
