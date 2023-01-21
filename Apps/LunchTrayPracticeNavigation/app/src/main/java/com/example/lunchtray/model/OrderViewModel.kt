@@ -72,7 +72,9 @@ class OrderViewModel : ViewModel() {
     fun setEntree(entree: String) {
         // TODO: if _entree.value is not null, set the previous entree price to the current
         //  entree price.
-//        _entree.value = menuItems[entree]
+        _entree.value = menuItems[entree]
+        Log.d("setEntree", "setEntree: ${menuItems["cauliflower"]}")
+        Log.d("setEntree2", "setEntree: ${menuItems[entree.lowercase()]}")
         Log.d("setEntree", "setEntree: $entree")
 
         // TODO: if _subtotal.value is not null subtract the previous entree price from the current

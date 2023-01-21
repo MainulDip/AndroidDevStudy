@@ -509,8 +509,10 @@ Docs: https://developer.android.com/guide/navigation/navigation-navigate
 With Data Binding, listeners (click/event listeners) can be bind directly to call methods using lambda expression.
 
 When a callback is used in an expression, data binding automatically creates the necessary listener and registers it for the event. When the view fires the event, data binding evaluates the given expression.
-```kotlin
+```txt
 android:onClick="@{() -> domething()}"
+// Passing String As Param, use single quote for the xml attribute's value and double quote for strings
+android:text='@{map["firstName"]}'
 ```
 
 Docs: Binding Expression : https://developer.android.com/topic/libraries/data-binding/expressions
@@ -759,4 +761,4 @@ val slidingPaneLayout = binding.slidingPaneLayout
         slidingPaneLayout.lockMode = SlidingPaneLayout.LOCK_MODE_LOCKED
 ```
 ### Lunch Tray Practice Navigation/Fragments
-Locations
+Locations ->
