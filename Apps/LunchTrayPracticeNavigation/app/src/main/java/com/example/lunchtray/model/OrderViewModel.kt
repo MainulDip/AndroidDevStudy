@@ -91,6 +91,7 @@ class OrderViewModel : ViewModel() {
         // TODO: if _side.value is not null, set the previous side price to the current side price.
         _side.value = menuItems[side]
         calculateSubtotal()
+
         // TODO: if _subtotal.value is not null subtract the previous side price from the current
         //  subtotal value. This ensures that we only charge for the currently selected side.
 
@@ -144,5 +145,11 @@ class OrderViewModel : ViewModel() {
 
     private fun calculateSubtotal () {
         _subtotal.value = (entree.value?.price ?: previousEntreePrice) + (side.value?.price ?: previousSidePrice) + (accompaniment.value?.price ?: previousAccompanimentPrice)
+    }
+
+    fun checkIfSideChecked(item: String): Boolean{
+        Log.d("SideIfChecked", "checkIfSideChecked: $item : ${side.value?.name}")
+        if (item == side.value?.name) return true
+        return false
     }
 }
