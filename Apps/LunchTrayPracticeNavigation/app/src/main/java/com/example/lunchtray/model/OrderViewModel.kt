@@ -51,9 +51,9 @@ class OrderViewModel : ViewModel() {
     // Subtotal for the order
     private val _subtotal = MutableLiveData(0.0)
     val subtotal: LiveData<String> = Transformations.map(_subtotal) {
+        Log.d("Transformations.map", "it will be called lazily, only when called by the observer, so printing the result here will not work ")
         NumberFormat.getCurrencyInstance().format(it)
     }
-    val subtotal2 = _subtotal
 
     // Total cost of the order
     private val _total = MutableLiveData(0.0)
@@ -74,9 +74,7 @@ class OrderViewModel : ViewModel() {
         // TODO: if _entree.value is not null, set the previous entree price to the current
         //  entree price.
         _entree.value = menuItems[entree]
-        Log.d("setEntree", "setEntree: ${this.entree.value}")
         calculateSubtotal()
-        Log.d("setEntree", "Subtotal: ${subtotal.value}")
 
 
         // TODO: if _subtotal.value is not null subtract the previous entree price from the current
@@ -91,7 +89,8 @@ class OrderViewModel : ViewModel() {
      */
     fun setSide(side: String) {
         // TODO: if _side.value is not null, set the previous side price to the current side price.
-
+        _side.value = menuItems[side]
+        calculateSubtotal()
         // TODO: if _subtotal.value is not null subtract the previous side price from the current
         //  subtotal value. This ensures that we only charge for the currently selected side.
 
@@ -105,6 +104,8 @@ class OrderViewModel : ViewModel() {
     fun setAccompaniment(accompaniment: String) {
         // TODO: if _accompaniment.value is not null, set the previous accompaniment price to the
         //  current accompaniment price.
+        _accompaniment.value = menuItems[accompaniment]
+        calculateSubtotal()
 
         // TODO: if _accompaniment.value is not null subtract the previous accompaniment price from
         //  the current subtotal value. This ensures that we only charge for the currently selected
@@ -142,13 +143,6 @@ class OrderViewModel : ViewModel() {
     }
 
     private fun calculateSubtotal () {
-        Log.d("EntryPrice", "calculateSubtotal: ${entree.value?.price ?: previousEntreePrice}")
-        Log.d("EntryPrice", "calculateSubtotal: ${side.value?.price ?: previousSidePrice}")
-        Log.d("EntryPrice", "calculateSubtotal: ${accompaniment.value?.price ?: previousAccompanimentPrice}")
-        Log.d("FirstSubtotal", "calculateSubtotal: ${(entree.value?.price ?: previousEntreePrice) + (side.value?.price ?: previousSidePrice) + (accompaniment.value?.price ?: previousAccompanimentPrice)}")
-        val calculateSubTotal = (entree.value?.price ?: previousEntreePrice) + (side.value?.price ?: previousSidePrice) + (accompaniment.value?.price ?: previousAccompanimentPrice)
-        Log.d("SubtotalPriceRaw", "calculateSubtotal: ${this.subtotal.value}")
-        _subtotal.value = 77.77
-        Log.d("SubtotalPrice", "calculateSubtotal: ${subtotal.value}")
+        _subtotal.value = (entree.value?.price ?: previousEntreePrice) + (side.value?.price ?: previousSidePrice) + (accompaniment.value?.price ?: previousAccompanimentPrice)
     }
 }

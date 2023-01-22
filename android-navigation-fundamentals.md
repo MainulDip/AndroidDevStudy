@@ -443,6 +443,8 @@ val currentScrambledWord: LiveData<Spannable> get() = Transformations.map(_curre
     }
 }
 ```
+### Transformations.map:
+Transformation methods for LiveData. These methods permit functional composition and delegation of LiveData instances. The transformations are calculated lazily, and will run only when the returned LiveData is observed. Lifecycle behavior is propagated from the input sourceLiveData to the returned one.
 
 ### NavigaitonAdvanced App | Deep on Navigation:
 
