@@ -48,7 +48,7 @@ class SportsListFragment : Fragment() {
         // lock the gesture navigation on Sliding Pane Layout to Prevent Left-Right Drag option
         slidingPaneLayout.lockMode = SlidingPaneLayout.LOCK_MODE_LOCKED
 
-        // register the back-pressed call back custom class
+        // register the back-pressed callback custom class
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, SportsListOnBackPressedCallback(slidingPaneLayout))
 
         // Initialize the adapter and set it to the RecyclerView.
