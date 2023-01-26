@@ -56,6 +56,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceBody1"
                     android:text='@{viewModel.menuItems["bread"].name}'
+                    android:onClick='@{()->viewModel.setAccompaniment("bread")}'
                     tools:text="Accompaniment 1" />
 
                 <TextView
@@ -84,7 +85,8 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceBody1"
                     android:text='@{viewModel.menuItems["berries"].name}'
-                    tools:text="Accompaniment 2" />
+                    tools:text="Accompaniment 2"
+                    android:onClick='@{()->viewModel.setAccompaniment("berries")}'/>
 
                 <TextView
                     android:id="@+id/berries_description"
@@ -115,7 +117,8 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceBody1"
                     android:text='@{viewModel.menuItems["pickles"].name}'
-                    tools:text="Accompaniment 3" />
+                    tools:text="Accompaniment 3"
+                    android:onClick='@{()->viewModel.setAccompaniment("pickles")}'/>
 
                 <!-- TODO: set the text to the accompaniment description using the view model -->
                 <TextView
@@ -150,7 +153,8 @@
                 style="@style/Widget.LunchTray.TextView.Subtotal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider"
-                tools:text="Subtotal $5.00"/>
+                tools:text="Subtotal $5.00"
+                android:text="@{viewModel.subtotal.toString()}"/>
 
             <!-- TODO: cancel the order when clicked -->
             <Button

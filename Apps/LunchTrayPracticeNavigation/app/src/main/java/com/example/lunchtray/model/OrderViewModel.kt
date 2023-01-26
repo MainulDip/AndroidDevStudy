@@ -73,6 +73,7 @@ class OrderViewModel : ViewModel() {
     fun setEntree(entree: String) {
         // TODO: if _entree.value is not null, set the previous entree price to the current
         //  entree price.
+        Log.d("Testing entree when not assigned", "setEntree:$entree and ${this.entree.value}")
         _entree.value = menuItems[entree]
         calculateSubtotal()
 
