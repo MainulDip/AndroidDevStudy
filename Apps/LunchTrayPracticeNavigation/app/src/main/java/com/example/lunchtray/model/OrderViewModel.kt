@@ -153,4 +153,14 @@ class OrderViewModel : ViewModel() {
         if (item == side.value?.name) return true
         return false
     }
+
+    fun checkIfAccompanimentChecked(item: String): Boolean{
+        if (item == accompaniment.value?.name) return true
+        return false
+    }
+
+    fun checkIfEntreeChecked(item: String): Boolean{
+        if (item == entree.value?.name) return true
+        return false
+    }
 }
