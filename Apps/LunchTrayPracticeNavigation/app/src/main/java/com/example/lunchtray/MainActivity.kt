@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
 
 
         // TODO: Retrieve NavController from the NavHostFragment
+        // implement this
     }
 
 
