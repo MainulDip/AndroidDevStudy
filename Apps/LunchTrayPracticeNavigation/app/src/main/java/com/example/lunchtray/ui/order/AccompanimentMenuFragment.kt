@@ -19,8 +19,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.example.lunchtray.R
 import com.example.lunchtray.databinding.FragmentAccompanimentMenuBinding
 import com.example.lunchtray.model.OrderViewModel
 
@@ -58,6 +61,7 @@ class AccompanimentMenuFragment : Fragment() {
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = sharedViewModel
+            accompanimentMenuFragment = this@AccompanimentMenuFragment
             // TODO: initialize the AccompanimentMenuFragment variables
         }
     }
@@ -67,6 +71,12 @@ class AccompanimentMenuFragment : Fragment() {
      */
     fun goToNextScreen() {
         // TODO: Navigate to the CheckoutFragment
+        // if start order menu is null, show toast message to select one or stay on the same page
+        if(sharedViewModel.accompaniment.value == null) {
+            Toast.makeText( context,"Please Select Entree Menu to Proceed!", Toast.LENGTH_SHORT).show()
+            return
+        }
+        findNavController().navigate(R.id.action_accompanimentMenuFragment_to_checkoutFragment)
     }
 
     /**
