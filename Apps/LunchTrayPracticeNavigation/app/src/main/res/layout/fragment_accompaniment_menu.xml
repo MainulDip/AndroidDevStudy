@@ -168,7 +168,8 @@
                 style="@style/Widget.Order.Button.Cancel"
                 app:layout_constraintEnd_toStartOf="@id/next_button"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/next_button" />
+                app:layout_constraintTop_toTopOf="@id/next_button"
+                android:onClick='@{()->accompanimentMenuFragment.cancelOrder()}'/>
 
             <!-- TODO: go to the next screen when clicked -->
             <Button

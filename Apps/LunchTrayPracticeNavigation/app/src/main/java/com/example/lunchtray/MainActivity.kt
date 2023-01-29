@@ -17,6 +17,8 @@ package com.example.lunchtray
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -44,11 +46,9 @@ class MainActivity : AppCompatActivity() {
         // TODO: Retrieve NavController from the NavHostFragment
     }
 
-//    override fun onPostCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-//        super.onPostCreate(savedInstanceState, persistentState)
-//
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.mobile_navigation) as NavHostFragment
-//        navController = navHostFragment.navController
-//        setupActionBarWithNavController(navController)
-//    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        Log.d("ActionBars", "onSupportNavigateUp: ")
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
 }
