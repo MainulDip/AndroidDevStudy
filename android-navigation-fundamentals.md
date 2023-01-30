@@ -762,5 +762,22 @@ val slidingPaneLayout = binding.slidingPaneLayout
         // lock the gesture navigation on Sliding Pane Layout to Prevent Left-Right Drag option
         slidingPaneLayout.lockMode = SlidingPaneLayout.LOCK_MODE_LOCKED
 ```
-### Lunch Tray Practice Navigation/Fragments
-Locations
+
+### Important Topics:
+* FragmentManager / supportFragmentManager: this class responsible for performing actions on app's fragments, such as adding, removing, or replacing them, and adding them to the back stack.
+
+Every FragmentActivity and subclasses thereof, such as AppCompatActivity, have access to the FragmentManager through the getSupportFragmentManager() method. Inside fragment it can be retrived by getParentFragmentManager() or getChildFragmentManager().
+
+Docs: https://developer.android.com/guide/fragments/fragmentmanager
+
+* NavController : Navigating to a destination is done using a NavController, an object that manages app navigation within a NavHost. Each NavHost has its own corresponding NavController. Can be retrived by findNavController() method.
+```kotlin
+findNavController().navigate(R.id.action_startOrderFragment_to_entreeMenuFragment)
+```
+* Deep Link: In Android, a deep link is a link that takes you directly to a specific destination within an app.The Navigation component lets you create two different types of deep links: explicit and implicit.
+
+* FragmentTransaction : At runtime, a FragmentManager can add, remove, replace, and perform other actions with fragments in response to user interaction. Each set of fragment changes that you commit is called a transaction.
+ - Docs: https://developer.android.com/guide/fragments/transactions
+
+ * NavigationUI: The Navigation component includes a NavigationUI class. This class contains static methods that manage navigation with the top app bar, the navigation drawer, and bottom navigation.
+  - Docs: https://developer.android.com/guide/navigation/navigation-ui
