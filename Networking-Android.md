@@ -23,7 +23,7 @@ expect fun <T> runBlocking(context: CoroutineContext = EmptyCoroutineContext, bl
 
 Note: the lambda passed to runBlocking and async are suspend functions, but runBlocking and async are not suspend fn itself
 
-### HTTP request:
+### HTTP requests:
 - multiple parameters are in a GET request are separated by "&"
 - POST request need to send "Content-Type"
 ### HTTP responses:
