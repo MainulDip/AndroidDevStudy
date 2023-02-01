@@ -37,8 +37,36 @@ Note: the lambda passed to runBlocking and async are suspend functions, but runB
     - text/html; charset=UTF8
 * Content-Encoding:
     - br
-### REST server:
+### REST server (REpresentational State Transfer):
  - Client-Server architecture: Client and Server are Seperated
  - Resource exposed as URIs (Unified Resources Identifiers)
  - Uniform interface for CRUD operations
  - Stateless: Doesn't need to remember cliens states between requests, each HTTP request (GET/POST/PUT/DELETE) should contain necessary headers, parameters, etc.
+
+### Rerofit (Server Communication):
+It's a well supported library to communicate with the server by REST api.
+```kotiln
+// add module build.gradle dependency
+// Retrofit 
+implementation "com.squareup.retrofit2:retrofit:2.9.0"
+// Retrofit with Scalar Converter
+implementation "com.squareup.retrofit2:converter-scalars:2.9.0"
+```
+
+### Java 8 Language Support:
+Android Gradle plugin provides built-in support for using certain Java 8 language features.
+```kotlin
+// module's build.gradle
+android {
+  ...
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  
+  kotlinOptions {
+    jvmTarget = '1.8'
+  }
+}
+```
