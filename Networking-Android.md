@@ -57,9 +57,6 @@ implementation "com.squareup.retrofit2:converter-scalars:2.9.0"
 Android Gradle plugin provides built-in support for using certain Java 8 language features.
 ```kotlin
 // module's build.gradle
-android {
-  ...
-
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
@@ -68,5 +65,29 @@ android {
   kotlinOptions {
     jvmTarget = '1.8'
   }
+```
+
+### ViewModelScope:
+ViewModelScope is the built-in coroutine scope defined for each ViewModel in an app. Any coroutine launched in this scope is automatically canceled if the ViewModel is cleared (so no background data consumption, etc.). This is used to launch the coroutine and make the any network call in the background
+```kotlin
+private fun getMarsPhotos() {
+    viewModelScope.launch {
+        // making api call
+        val listResult = MarsApi.retrofitService.getPhotos()
+        // changing viewModel's state when success
+        _status.value = listResult
+    }
 }
+```
+
+### Internet Permission:
+This is required to access internet and ensure extra layer of privacy protection.
+```txt
+# to ask internet permission, add user-permission as direct child of <manifest> tag in manifests/AndroidManifest.xml
+# Also app need to be uninstall and reinstll again to test
+
+<manifest>
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+</manifest>
 ```
