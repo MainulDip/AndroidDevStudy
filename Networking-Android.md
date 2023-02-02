@@ -91,3 +91,34 @@ This is required to access internet and ensure extra layer of privacy protection
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>
 ```
+### Exception Handling For Networking:
+Most of the time the exceptions can't be caught during the compile time. So better use a try-catch block to handle the exception in runtime.
+```kotlin
+try {
+    // Network Request
+}
+catch (e: SomeException) {
+    // handle the exception to avoid abrupt termination.
+}
+```
+### Moshi (Android JSON Parser):
+It Converts JSON string to Kotiln Object.
+```kotlin
+// add moshi to build.gradle (Module)
+// Moshi
+implementation 'com.squareup.moshi:moshi-kotlin:1.13.0'
+// use with retrofit2
+// Retrofit with Moshi Converter
+implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+```
+
+* Mapping JSON key to Kotlin key:
+```
+import com.squareup.moshi.Json
+
+/**
+* Here the JSON Key from Api call is converted to kotlin style key and are mapped
+*/
+
+data class MarsPhoto(val id: String, @Json(name = "img_src") val imgSrcUrl: String)
+```
