@@ -50,7 +50,7 @@ class OverviewViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val listResult = MarsApi.retrofitService.getPhotos()
-                Log.d("getPhotos()", "getMarsPhotos: ${listResult.toString()}")
+                Log.d("getPhotos()", "getMarsPhotos : ${listResult.toString()}")
                 _status.value = listResult.toString()
             } catch (e: Exception) {
                 _status.value = "Failure: ${e.message}"
