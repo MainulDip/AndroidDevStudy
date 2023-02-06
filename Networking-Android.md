@@ -122,3 +122,38 @@ import com.squareup.moshi.Json
 
 data class MarsPhoto(val id: String, @Json(name = "img_src") val imgSrcUrl: String)
 ```
+
+### Moshi with Retrofit (using converter):
+```kotlin
+private const val BASE_URL = "https://someapiroute.com"
+
+private val moshi: Moshi = Moshi.Builder()
+    .add(KotlinJsonAdapterFactory())
+    .build()
+
+private val retrofit = Retrofit.Builder()
+//    .addConverterFactory(ScalarsConverterFactory.create())
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .baseUrl(BASE_URL)
+    .build()
+
+interface MarsApiService {
+
+    @GET("photos")
+    suspend fun getPhotos(): List<MarsPhoto>
+}
+
+// * Singleton pattern in kotlin
+// * Each time app calls MarsApi.retrofitService, the caller will access the same singleton Retrofit object
+// * that implements MarsApiService which is created on the first access by lazy
+
+object MarsApi {
+    val retrofitService: MarsApiService by lazy {
+        retrofit.create(MarsApiService::class.java)
+    }
+}
+```
+
+
+### Coil (Image Loading):
+An image loading library for Android backed by Kotlin Coroutines. Docs: https://coil-kt.github.io/coil/

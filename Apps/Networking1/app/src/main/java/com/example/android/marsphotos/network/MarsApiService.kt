@@ -12,7 +12,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 
 private const val BASE_URL = "https://android-kotlin-fun-mars-server.appspot.com"
-val moshi: Moshi = Moshi.Builder()
+
+private val moshi: Moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
