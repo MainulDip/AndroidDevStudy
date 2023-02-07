@@ -157,3 +157,40 @@ object MarsApi {
 
 ### Coil (Image Loading):
 An image loading library for Android backed by Kotlin Coroutines. Docs: https://coil-kt.github.io/coil/
+```kotlin
+// inside build.gradle (Module)
+// Coil
+implementation "io.coil-kt:coil:1.1.1"
+
+// implementation
+// URL
+imageView.load("https://www.example.com/image.jpg")
+
+// File
+imageView.load(File("/path/to/image.jpg"))
+```
+### Binding Adapter (Custom xml attribute setter binding):
+For each xml attribute, android system use specific setter method to handle the value settings/implementation. 
+To use a custom type attribute, the setter needs to be supplied
+```xml
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:imageUrl="@{product.imageUrl}"/>
+<!-- here, imageUri is a custom attribute, so we need to provide the implementation of the setters -->
+```
+
+* The @BindingAdapter annotation tells data binding to execute this binding adapter when a View item has the imageUrl attribute. While building, android studio will search for the custom attributes setter and pick from any file where it exists with the @BindingAdapter annotation. Good practice to keep them a separate file (i.e. BindingAdapters.kt)
+
+```kotlin
+@BindingAdapter("imageUrl")
+fun bindImage(imgView: ImageView, imgUrl: String?) {
+    imgUrl?.let {
+        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+        imgView.load(imgUri) {
+            placeholder(R.drawable.loading_animation)
+            error(R.drawable.ic_broken_image)
+        }
+    }
+}
+```

@@ -40,9 +40,10 @@ class OverviewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        val binding = FragmentOverviewBinding.inflate(inflater)
-
-        val binding = GridViewItemBinding.inflate(inflater)
+        val binding = FragmentOverviewBinding.inflate(inflater)
+        
+        // just for test, using a different layout for binding
+        // val binding = GridViewItemBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment, aka allow to call this class's members
         binding.lifecycleOwner = this
