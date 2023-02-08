@@ -23,6 +23,9 @@
         <variable
             name="viewModel"
             type="com.example.android.marsphotos.overview.OverviewViewModel" />
+        <variable
+            name="photo"
+            type="com.example.android.marsphotos.network.MarsPhoto" />
     </data>
 
     <ImageView
@@ -33,5 +36,5 @@
         android:adjustViewBounds="true"
         android:padding="2dp"
         tools:src="@tools:sample/backgrounds/scenic"
-        app:imgUrl='@{viewModel.photos.imgSrcUrl}'/>
+        app:imgUrl='@{photo.imgSrcUrl}'/>
 </layout>

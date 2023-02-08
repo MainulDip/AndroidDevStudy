@@ -41,7 +41,7 @@ class OverviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentOverviewBinding.inflate(inflater)
-        
+
         // just for test, using a different layout for binding
         // val binding = GridViewItemBinding.inflate(inflater)
 
