@@ -194,3 +194,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     }
 }
 ```
+### ListAdapter:
+ListAdapter is a subclass of the RecyclerView.Adapter class for presenting List data in a RecyclerView, including computing diffs between Lists on a background thread.
+
+* DifUtil:  The advantage of using DiffUtil in ListAdapter is => every time some item in the RecyclerView is added, removed or changed, the whole list doesn't get refreshed. Only the items that have been changed are refreshed.
