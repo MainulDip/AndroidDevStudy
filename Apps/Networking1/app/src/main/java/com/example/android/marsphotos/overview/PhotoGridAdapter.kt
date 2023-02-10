@@ -1,5 +1,6 @@
 package com.example.android.marsphotos.overview
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -21,20 +22,24 @@ class PhotoGridAdapter : ListAdapter<MarsPhoto, PhotoGridAdapter.MarsPhotoViewHo
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarsPhotoViewHolder {
-        TODO("Not yet implemented")
+        return MarsPhotoViewHolder(GridViewItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
     override fun onBindViewHolder(holder: MarsPhotoViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val marsPhoto = getItem(position)
+        holder.bind(marsPhoto)
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<MarsPhoto>() {
+
+        // check if ids are equal, see docs/ide Hints
         override fun areItemsTheSame(oldItem: MarsPhoto, newItem: MarsPhoto): Boolean {
-            TODO("Not yet implemented")
+            return oldItem.id == newItem.id
         }
 
+        // check if the data/content are same, it also determine if data is changed or not
         override fun areContentsTheSame(oldItem: MarsPhoto, newItem: MarsPhoto): Boolean {
-            TODO("Not yet implemented")
+            return oldItem.imgSrcUrl == newItem.imgSrcUrl
         }
     }
 }

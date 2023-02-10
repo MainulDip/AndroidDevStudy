@@ -44,6 +44,7 @@ class OverviewFragment : Fragment() {
 
         // just for test, using a different layout for binding
         // val binding = GridViewItemBinding.inflate(inflater)
+        binding.photosGrid.adapter = PhotoGridAdapter()
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment, aka allow to call this class's members
         binding.lifecycleOwner = this
