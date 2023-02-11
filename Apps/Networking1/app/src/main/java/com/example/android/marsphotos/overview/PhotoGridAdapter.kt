@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.marsphotos.databinding.GridViewItemBinding
 import com.example.android.marsphotos.network.MarsPhoto
 
+/**
+ * PhotoGridAdapter to bridge single data into single view (single list item)
+ */
 class PhotoGridAdapter : ListAdapter<MarsPhoto, PhotoGridAdapter.MarsPhotoViewHolder>(DiffCallback) {
 
     /**
-    * Inner ViewHolder Class */
+    * Inner ViewHolder Class [for single item view] */
     class MarsPhotoViewHolder (private var binding: GridViewItemBinding):
         RecyclerView.ViewHolder(binding.root) {
 

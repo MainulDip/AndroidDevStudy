@@ -199,3 +199,44 @@ ListAdapter is a subclass of the RecyclerView.Adapter class for presenting List 
 
 * DifUtil:  The advantage of using DiffUtil in ListAdapter is => every time some item in the RecyclerView is added, removed or changed, the whole list doesn't get refreshed. Only the items that have been changed are refreshed.
 * Docs: https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter
+
+```kotlin
+class PhotoGridAdapter : ListAdapter<MarsPhoto, PhotoGridAdapter.MarsPhotoViewHolder>(DiffCallback) {
+
+    /**
+    * Inner ViewHolder Class [for single item view] */
+    class MarsPhotoViewHolder (private var binding: GridViewItemBinding):
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(MarsPhoto: MarsPhoto) {
+            binding.photo = MarsPhoto
+            binding.executePendingBindings()
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarsPhotoViewHolder {
+        return MarsPhotoViewHolder(GridViewItemBinding.inflate(LayoutInflater.from(parent.context)))
+    }
+
+    override fun onBindViewHolder(holder: MarsPhotoViewHolder, position: Int) {
+        val marsPhoto = getItem(position)
+        holder.bind(marsPhoto)
+    }
+
+    companion object DiffCallback : DiffUtil.ItemCallback<MarsPhoto>() {
+
+        // check if ids are equal, see docs/ide Hints
+        override fun areItemsTheSame(oldItem: MarsPhoto, newItem: MarsPhoto): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        // check if the data/content are same, it also determine if data is changed or not
+        override fun areContentsTheSame(oldItem: MarsPhoto, newItem: MarsPhoto): Boolean {
+            return oldItem.imgSrcUrl == newItem.imgSrcUrl
+        }
+    }
+}
+```
+
+### android:clipToPadding:
+To elemenate constant padding issue, this can be set to false.

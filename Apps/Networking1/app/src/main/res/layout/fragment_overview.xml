@@ -31,6 +31,16 @@
         android:layout_height="match_parent"
         tools:context="com.example.android.marsphotos.overview.OverViewFragment">
 
+        <ImageView
+            android:id="@+id/status_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:marsApiStatus="@{viewModel.status}" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/photos_grid"
             android:layout_width="match_parent"
@@ -44,6 +54,7 @@
             app:layout_constraintVertical_bias="1.0"
             app:spanCount="2"
             android:padding="6dp"
+            android:clipToPadding="false"
             app:listData="@{viewModel.photos}"
             tools:itemCount="16"
             tools:listitem="@layout/grid_view_item" />
