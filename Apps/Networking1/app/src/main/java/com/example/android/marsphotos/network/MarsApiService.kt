@@ -1,3 +1,4 @@
+// MarsApiService.kt
 package com.example.android.marsphotos.network
 
 import com.squareup.moshi.JsonAdapter
@@ -33,6 +34,7 @@ interface MarsApiService {
 * Singleton pattern in kotlin
 * Each time app calls MarsApi.retrofitService, the caller will access the same singleton Retrofit object
 * that implements MarsApiService which is created on the first access by lazy
+* DataProviderManager
 */
 
 object MarsApi {
