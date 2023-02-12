@@ -1,3 +1,5 @@
+// BindingAdapters.kt
+
 package com.example.android.marsphotos
 
 import android.view.View
