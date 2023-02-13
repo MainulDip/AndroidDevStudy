@@ -763,7 +763,7 @@ val slidingPaneLayout = binding.slidingPaneLayout
         slidingPaneLayout.lockMode = SlidingPaneLayout.LOCK_MODE_LOCKED
 ```
 
-### Important Topics
+### Important Topics:
 * FragmentManager / supportFragmentManager: this class responsible for performing actions on app's fragments, such as adding, removing, or replacing them, and adding them to the back stack.
 
 Every FragmentActivity and subclasses thereof, such as AppCompatActivity, have access to the FragmentManager through the getSupportFragmentManager() method. Inside fragment it can be retrived by getParentFragmentManager() or getChildFragmentManager().
