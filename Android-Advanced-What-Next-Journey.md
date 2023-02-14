@@ -1,7 +1,7 @@
 ## So what's next to the Advanced Android Journey:
 * Data Structure and Algorithm:
     - Sorting
-        - Bubble Sorting
+        - Bubble Sort
         - Intersection Sort
         - Selection Sort
         - Quick Sort

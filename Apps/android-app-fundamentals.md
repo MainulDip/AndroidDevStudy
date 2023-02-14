@@ -18,7 +18,7 @@ There are 2 directory inside app's src directory for automated testing. The "tes
 
 > Unit Testing inside test directory:
 
-- Test functions must first be annotated with the @ Test annotation imported from the org.junit.test
+- Test functions must first be annotated with the @ Test annotation imported from the org.junit.test.
 ```kt
 class ExampleUnitTest {
    @Test
