@@ -240,3 +240,7 @@ class PhotoGridAdapter : ListAdapter<MarsPhoto, PhotoGridAdapter.MarsPhotoViewHo
 
 ### android:clipToPadding:
 To elemenate constant padding issue, this can be set to false.
+
+### Coroutine Implementation In Android:
+Docs: https://developer.android.com/kotlin/coroutines
+viewModelScope is a predefined CoroutineScope that is included with the ViewModel KTX extensions. Note that all coroutines must run in a scope. A CoroutineScope manages one or more related coroutines.
