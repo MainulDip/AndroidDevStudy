@@ -16,6 +16,7 @@
 package com.example.amphibians.ui
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,6 +24,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.amphibians.network.Amphibian
 import com.example.amphibians.network.SingletonAmphibian
 import kotlinx.coroutines.launch
+import okhttp3.internal.http2.ErrorCode
+import kotlin.reflect.jvm.internal.impl.serialization.deserialization.FlexibleTypeDeserializer.ThrowException
 
 enum class AmphibianApiStatus {LOADING, ERROR, DONE}
 
@@ -48,14 +51,23 @@ class AmphibianViewModel : ViewModel() {
     // TODO: Create a function that gets a list of amphibians from the api service and sets the
     //  status via a Coroutine
     private fun pullAmphibians(){
+        _status.value = AmphibianApiStatus.LOADING
         viewModelScope.launch {
-            val allAmphibian = SingletonAmphibian.getAmphibians.getAmphibiansList()
-            Log.d("AmphibianViewModel", "pullAmphibians: ${allAmphibian}")
+            try {
+                val allAmphibian = SingletonAmphibian.getAmphibians.getAmphibiansList()
+                Log.d("AmphibianViewModel", "pullAmphibians: ${allAmphibian}")
+                _amphibianList.value = allAmphibian
+                _status.value = AmphibianApiStatus.DONE
+            } catch (e: Exception) {
+                Log.d("Error", "pullAmphibians: $e")
+                _status.value = AmphibianApiStatus.ERROR
+            }
         }
 
     }
 
     fun onAmphibianClicked(amphibian: Amphibian) {
         // TODO: Set the amphibian object
+        _amphibian.value = amphibian
     }
 }
