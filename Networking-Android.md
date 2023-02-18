@@ -16,8 +16,9 @@ Coroutines enable multitasking, but provide another level of abstraction over si
 * runBlocking:  starts a new coroutine and blocks the current thread. Not much use in Android directly. runBlocking() itself is not a suspend function. 
 ```kotlin
 expect fun <T> runBlocking(context: CoroutineContext = EmptyCoroutineContext, block: suspend CoroutineScope.() -> T): T
+// see for expect-actual https://medium.com/@uwaisalqadri/kotlin-multiplatform-mobile-concept-of-expect-actual-f967d2e948ce 
 ```
-* async(): it returns a Deferred (a cancelable Job that can hold a reference to a future value), Deferred just serves as a placeholder. A Deferred (also called a Promise or Future in other languages) guarantees that a value will be returned to this object at a later time. To initiate that the current line of code needs to wait for the output of a Deferred, you can call await() on it.
+* async(): it returns a Deferred (a cancelable Job that can hold a reference to a future value), Deferred just serves as a placeholder. A Deferred (also called a Promise or Future in other languages) guarantees that a value will be returned to this object at a later time. To initiate that the current line of code needs to wait for the output of a Deferred, you can call await() on it
 
 * suspend fn: Whenever a function calls another suspend function, then it should also be a suspend function. If a function does not call a suspend function, then it does not need to be a suspend function itself. Like runBlocking() call any suspend functions (async, launch) it call it by lambda block, which is a suspend function.
 

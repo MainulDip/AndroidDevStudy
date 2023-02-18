@@ -24,4 +24,10 @@ AND area_acres > 100000
 ```
 
 ### Common SQL Functions:
-- COUNT()
+* Aggregate functions:
+ - SUM(column_name) => calculate the sum of all values/rows in the column_name
+ - COUNT(column_name) => return number of rows in that column
+* Non-aggregate function:
+ - MAX(column_name) => return the largest selected-column's row value
+ - MIN(column_name) => return the smallest selected-column's row value
+ - DISTINCT(column_name) => return all the unique values/row of the column
