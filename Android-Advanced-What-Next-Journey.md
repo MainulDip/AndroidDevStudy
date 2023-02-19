@@ -29,4 +29,4 @@
 
 ### More Advanced:
 - C and C++ Application Integration In Android NDK (Native Development Kit)
-- Android AR/VR/3d
+- Android AR/VR/3d.

@@ -1,7 +1,7 @@
 ## Overview:
 Some common design pattern with quick example
 
-### Builder Pattern
+### Builder Pattern:
 It's a pattern to build up a complex object in a step by step approach.
 ```kotlin
 open class Item(val name: String, val price: Int)

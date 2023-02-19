@@ -47,3 +47,23 @@ SELECT name, park_visitors from park
 ORDER BY park_visitors DESC
 LIMIT 5
 ```
+### INSERT INTO | UPDATE | DELETE FROM :
+```sql
+-- INSERT 
+INSERT INTO table_name
+VALUES (column1, column2, ...)
+
+-- UPDATE
+UPDATE table_name
+SET column1 = ...,
+column2 = ...,
+...
+WHERE column_name = ...
+
+-- DELETE
+DELETE FROM table_name
+WHERE column_name = ...
+```
+### ROOM ORM and Kotlin Flow:
+- ROOM : An easy way to use a database in an Android app is with a library called Room.
+- Flow: It can asynchronously return blocking-computed-collection-values multiple times, where A suspending function (also sequence) asynchronously returns collection's computed values only once
