@@ -31,3 +31,19 @@ AND area_acres > 100000
  - MAX(column_name) => return the largest selected-column's row value
  - MIN(column_name) => return the smallest selected-column's row value
  - DISTINCT(column_name) => return all the unique values/row of the column
+ ### SQL Query Ordering:
+ - ORDER BY clause at the end of the query, ASC/DESC can sit after it
+ - GROUP BY clause goes before ORDER BY (if any)
+ - WHERE goes Before GROUP BY
+
+```sql
+SELECT type, COUNT(*) FROM park
+GROUP BY type
+ORDER BY type
+```
+* Write a SQL query to the top 5 park names along with their visitor count that had the most visitors, in descending order.
+```sql
+SELECT name, park_visitors from park
+ORDER BY park_visitors DESC
+LIMIT 5
+```
