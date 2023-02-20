@@ -67,3 +67,30 @@ WHERE column_name = ...
 ### ROOM ORM and Kotlin Flow:
 - ROOM : An easy way to use a database in an Android app is with a library called Room.
 - Flow: It can asynchronously return blocking-computed-collection-values multiple times, where A suspending function (also sequence) asynchronously returns collection's computed values only once
+```kotlin
+fun simple(): Flow<Int> = flow { // flow builder
+    for (i in 1..3) {
+        delay(100) // pretend some computation/network-call
+        emit(i) // emit to return value
+    }
+}
+
+fun main() = runBlocking<Unit> {
+    launch {
+        for (k in 1..3) {
+            println("I'm not blocked $k")
+            delay(100)
+        }
+    }
+    // Collect the flow
+    simple().collect { value -> println(value) } 
+}
+
+// results
+// I'm not blocked 1
+// 1
+// I'm not blocked 2
+// 2
+// I'm not blocked 3
+// 3
+```
