@@ -94,3 +94,16 @@ fun main() = runBlocking<Unit> {
 // I'm not blocked 3
 // 3
 ```
+### Room Configs:
+* add room version in the project level (global) variable
+ - room_version = '2.4.2'
+* add room dependencies in module's build.gradle
+```kotlin
+implementation "androidx.room:room-runtime:$room_version"
+kapt "androidx.room:room-compiler:$room_version"
+
+// optional - Kotlin Extensions and Coroutines support for Room
+implementation "androidx.room:room-ktx:$room_version"
+```
+* add plugin to use kapt in module's plugin objecet
+ - id 'kotlin-kapt'
