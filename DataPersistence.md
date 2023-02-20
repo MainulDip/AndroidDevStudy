@@ -107,3 +107,27 @@ implementation "androidx.room:room-ktx:$room_version"
 ```
 * add plugin to use kapt in module's plugin objecet
  - id 'kotlin-kapt'
+
+ ### Room Intro:
+- Entity: each table is represented by a class (model class or entities) or more specifically a data class.
+- Room queries are not case sensitive
+- the data class should be annoted with @Entity or @Entity(tableName="table_name")
+- project's files should be organized by separate packages for each Entity. DAO Interface and Entity can be on same package.
+- sample entity class
+```kotlin
+@Entity
+data class Schedule(
+   @PrimaryKey val id: Int,
+   @NonNull @ColumnInfo(name = "stop_name") val stopName: String,
+   @NonNull @ColumnInfo(name = "arrival_time") val arrivalTime: Int
+)
+```
+### DAO (Data Access Object) and Room Integration:
+It's a iterface that provides access to the data. Functions of DAO provide CRUD operations of the database (often using SQL commands)
+```kotlin
+@Dao
+interface ScheduleDao {
+    @Query("SELECT * FROM schedule ORDER BY arrival_time ASC")
+    fun getAll(): List<Schedule>
+}
+```
