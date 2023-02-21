@@ -131,3 +131,6 @@ interface ScheduleDao {
     fun getAll(): List<Schedule>
 }
 ```
+
+### @Volatile:
+Marks the JVM backing field of the annotated property as volatile, meaning that writes to this field are immediately made visible to other threads.
