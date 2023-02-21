@@ -131,6 +131,20 @@ interface ScheduleDao {
     fun getAll(): List<Schedule>
 }
 ```
+### Room Model + DAO + ViewModel + AppData:
+* Entity (data class): For each table there should be a Room Model (entity)
+
+* DAO (Interface): For each entity (Room Model) there should be an DAO (Data Access Object). Each DAO specifies all the sql query to access the room database. Usually 1 DAO From each screen.
+
+* ViewModel: For each DAO, there should be an viewmodel, which should be instantiated with lifecycle aware feature (inheriting ViewModelProvider.Factory)
+
+* AppDatabase (abstract): the AppDatabase class is for creating the Database based on Entity (Room Model) and pre-populate the database with data. It will also instantiate the DAO using Singleton pattern so there will be only one instance of DAO to access from
+
+* Application class Inherit: From a Custom class that is inherited form Application(), access the AppDatabase's singleton using lazy
+
+
+* Manifest.xml Entry: To Use the database when application starts, enlist the custom class (that is inherited form Application) by android:name attribute inside <Application>.
+ 
 
 ### @Volatile:
 Marks the JVM backing field of the annotated property as volatile, meaning that writes to this field are immediately made visible to other threads.
