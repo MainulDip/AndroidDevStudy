@@ -9,7 +9,7 @@ All about Networking and concurrency usages.
 
 ### Kotlin Coroutine:
 Coroutines enable multitasking, but provide another level of abstraction over simply working with threads. One key feature of coroutines is the ability to store state, so that they can be halted and resumed. It provide singnaling with other coroutines (cooperative multitasking)
-* CoroutineScope: is a context that enforces cancellation and other rules to its children and their children recursively. ie: launch() and async()
+* CoroutineScope: is a context that enforces cancellation and other rules to its children and their children recursively. ie: launch() and async().
 * Job: a cancelable unit of work with a lifecycle, inside a CoroutineScope. ie: launch()
 * Dispatcher: it manages which backing thread the coroutine will use for its execution, removing the responsibility of when and where to use a new thread from the developer. Main for UI thread, Default, IO, or Unconfined will use other threads.
 * launch() function creates a coroutine from the enclosed code wrapped in a cancelable Job object. launch() is used when a return value is not needed outside the confines of the coroutine.
