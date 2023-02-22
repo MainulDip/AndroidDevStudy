@@ -54,7 +54,6 @@ class FullScheduleFragment : Fragment() {
     ): View? {
         _binding = FullScheduleFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
-        Log.d("CustomTestFragment", "-------------------onCreateView: from FullScheduleFragment---------------")
         return view
     }
 
@@ -73,10 +72,8 @@ class FullScheduleFragment : Fragment() {
         recyclerView.adapter = busStopAdapter
 
         recyclerView.adapter = busStopAdapter
-        Log.d("recyclerView.Adapter", "-----------------recyclerView.adapter = ${recyclerView.adapter}")
 
         GlobalScope.launch(Dispatchers.IO) {
-            Log.d("recyclerView.Adapter", "-----------------recyclerView.adapter = ${recyclerView.adapter}")
             busStopAdapter.submitList(viewModel.fullSchedule())
         }
     }

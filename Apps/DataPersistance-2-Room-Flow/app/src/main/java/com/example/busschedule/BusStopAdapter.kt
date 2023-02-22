@@ -1,9 +1,7 @@
 package com.example.busschedule
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -55,14 +53,10 @@ class BusStopAdapter(private val onItemClicked: (Schedule) -> Unit) :
             onItemClicked(getItem(position))
         }
 
-
-        Log.d("Testing", "-------------------------onCreateViewHolder: ------------------TEST------------")
-
         return viewHolder
     }
 
     override fun onBindViewHolder(holder: BusStopViewHolder, position: Int) {
         holder.bind(getItem(position))
-        Log.d("CustomTest", "------------------onBindViewHolder-----------------------")
     }
 }
