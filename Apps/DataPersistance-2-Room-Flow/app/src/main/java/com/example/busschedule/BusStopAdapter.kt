@@ -1,5 +1,7 @@
 package com.example.busschedule
 
+import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +15,12 @@ import java.util.*
 import java.util.zip.Inflater
 
 class BusStopAdapter(private val onItemClicked: (Schedule) -> Unit) :
-    ListAdapter<Schedule, BusStopAdapter.BusStopViewHolder>(Diff_Callback) {
+    ListAdapter<Schedule, BusStopAdapter.BusStopViewHolder>(DiffCallback) {
 
     class BusStopViewHolder(private var binding: BusStopItemBinding) : RecyclerView.ViewHolder(
         binding.root
     ) {
+        @SuppressLint("SimpleDateFormat")
         fun bind(schedule: Schedule) {
             binding.stopNameTextView.text = schedule.stopName
             binding.arrivalTimeTextView.text = SimpleDateFormat("h:mm a")
@@ -25,18 +28,20 @@ class BusStopAdapter(private val onItemClicked: (Schedule) -> Unit) :
         }
     }
 
-    object Diff_Callback : DiffUtil.ItemCallback<Schedule>() {
-        override fun areItemsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {
-            return oldItem.id == newItem.id
-        }
+    companion object {
+        private val DiffCallback = object : DiffUtil.ItemCallback<Schedule>() {
+            override fun areItemsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-        override fun areContentsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {
+                return oldItem == newItem
+            }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusStopViewHolder {
+
         val viewHolder = BusStopViewHolder(
             BusStopItemBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -44,14 +49,20 @@ class BusStopAdapter(private val onItemClicked: (Schedule) -> Unit) :
                 false
             )
         )
+
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
             onItemClicked(getItem(position))
         }
+
+
+        Log.d("Testing", "-------------------------onCreateViewHolder: ------------------TEST------------")
+
         return viewHolder
     }
 
     override fun onBindViewHolder(holder: BusStopViewHolder, position: Int) {
         holder.bind(getItem(position))
+        Log.d("CustomTest", "------------------onBindViewHolder-----------------------")
     }
 }

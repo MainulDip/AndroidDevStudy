@@ -25,7 +25,7 @@ abstract class AppDatabase: RoomDatabase() {
         fun getDatabase(context: Context): AppDatabase {
             // synchronized(object) means, Executes the given function block while holding the monitor of the given object lock.
             return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(context, AppDatabase::class.java, "app_database").build()
+                val instance = Room.databaseBuilder(context, AppDatabase::class.java, "app_database").createFromAsset("database/bus_schedule.db").build()
                 INSTANCE = instance
                 instance
             }

@@ -143,7 +143,7 @@ interface ScheduleDao {
 * Application class Inherit: From a Custom class that is inherited form Application(), access the AppDatabase's singleton using lazy
 
 
-* Manifest.xml Entry: To Use the database when application starts, enlist the custom class (that is inherited form Application) by android:name attribute inside <Application>.
+* Manifest.xml Entry: To Use the database when application starts, enlist the custom class (that is inherited form Application) by android:name attribute inside <Application>
  
 
 ### @Volatile:
