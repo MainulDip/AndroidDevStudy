@@ -148,3 +148,6 @@ interface ScheduleDao {
 
 ### @Volatile:
 Marks the JVM backing field of the annotated property as volatile, meaning that writes to this field are immediately made visible to other threads.
+
+### Room Migration:
+Article: https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929

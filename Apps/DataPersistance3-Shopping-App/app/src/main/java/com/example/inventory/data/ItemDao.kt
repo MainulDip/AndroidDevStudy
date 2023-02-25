@@ -4,7 +4,7 @@ import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface ItmeDao {
+interface ItemDao {
 
     /*
     * onConflict params directs room what to do in case of a conflict
