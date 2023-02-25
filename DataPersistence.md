@@ -150,4 +150,8 @@ interface ScheduleDao {
 Marks the JVM backing field of the annotated property as volatile, meaning that writes to this field are immediately made visible to other threads.
 
 ### Room Migration:
-Article: https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929
+* migration object with a migration strategy is required for when the schema changes
+* A migration object is an object that defines how to take all rows with the old schema and convert them to rows in the new schema, so that no data is lost.
+* fallbackToDestructiveMigration() migration strategy will destroy and rebuild the database, which means that the previous data is lost
+
+* Article: https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929
