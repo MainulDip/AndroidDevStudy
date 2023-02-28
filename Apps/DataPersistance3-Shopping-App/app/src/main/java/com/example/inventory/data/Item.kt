@@ -3,6 +3,7 @@ package com.example.inventory.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.text.NumberFormat
 
 @Entity(tableName = "item")
 data class Item(
@@ -11,3 +12,5 @@ data class Item(
     @ColumnInfo("price") val itemPrice: Double,
     @ColumnInfo("quantity") val quantityInStock: Int
 )
+
+fun Item.getFromattedPrice(): String = NumberFormat.getCurrencyInstance().format(itemPrice)
