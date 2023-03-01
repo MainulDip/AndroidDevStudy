@@ -13,4 +13,4 @@ data class Item(
     @ColumnInfo("quantity") val quantityInStock: Int
 )
 
-fun Item.getFromattedPrice(): String = NumberFormat.getCurrencyInstance().format(itemPrice)
+fun Item.getFormattedPrice(): String = NumberFormat.getCurrencyInstance().format(itemPrice)
