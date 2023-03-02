@@ -38,4 +38,4 @@ Task: make the full map of the kotlin springboot repository (That is inside of t
 
 ### Elvis Operator | (?:) :
 _price.value = (quantity.value ?: 0) * PRICE_PER_CUPCAKE
-The elvis operator (?:) means that if the expression on the left is not null, then use it. Otherwise if the expression on the left is null, then use the expression to the right of the elvis operator (which is 0 in this case)
+The elvis operator (?:) means that if the expression on the left is not null, then use it. Otherwise if the expression on the left is null, then use the expression to the right of the elvis operator (which is "0" in this case)

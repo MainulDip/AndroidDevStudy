@@ -774,7 +774,7 @@ Docs: https://developer.android.com/guide/fragments/fragmentmanager
 ```kotlin
 findNavController().navigate(R.id.action_startOrderFragment_to_entreeMenuFragment)
 ```
-* Deep Link: In Android, a deep link is a link that takes you directly to a specific destination within an app.The Navigation component lets you create two different types of deep links: explicit and implicit.
+* Deep Link: In Android, a deep link is a link that takes you directly to a specific destination within an app.The Navigation component lets you create two different types of deep links: explicit implicit.
 
 * FragmentTransaction : At runtime, a FragmentManager can add, remove, replace, and perform other actions with fragments in response to user interaction. Each set of fragment changes that you commit is called a transaction.
  - Docs: https://developer.android.com/guide/fragments/transactions
