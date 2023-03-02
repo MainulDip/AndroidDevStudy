@@ -25,6 +25,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.inventory.data.Item
+import com.example.inventory.data.getFormattedPrice
 import com.example.inventory.databinding.FragmentItemDetailBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -32,6 +34,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
  * [ItemDetailFragment] displays the details of the selected item.
  */
 class ItemDetailFragment : Fragment() {
+
+    lateinit var item: Item
 
     private val viewMode: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(
@@ -55,6 +59,22 @@ class ItemDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val id = navigationArgs.itemId
+        viewMode.retrieveItem(id).observe(this.viewLifecycleOwner) {
+            item = it
+            bind(item)
+
+        }
+    }
+
+
+    private fun bind(item: Item) {
+        binding.apply {
+            itemName.text = item.itemName
+            itemPrice.text = item.getFormattedPrice()
+            itemCount.text = item.quantityInStock.toString()
+        }
     }
 
     /**
