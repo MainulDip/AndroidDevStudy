@@ -37,7 +37,7 @@ class ItemDetailFragment : Fragment() {
 
     lateinit var item: Item
 
-    private val viewMode: InventoryViewModel by activityViewModels {
+    private val viewModel: InventoryViewModel by activityViewModels {
         InventoryViewModelFactory(
             (activity?.application as InventoryApplication).database.itemDao()
         )
@@ -61,7 +61,7 @@ class ItemDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val id = navigationArgs.itemId
-        viewMode.retrieveItem(id).observe(this.viewLifecycleOwner) {
+        viewModel.retrieveItem(id).observe(this.viewLifecycleOwner) {
             item = it
             bind(item)
 
@@ -74,6 +74,11 @@ class ItemDetailFragment : Fragment() {
             itemName.text = item.itemName
             itemPrice.text = item.getFormattedPrice()
             itemCount.text = item.quantityInStock.toString()
+            editItem.setOnClickListener { editItem() }
+
+            sellItem.isEnabled = viewModel.isStockAvailable(item)
+            sellItem.setOnClickListener { viewModel.sellItem(item) }
+            deleteItem.setOnClickListener { showConfirmationDialog() }
         }
     }
 
@@ -96,8 +101,18 @@ class ItemDetailFragment : Fragment() {
      * Deletes the current item and navigates to the list fragment.
      */
     private fun deleteItem() {
+        viewModel.deleteItem(item)
         findNavController().navigateUp()
     }
+
+    private fun editItem() {
+        val action = ItemDetailFragmentDirections.actionItemDetailFragmentToAddItemFragment(
+            getString(R.string.edit_fragment_title),
+            item.id
+        )
+        this.findNavController().navigate(action)
+    }
+
 
     /**
      * Called when fragment is destroyed.
