@@ -1,7 +1,7 @@
 ## So what's next to the Advanced Android Journey:
 * Android Manifest Merge Conflict [Create intentional merge conflict and then resolve it]
 * Data Structure and Algorithm:
-    - Sort
+    - Sorting
         - Bubble Sort
         - Intersection Sort
         - Selection Sort

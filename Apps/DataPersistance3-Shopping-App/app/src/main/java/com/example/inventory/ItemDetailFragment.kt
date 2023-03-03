@@ -32,6 +32,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
  * [ItemDetailFragment] displays the details of the selected item.
+ * Dispatched form ItemListAdapter, also it knows about the current item, as it is passed from the adapter
+ * using navigation controller's action (arguments is defined inside nav-graph.xml and type checked by safe-args plugin
  */
 class ItemDetailFragment : Fragment() {
 
