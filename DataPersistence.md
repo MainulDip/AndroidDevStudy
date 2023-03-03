@@ -155,3 +155,7 @@ Marks the JVM backing field of the annotated property as volatile, meaning that 
 * fallbackToDestructiveMigration() migration strategy will destroy and rebuild the database, which means that the previous data is lost
 
 * Article: https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929
+
+
+
+### Caching | Repository Pattern:
