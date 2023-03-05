@@ -159,3 +159,4 @@ Marks the JVM backing field of the annotated property as volatile, meaning that 
 
 
 ### Caching | Repository Pattern:
+The repository pattern is a design pattern that isolates the data layer from the rest of the app (UI and ViewModels). A repository can resolve conflicts between data sources (such as persistent models, web services, and caches) and centralize changes to this data. The Repository class implements the logic for deciding whether to fetch data from a network or use results that are cached in a local database.
