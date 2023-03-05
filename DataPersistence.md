@@ -159,4 +159,24 @@ Marks the JVM backing field of the annotated property as volatile, meaning that 
 
 
 ### Caching | Repository Pattern:
-The repository pattern is a design pattern that isolates the data layer from the rest of the app (UI and ViewModels). A repository can resolve conflicts between data sources (such as persistent models, web services, and caches) and centralize changes to this data. The Repository class implements the logic for deciding whether to fetch data from a network or use results that are cached in a local database.
+The repository pattern is a design pattern that isolates the data layer from the rest of the app (UI and ViewModels). A repository can resolve conflicts between data sources (such as persistent models, web services, and caches) and centralize changes to this data. 
+
+The Repository class implements the logic for deciding whether to fetch data from a network or use results that are cached in a local database.
+
+### Android Storage Solutions:
+* Media Files: app's internal private storage directory [https://developer.android.com/training/data-storage/app-specific]. It is cleared when app is uninstalled.
+
+* Retrofit Network Results Caching: Retrofit can be configured to store a copy of every network result locally.
+
+* DataStore | Key/Value : Good solution for a small number of keys and simple values (Structured Data), such as app settings. Not for large and complex structured data.
+
+* SQLlite : Recommended solution for complex structured queryable data. Android provide SQLlite support out of the box and has the Room ORM. It is very light weight, doesn't need a server, and can handle a single request at-a-time. Requests are handled one by one (queued) and can support only one user. All those things make it a good solution for a single-user device's database solution for structured data like mobile or desktop app. But not suitable for web servers.
+
+
+### Caching Operation By Dispatchers.IO:
+Databases on Android are stored on the file system, or disk, and in order to save they must perform a disk I/O operation. Disk I/O, or reading and writing to disk, is slow and always blocks the current thread until the operation is complete. 
+
+Because of this, it is ideal to run the disk I/O in the I/O dispatcher. This dispatcher is designed to offload blocking I/O tasks to a shared pool of threads using withContext(Dispatchers.IO) { ... }.
+
+### refresh strategy:
+A database refresh is a process of updating or refreshing the local database to keep it in sync with data from the network. Like the module that requests data from the repository is responsible for refreshing the local data.
