@@ -273,3 +273,6 @@ val currentScrambledWord: LiveData<Spannable> get() = Transformations.map(_curre
 
 ### Caching | Repository Pattern:
 The repository pattern is a design pattern that isolates the data layer from the rest of the app (UI and ViewModels). A repository can resolve conflicts between data sources (such as persistent models, web services, and caches) and centralize changes to this data. The Repository class implements the logic for deciding whether to fetch data from a network or use results that are cached in a local database.
+
+### refresh strategy:
+A database refresh is a process of updating or refreshing the local database to keep it in sync with data from the network. Like the module that requests data from the repository is responsible for refreshing the local data.

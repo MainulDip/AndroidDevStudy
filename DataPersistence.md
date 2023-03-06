@@ -180,3 +180,17 @@ Because of this, it is ideal to run the disk I/O in the I/O dispatcher. This dis
 
 ### refresh strategy:
 A database refresh is a process of updating or refreshing the local database to keep it in sync with data from the network. Like the module that requests data from the repository is responsible for refreshing the local data.
+
+### DataStore | Preferences | Protobuf:
+DataStore is ideal for small, simple datasets, such as storing login details, the dark mode setting, font size, and so on. But not suitable for complex datasets, such as an online grocery store inventory list, or a student database. There are two types of DataStore
+ * Preferences DataStore: accesses and stores data based on keys, without defining a schema (database model) upfront.
+ * Proto DataStore: defines the schema using Protocol buffers. It lets persist strongly typed data. Protobufs are faster, smaller, simpler, and less ambiguous than XML and other similar data formats. Proto DataStore is type safe and efficient but requires configuration and setup
+
+
+
+### Preferences DataStore Implementation:
+Add build.gradle (Module) dependencies
+```kotlin
+implementation "androidx.datastore:datastore-preferences:1.0.0"
+implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+```
