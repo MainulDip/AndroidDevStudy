@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wordsapp.data.SettingsDataStore
 import com.example.wordsapp.databinding.FragmentLetterListBinding
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.launch
 
 /**
@@ -131,13 +132,19 @@ class LetterListFragment : Fragment() {
                 // Sets isLinearLayoutManager (a Boolean) to the opposite value
                 isLinearLayoutManager = !isLinearLayoutManager
                 // Sets layout and icon
-                chooseLayout()
-                setIcon(item)
+
 
                 // Launch a coroutine and write the layout setting in the preference Datastore
-                lifecycleScope.launch {
+                val job = lifecycleScope.launch {
                     SettingsDataStore.saveLayoutToPreferencesStore(isLinearLayoutManager, requireContext())
                 }
+                job.invokeOnCompletion {
+                    chooseLayout()
+                    setIcon(item)
+                }
+
+
+
 
                 return true
             }
