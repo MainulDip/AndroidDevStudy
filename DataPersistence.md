@@ -194,4 +194,68 @@ Add build.gradle (Module) dependencies
 implementation "androidx.datastore:datastore-preferences:1.0.0"
 implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
 ```
-### Sample Preference DataStore Classes
+### Sample Preference DataStore Class:
+```kotlin
+private const val LAYOUT_PREFERENCES_NAME = "layout_preferences"
+
+// Create a DataStore instance using the preferencesDataStore delegate, with the Context as receiver.
+private val Context.dataStore : DataStore<Preferences> by preferencesDataStore(
+    name = LAYOUT_PREFERENCES_NAME
+)
+
+class SettingsDataStore(context: Context) {
+
+    private val IS_LINEAR_LAYOUT_MANAGER : Preferences.Key<Boolean> = booleanPreferencesKey("is_linear_layout_manager")
+
+    /**
+     * when called, it will create the preferences DataStore
+     * if failed for any reason, it will throw IOException
+     */
+    val preferenceFlow: Flow<Boolean> = context.dataStore.data
+        .catch {
+            if (it is IOException) {
+                it.printStackTrace()
+                emit(emptyPreferences())
+            } else {
+                throw it
+            }
+        }
+        .map { preferences ->
+            // storing the preferences datastore key with default value
+            // On the first run of the app, we will use LinearLayoutManager by default
+            preferences[IS_LINEAR_LAYOUT_MANAGER] ?: true
+        }
+
+    suspend fun saveLayoutToPreferencesStore(isLinearLayoutManager: Boolean, context: Context) {
+        context.dataStore.edit { preferences ->
+            preferences[IS_LINEAR_LAYOUT_MANAGER] = isLinearLayoutManager
+        }
+    }
+}
+```
+Initialized from the UI
+```kotlin
+// Initialize SettingsDataStore
+SettingsDataStore = SettingsDataStore(requireContext())
+
+// convert to livedata, set observer, inject the stored value into class property and redraw the menu
+SettingsDataStore.preferenceFlow.asLiveData().observe(viewLifecycleOwner) { value ->
+    isLinearLayoutManager = value
+    chooseLayout()
+
+    /**
+        * Redraw the menu
+        * invalidateOptionsMenu() will call the onCreateOptionsMenu again
+        * */
+    activity?.invalidateOptionsMenu()
+}
+
+/////////////////////////////////////////////////////////////////////
+// Update the preferences value
+lifecycleScope.launch {
+    SettingsDataStore.saveLayoutToPreferencesStore(isLinearLayoutManager, requireContext())
+}
+```
+
+
+### Storing Multitple Values In Preferences DataStore:

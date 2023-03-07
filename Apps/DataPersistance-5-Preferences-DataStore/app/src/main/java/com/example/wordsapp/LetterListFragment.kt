@@ -16,6 +16,7 @@
 package com.example.wordsapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -51,6 +52,9 @@ class LetterListFragment : Fragment() {
     // Keeps track of which LayoutManager is in use for the [RecyclerView]
     private var isLinearLayoutManager = true
 
+    // counter to check how many times the menu is drawn
+    var counter = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -71,7 +75,7 @@ class LetterListFragment : Fragment() {
         recyclerView = binding.recyclerView
         // Sets the LayoutManager of the recyclerview
         // On the first run of the app, it will be LinearLayoutManager
-        chooseLayout()
+//        chooseLayout()
 
         // Initialize SettingsDataStore
         SettingsDataStore = SettingsDataStore(requireContext())
@@ -80,7 +84,14 @@ class LetterListFragment : Fragment() {
         SettingsDataStore.preferenceFlow.asLiveData().observe(viewLifecycleOwner) { value ->
             isLinearLayoutManager = value
             chooseLayout()
+
+            /**
+             * Redraw the menu
+             * invalidateOptionsMenu() will call the onCreateOptionsMenu again
+             * */
+            activity?.invalidateOptionsMenu()
         }
+
     }
 
     /**
@@ -96,6 +107,10 @@ class LetterListFragment : Fragment() {
 
         val layoutButton = menu.findItem(R.id.action_switch_layout)
         setIcon(layoutButton)
+
+        Log.d("TAG2", "onCreateOptionsMenu: counter : ${counter}")
+
+        counter++
     }
 
     /**
@@ -132,19 +147,13 @@ class LetterListFragment : Fragment() {
                 // Sets isLinearLayoutManager (a Boolean) to the opposite value
                 isLinearLayoutManager = !isLinearLayoutManager
                 // Sets layout and icon
-
+                chooseLayout()
+                setIcon(item)
 
                 // Launch a coroutine and write the layout setting in the preference Datastore
-                val job = lifecycleScope.launch {
+                lifecycleScope.launch {
                     SettingsDataStore.saveLayoutToPreferencesStore(isLinearLayoutManager, requireContext())
                 }
-                job.invokeOnCompletion {
-                    chooseLayout()
-                    setIcon(item)
-                }
-
-
-
 
                 return true
             }

@@ -14,16 +14,20 @@ import java.io.IOException
 
 
 private const val LAYOUT_PREFERENCES_NAME = "layout_preferences"
-// Create a DataStore instance using the preferencesDataStore delegate, with the Context as
-// receiver.
+
+// Create a DataStore instance using the preferencesDataStore delegate, with the Context as receiver.
 private val Context.dataStore : DataStore<Preferences> by preferencesDataStore(
     name = LAYOUT_PREFERENCES_NAME
 )
 
 class SettingsDataStore(context: Context) {
 
-    private val IS_LINEAR_LAYOUT_MANAGER = booleanPreferencesKey("is_linear_layout_manager")
+    private val IS_LINEAR_LAYOUT_MANAGER : Preferences.Key<Boolean> = booleanPreferencesKey("is_linear_layout_manager")
 
+    /**
+     * when called, it will create the preferences DataStore
+     * if failed for any reason, it will throw IOException
+     */
     val preferenceFlow: Flow<Boolean> = context.dataStore.data
         .catch {
             if (it is IOException) {
@@ -34,6 +38,7 @@ class SettingsDataStore(context: Context) {
             }
         }
         .map { preferences ->
+            // storing the preferences datastore key with default value
             // On the first run of the app, we will use LinearLayoutManager by default
             preferences[IS_LINEAR_LAYOUT_MANAGER] ?: true
         }
