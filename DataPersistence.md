@@ -258,4 +258,4 @@ lifecycleScope.launch {
 ```
 
 
-### Storing Multitple Values In Preferences DataStore:
+### Storing Multitple Values In Preferences DataStore
