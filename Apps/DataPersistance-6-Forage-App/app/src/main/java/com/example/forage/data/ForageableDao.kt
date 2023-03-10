@@ -16,7 +16,11 @@
 package com.example.forage.data
 
 import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.forage.model.Forageable
 import kotlinx.coroutines.flow.Flow
 
@@ -32,18 +36,21 @@ interface ForageableDao {
 
     // TODO: implement a method to retrieve a Forageable from the database by id
 
-    @Query("SELECT name, address, in_season, notes from forageable_database where id = :id")
+    @Query("SELECT * from forageable_database where id = :id")
     fun getForageable(id: Long): Flow<Forageable>
 
     // TODO: implement a method to insert a Forageable into the database
     //  (use OnConflictStrategy.REPLACE)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(forageable: Forageable)
 
     // TODO: implement a method to update a Forageable that is already in the database
+    @Update
     fun update(forageable: Forageable)
 
     // TODO: implement a method to delete a Forageable from the database.
 
-//    @Query("DELETE from forageable_database where id = :forageable.id")
+    @Delete
     fun delete(forageable: Forageable)
 }
