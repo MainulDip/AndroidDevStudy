@@ -15,10 +15,8 @@
  */
 package com.example.forage.ui.viewmodel
 
-import android.app.Activity
-import androidx.core.content.ContentProviderCompat.requireContext
+
 import androidx.lifecycle.*
-import androidx.lifecycle.ViewModelProvider.Factory
 import com.example.forage.data.ForageableDao
 import com.example.forage.model.Forageable
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +36,7 @@ class ForageableViewModel(
 ): ViewModel() {
 
     // TODO: create a property to set to a list of all forageables from the DAO
-    val getForageableList: LiveData<List<Forageable>> = forageableDao.getForageables().asLiveData(viewModelScope.coroutineContext)
+    val getForageableList: LiveData<List<Forageable>> = forageableDao.getForageables().asLiveData()
 
     // TODO : create method that takes id: Long as a parameter and retrieve a Forageable from the
     //  database by id via the DAO.
@@ -104,11 +102,17 @@ class ForageableViewModelFactory(val forageableDao: ForageableDao): ViewModelPro
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         // if modelClass is a ViewModel, instantiate it with the dao or throw IOException
-        if (modelClass.isAssignableFrom(ForageableViewModel::class.java)) {
-            return ForageableViewModel(forageableDao) as T
+
+        try {
+            if (modelClass.isAssignableFrom(ForageableViewModel::class.java)) {
+                return ForageableViewModel(forageableDao) as T
+            }
+
+            throw IllegalArgumentException("It's not a ViewModel Class")
+        } catch (e: java.lang.Exception) {
+            throw IllegalArgumentException(e)
         }
 
-        throw IOException("It's not a ViewModel Class")
     }
 
 

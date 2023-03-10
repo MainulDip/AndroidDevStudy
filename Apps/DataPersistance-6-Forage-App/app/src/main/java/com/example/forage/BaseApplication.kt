@@ -20,12 +20,12 @@ import com.example.forage.data.ForageDatabase
 
 /**
  * An application class that inherits from [Application], allows for the creation of a singleton
- * instance of the [ForageDatabase]
+ * instance of the [ForageDatabase] by passing the applicationContext
  */
 class BaseApplication : Application() {
 
     // TODO: provide a ForageDatabase value by lazy here
     val database: ForageDatabase by lazy {
-        ForageDatabase.getDatabase()
+        ForageDatabase.getDatabase(context = applicationContext)
     }
 }

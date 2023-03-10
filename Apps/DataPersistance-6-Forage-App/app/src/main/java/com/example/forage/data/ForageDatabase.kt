@@ -22,6 +22,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.forage.model.Forageable
 import kotlin.coroutines.coroutineContext
+import android.content.Context
+import kotlinx.coroutines.currentCoroutineContext
 
 /**
  * Room database to persist data for the Forage app.
@@ -37,14 +39,19 @@ abstract class ForageDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: ForageDatabase? = null
 
-        fun getDatabase(): ForageDatabase {
-            if (INSTANCE != null) {
-                return INSTANCE as ForageDatabase
-            } else {
-                val instance = Room.databaseBuilder(Application().applicationContext, ForageDatabase::class.java, "Forage-Database")
-                    .build()
-                INSTANCE = instance
-                return instance
+        fun getDatabase(context: Context): ForageDatabase {
+            try {
+                return INSTANCE ?: synchronized(this) {
+                    val instance = Room.databaseBuilder(context.applicationContext, ForageDatabase::class.java, "Forage-Database")
+                        .build()
+
+//                    val instance = Room.databaseBuilder(context.getApplicationContext)
+
+                    INSTANCE = instance
+                    instance
+                }
+            } catch (e: Exception) {
+                throw IllegalArgumentException(e)
             }
         }
     }
