@@ -140,13 +140,23 @@ interface ScheduleDao {
 
 * AppDatabase (abstract): the AppDatabase class is for creating the Database based on Entity (Room Model) and pre-populate the database with data. It will also instantiate the DAO using Singleton pattern so there will be only one instance of DAO to access from
 
-* Application class Inherit: From a Custom class that is inherited form Application(), access the AppDatabase's singleton using lazy
+* Application class Inherit: From a Custom class that is inherited form Application() to get the applicationContext, initialized the AppDatabase's singleton using lazy
 
 
 * Manifest.xml Entry: To Use the database when application starts, enlist the custom class (that is inherited form Application) by android:name attribute inside <Application>
+### Implementation Steps of the Room ORM:
+- Define the Model and make it Entity by the @Entity anotation, also anotate the class initializer properties
+- Define the DAO
+- Define an abstract class inheriting from RoomDatabase, an abstract method that returns the DAO and a companion object (final/non-abstract) that will return a Singleton room database. From a method with context as parameter, initialize the database Room's databaseBuilder method. We will pass the context parameter and this abstract class in databaseBuilder's parameter.
+- Define the viewModel class with the DAO as constructor parameter, the members of this class will access data using the DAO directly.
+- Define a viewModelFactory with DAO as constructor parameter, inherit ViewModelProvider.Factory (to make it lifecycle aware) and override it's member by returning the initialized viewModel class passing the DAO as parameter.
+
+* Hooking Part
+- Define a class that inherit Application() so we can get the real applicationContext. Includ this class in Manifest.xml 's Application's android:name attribute. Inside this class define a property with lazy{} delegate which returns the Singleton of the database passing the applicationContext.
+- From UI, Initialize the viewModel by instantiating the viewModelFactory inside activityViewModels lambda, pass the DAO by calling the abstract method through the delegated lazy property inside the class that inherited from Application.
  
 
-### @Volatile:
+### @Volatile on proerty:
 Marks the JVM backing field of the annotated property as volatile, meaning that writes to this field are immediately made visible to other threads.
 
 ### Room Migration:
@@ -258,4 +268,4 @@ lifecycleScope.launch {
 ```
 
 
-### Storing Multitple Values In Preferences DataStores:
+### Storing Multitple Values In Preferences DataStores
