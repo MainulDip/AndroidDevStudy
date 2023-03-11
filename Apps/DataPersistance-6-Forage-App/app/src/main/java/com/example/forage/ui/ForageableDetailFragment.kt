@@ -25,10 +25,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.forage.BaseApplication
 import com.example.forage.R
 import com.example.forage.databinding.FragmentForageableDetailBinding
 import com.example.forage.model.Forageable
 import com.example.forage.ui.viewmodel.ForageableViewModel
+import com.example.forage.ui.viewmodel.ForageableViewModelFactory
 
 /**
  * A fragment to display the details of a [Forageable] currently stored in the database.
@@ -41,7 +43,13 @@ class ForageableDetailFragment : Fragment() {
     // TODO: Refactor the creation of the view model to take an instance of
     //  ForageableViewModelFactory. The factory should take an instance of the Database retrieved
     //  from BaseApplication
-    private val viewModel: ForageableViewModel by activityViewModels()
+    private val viewModel: ForageableViewModel by activityViewModels {
+        // instantiate the viewModel Factory and pass the DAO from a class that extends Application
+        // (as it require context)
+        ForageableViewModelFactory(
+            (activity?.application as BaseApplication).database.getForageableDao()
+        )
+    }
 
     private lateinit var forageable: Forageable
 

@@ -33,11 +33,19 @@ import kotlinx.coroutines.currentCoroutineContext
 
 @Database(entities = [Forageable::class], version = 1, exportSchema = false)
 abstract class ForageDatabase : RoomDatabase() {
+
+    // from ui, when creating the viewModel from activityViewModels
+    // we'll instantiate the viewModelFactory and inject this property for the DAO
+    // the database using lazy from a class that inherits Activity
+    // database using lazy {}
     abstract fun getForageableDao(): ForageableDao
 
     companion object {
         @Volatile
         private var INSTANCE: ForageDatabase? = null
+
+        // this method needs to be called from a class that extends the Application
+        // we will pass context from there
 
         fun getDatabase(context: Context): ForageDatabase {
             try {

@@ -25,7 +25,10 @@ import com.example.forage.data.ForageDatabase
 class BaseApplication : Application() {
 
     // TODO: provide a ForageDatabase value by lazy here
+    // return the ForageDatabase by
+    // Calling the abstract method of the abstract database initialization class (which extends the RoomDatabase)
     val database: ForageDatabase by lazy {
+        // return the singleton object (which will instantiate the database class that inherits form RoomDatabase
         ForageDatabase.getDatabase(context = applicationContext)
     }
 }
