@@ -145,19 +145,31 @@ interface ScheduleDao {
 
 * Manifest.xml Entry: To Use the database when application starts, enlist the custom class (that is inherited form Application) by android:name attribute inside <Application>
 ### Implementation Steps of the Room ORM:
-- Define the Model and make it Entity by the @Entity anotation, also anotate the class initializer properties
-- Define the DAO
-- Define an abstract class inheriting from RoomDatabase, an abstract method that returns the DAO and a companion object (final/non-abstract) that will return a Singleton room database. From a method with context as parameter, initialize the database Room's databaseBuilder method. We will pass the context parameter and this abstract class in databaseBuilder's parameter.
-- Define the viewModel class with the DAO as constructor parameter, the members of this class will access data using the DAO directly.
-- Define a viewModelFactory with DAO as constructor parameter, inherit ViewModelProvider.Factory (to make it lifecycle aware) and override it's member by returning the initialized viewModel class passing the DAO as parameter.
+
+* Initial State
+    - Model/Entity(Table): Define the Model and make it Entity by the @Entity anotation, also anotate the class initializer properties
+
+    - DAO: Define the DAO. We will access the database through this
+
+    - Database Builder: Define an abstract class inheriting from RoomDatabase, an abstract method that returns the DAO and a companion object (final/non-abstract) that will return a Singleton room database. From a method with context as parameter, initialize the database Room's databaseBuilder method. We will pass the context parameter and this abstract class in databaseBuilder's parameter.
+
+    - ViewModel: Define the viewModel class with the DAO as constructor parameter, the members of this class will access data using the DAO directly.
+
+    - Factory ViewModel: Define a viewModelFactory with DAO as constructor parameter, inherit ViewModelProvider.Factory (to make it lifecycle aware) and override it's member by returning the initialized viewModel class passing the DAO as parameter.
+
+* Application Integration Stage:
+    - Define a class that inherit Application() so we can get the real applicationContext. Inside this class define a property with lazy{} delegate which returns the Singleton of the database passing the applicationContext.
+
+    - Include this class in Manifest.xml 's Application's android:name attribute. So that, we can call it from activity?.application as Something from UIs when initilizing viewModel's Factory.
 
 * Hooking Part
-- Define a class that inherit Application() so we can get the real applicationContext. Includ this class in Manifest.xml 's Application's android:name attribute. Inside this class define a property with lazy{} delegate which returns the Singleton of the database passing the applicationContext.
-- From UI, Initialize the viewModel by instantiating the viewModelFactory inside activityViewModels lambda, pass the DAO by calling the abstract method through the delegated lazy property inside the class that inherited from Application.
+    - From UI (Activity/Fragment), Initialize the viewModel by instantiating the viewModelFactory inside activityViewModels lambda, pass the DAO by calling the abstract method through the delegated lazy property inside the class that inherited from the Application class.
  
 
 ### @Volatile on proerty:
 Marks the JVM backing field of the annotated property as volatile, meaning that writes to this field are immediately made visible to other threads.
+
+### synchronized (lock: Any, block: () -> R): R:
 
 ### Room Migration:
 * migration object with a migration strategy is required for when the schema changes
