@@ -166,10 +166,10 @@ interface ScheduleDao {
     - From UI (Activity/Fragment), Initialize the viewModel by instantiating the viewModelFactory inside activityViewModels lambda, pass the DAO by calling the abstract method through the delegated lazy property inside the class that inherited from the Application class.
  
 
-### @Volatile on proerty:
+### @Volatile on property:
 Marks the JVM backing field of the annotated property as volatile, meaning that writes to this field are immediately made visible to other threads.
 
-### synchronized (lock: Any, block: () -> R): R:
+### synchronized (lock: Any, block: () -> R): R | on method:
 This function (like java)  protects the code block from concurrent execution by multiple threads by the monitor of the instance (or, for static methods, the class or object/companion) on which the method is defined.
 ### Room Migration:
 * migration object with a migration strategy is required for when the schema changes

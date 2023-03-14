@@ -1,7 +1,10 @@
 ## So what's next to the Advanced Android Journey:
+NB: Topics that followed by *** are to check first.
+
+* *** AGP : Android Gradle Plugin
 * Android Manifest Merge Conflict [Create intentional merge conflict and then resolve it]
 * Data Structure and Algorithm:
-    - Sorting
+    - Sort
         - Bubble Sort
         - Intersection Sort
         - Selection Sort
@@ -14,7 +17,7 @@
         - Ternary Search
 
 
-* Android Build Process
+* *** Android Build Process
     - R.Java
     - Dalvik (Formarly Used)
     - ART (Android Runtime)
@@ -28,5 +31,10 @@
 * Android Interview Questions (Practically Implement and Understand Deeply)
 
 ### More Advanced:
-- C and C++ Application Integration In Android NDK (Native Development Kit)
+* *** C and C++ Application Integration In Android NDK (Native Development Kit)
+    - NDK Guide: https://developer.android.com/ndk/guides
+    - RenderScript: https://developer.android.com/guide/topics/renderscript/compute (Depricated)
+    - RenderScript Migration: https://developer.android.com/guide/topics/renderscript/migrate
+    - JNI (Java Native Interface): https://www.baeldung.com/jni
+        - https://www.baeldung.com/java-native
 - Android AR/VR/3d.
