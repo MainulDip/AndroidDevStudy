@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.example.background.R
-import java.io.DataOutput
 
 class BlurWorker(val ctx: Context, val params: WorkerParameters): Worker(ctx, params) {
     override fun doWork(): Result {
@@ -20,8 +19,8 @@ class BlurWorker(val ctx: Context, val params: WorkerParameters): Worker(ctx, pa
                 R.drawable.android_cupcake
             )
 
-            val bluredImg =  blurBitmap(picture, appContext)
-            val storagePath = writeBitmapToFile(appContext, bluredImg)
+            val blurredImg =  blurBitmap(picture, appContext)
+            val storagePath = writeBitmapToFile(appContext, blurredImg)
 
             makeStatusNotification("Finished Bluring and the File Path is $storagePath", appContext)
         } catch (e: Exception) {
