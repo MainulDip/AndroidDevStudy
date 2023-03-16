@@ -23,4 +23,7 @@ dependencies {
 - WorkManager: This class actually schedules your WorkRequest and makes it run. It schedules WorkRequests in a way that spreads out the load on system resources, while honoring the constraints you specify.
 
 
-### Data Input Object:
+### Data Input Object (Result):
+Input and output is passed in and out via Data objects from worker. Data objects are lightweight containers for key/value pairs. They are meant to store a small amount of data that might pass into and out from WorkRequests.
+
+### WorkRequest Chaining:
