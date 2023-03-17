@@ -25,5 +25,26 @@ dependencies {
 
 ### Data Input Object (Result):
 Input and output is passed in and out via Data objects from worker. Data objects are lightweight containers for key/value pairs. They are meant to store a small amount of data that might pass into and out from WorkRequests.
+```kotlin
+// inside viewmodel
+internal fun applyBlur(blurLevel: Int) {
+    val oneTimeWorkRequest = OneTimeWorkRequestBuilder<BlurWorker>()
+        .setInputData(createInputDataForUri())
+        .build()
+    workManager.enqueue(oneTimeWorkRequest)
+}
+
+// data passing
+private fun createInputDataForUri(): Data {
+    val builder = Data.Builder()
+    imageUri?.let {
+        builder.putString(KEY_IMAGE_URI, imageUri.toString())
+    }
+    return builder.build()
+}
+
+// from worker class
+
+```
 
 ### WorkRequest Chaining:

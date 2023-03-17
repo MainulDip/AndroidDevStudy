@@ -14,6 +14,7 @@ class BlurWorker(val ctx: Context, val params: WorkerParameters): Worker(ctx, pa
     override fun doWork(): Result {
         val appContext = ctx.applicationContext
 
+        // Worker extends ListenableWorker, so inputData is available here
         val resourceUri = inputData.getString(KEY_IMAGE_URI)
 
         makeStatusNotification("Bluring The Cup Cake", appContext)
@@ -37,6 +38,9 @@ class BlurWorker(val ctx: Context, val params: WorkerParameters): Worker(ctx, pa
 
             makeStatusNotification("Finished Bluring and the File Path is $outputUri", appContext)
 
+            // using kotlin infix function to create a Pair, can be written in non-infix way to (sth1.to(sth2)
+            // infix is the heart of Kotlin DSL
+            // also kotlin has no tuple time, pair and triple is used to create 
             val outputData = workDataOf(KEY_IMAGE_URI to outputUri.toString())
             return Result.success(outputData)
 
