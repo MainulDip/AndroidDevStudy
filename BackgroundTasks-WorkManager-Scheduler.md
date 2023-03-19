@@ -114,3 +114,15 @@ workManager.beginWith(cleanupRequest)
     .then(save)
     .enqueue()
 ```
+### unique work for workmanager:
+to ensure the first data sync finish before starting a new one
+beginUniqueWork is used with workManager instance
+```kotlin
+// change beginWith with beginUniqueWork
+workManager
+    .beginUniqueWork(
+            IMAGE_MANIPULATION_WORK_NAME,
+            ExistingWorkPolicy.REPLACE,
+            OneTimeWorkRequest.from(CleanupWorker::class.java)
+    )
+```
