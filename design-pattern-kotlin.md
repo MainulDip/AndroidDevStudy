@@ -353,3 +353,50 @@ public class FactoryPatternDemo {
    }
 }
 ```
+
+
+
+
+
+### Pragma | Pragmatic Information:
+Pragma is short for pragmatic information. Pragmatic means sensible and practical. In programming, pragma refers to:
+ - The code that consists of useful information on how a compiler or interpreter or assembler should process the program
+ - pragma does not contribute anything to the programming language itself
+ - pragma only affect the compiler behavior
+ - pragma‘s syntax may vary.
+
+
+### Macro (macroinstruction):
+It's a programmable pattern which translates a certain sequence of input into a preset sequence of output. In general world, macro can be a keboard shortcut/hotkey to do multiple tasks (not single task).
+In programming, A macro is a name given to a block of C statements as a pre-processor directive. Being a pre-processor, the block of code is communicated to the compiler before entering into the actual coding (main () function). A macro is defined with the pre-processor directive.
+
+* Macro vs Functins: Macros are pre-processed which means that all the macros would be processed before your program compiles. However, functions are not preprocessed but compiled.
+
+```c
+// macro
+#include<stdio.h>
+#define NUMBER 10
+int main()
+{
+     printf("%d", NUMBER);
+     return 0;
+}
+
+// function
+#include<stdio.h>
+int number()
+{
+    return 10;
+}
+int main()
+{
+    printf("%d", number());
+    return 0;
+}
+```
+
+### GCC & G++ :
+* GCC : C compiler, which stands for "GNU Compiler Collection"
+* G++ : C++ compiler, stands for "GNU C++" compiler
+
+NB: Both can be used with c and c++, they are same, just different front-end (will justify later)
