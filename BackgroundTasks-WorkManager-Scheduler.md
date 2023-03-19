@@ -94,3 +94,23 @@ class BlurWorker(val ctx: Context, val params: WorkerParameters): Worker(ctx, pa
 
 ### WorkRequest Chaining and WorkManager:
 WorkerRequests can be run in order or parallel. The output of one WorkRequest becomes the input of the next WorkRequest in the chain.
+```kotlin
+// cleanup for chaining
+var cleanupRequest = OneTimeWorkRequest.from(CleanupWorker::class.java)
+
+val blurRequest = OneTimeWorkRequestBuilder<BlurWorker>()
+    .setInputData(createInputDataForUri())
+    .build()
+
+// single work request
+// workManager.enqueue(blurRequest)
+
+// save for chaining
+val save = OneTimeWorkRequest.Builder(SaveImageToFileWorker::class.java).build()
+
+// actual chaining of workers one by one
+workManager.beginWith(cleanupRequest)
+    .then(blurRequest)
+    .then(save)
+    .enqueue()
+```

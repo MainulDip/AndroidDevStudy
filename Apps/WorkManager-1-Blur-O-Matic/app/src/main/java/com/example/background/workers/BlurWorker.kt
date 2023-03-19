@@ -19,6 +19,9 @@ class BlurWorker(val ctx: Context, val params: WorkerParameters): Worker(ctx, pa
 
         makeStatusNotification("Bluring The Cup Cake", appContext)
 
+        // slowing down for 3 seconds
+        sleep()
+
         try {
 //            val picture = BitmapFactory.decodeResource(
 //                appContext.resources,
@@ -33,8 +36,8 @@ class BlurWorker(val ctx: Context, val params: WorkerParameters): Worker(ctx, pa
             val resolver = appContext.contentResolver
             val picture = BitmapFactory.decodeStream(resolver.openInputStream(Uri.parse(resourceUri)))
 
-            val blurredImg =  blurBitmap(picture, appContext)
-            val outputUri = writeBitmapToFile(appContext, blurredImg)
+            val output =  blurBitmap(picture, appContext)
+            val outputUri = writeBitmapToFile(appContext, output)
 
             makeStatusNotification("Finished Bluring and the File Path is $outputUri", appContext)
 
