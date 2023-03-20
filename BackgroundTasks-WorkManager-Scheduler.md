@@ -126,3 +126,17 @@ workManager
             OneTimeWorkRequest.from(CleanupWorker::class.java)
     )
 ```
+### Work Status and Tag with LiveData:
+WorkRequest status can be retrived by getting a LiveData that holds a WorkInfo object. WorkInfo is an object that contains details about the current state of a WorkRequest. Like BLOCKED, CANCELLED, ENQUEUED, FAILED, RUNNING or SUCCEEDED status and if any output data from the work when the workRequest finished 
+
+* There are 3 different ways to get LiveData<WorkInfo> or LiveData<List<WorkInfo>>
+ - getWorkInfoByIdLiveData : LiveData<WorkInfo>
+ - getWorkInfosForUniqueWorkLiveData : LiveData<List<WorkInfo>>
+ - getWorkInfosByTagLiveData : LiveData<List<WorkInfo>>
+
+ * Work Tag: in viewModel, tag can be used to label a work (or works), so all the similar tag works status can be retirved.
+```kotlin
+val work1 = OneTimeWorkRequestBuilder<CustomWorker>()
+    .addTag(TAG_OUTPUT_CONSTANT)
+    .build()
+```
