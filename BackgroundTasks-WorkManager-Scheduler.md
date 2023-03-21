@@ -136,7 +136,17 @@ WorkRequest status can be retrived by getting a LiveData that holds a WorkInfo o
 
  * Work Tag: in viewModel, tag can be used to label a work (or works), so all the similar tag works status can be retirved.
 ```kotlin
-val work1 = OneTimeWorkRequestBuilder<CustomWorker>()
+val workRequest = OneTimeWorkRequestBuilder<CustomWorker>()
     .addTag(TAG_OUTPUT_CONSTANT)
     .build()
+```
+
+### WorkInfo of the workmanager:
+```kotlin
+// from viewModel
+internal val outputWorkInfos: LiveData<List<WorkInfo>>
+
+init {
+    outputWorkInfos = workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
+}
 ```

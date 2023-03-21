@@ -366,7 +366,7 @@ Pragma is short for pragmatic information. Pragmatic means sensible and practica
  - pragma‘s syntax may vary.
 
 
-### Macro (macroinstruction):
+### Macro (macroinstruction)
 It's a programmable pattern which translates a certain sequence of input into a preset sequence of output. In general world, macro can be a keboard shortcut/hotkey to do multiple tasks (not single task).
 In programming, A macro is a name given to a block of C statements as a pre-processor directive. Being a pre-processor, the block of code is communicated to the compiler before entering into the actual coding (main () function). A macro is defined with the pre-processor directive.
 
