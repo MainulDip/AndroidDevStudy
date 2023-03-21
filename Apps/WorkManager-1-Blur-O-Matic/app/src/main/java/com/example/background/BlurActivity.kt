@@ -18,6 +18,7 @@ package com.example.background
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -68,6 +69,9 @@ class BlurActivity : AppCompatActivity() {
             // We only care about the one output status.
             // Every continuation has only one worker tagged TAG_OUTPUT
             val workInfo = listOfWorkInfo[0]
+
+            Log.d("workInfo", "workInfosObserver: workInfo = $workInfo")
+            // workInfosObserver: workInfo = WorkInfo{mId='e74e2632-882d-44e1-a3be-58500cdaa558', mState=SUCCEEDED, mOutputData=Data {KEY_IMAGE_URI : content://media/external/images/media/35, }, mTags=[OUTPUT, com.example.background.workers.SaveImageToFileWorker], mProgress=Data {}}
 
             if (workInfo.state.isFinished) {
                 showWorkFinished()

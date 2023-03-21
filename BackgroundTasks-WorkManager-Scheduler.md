@@ -141,7 +141,7 @@ val workRequest = OneTimeWorkRequestBuilder<CustomWorker>()
     .build()
 ```
 
-### WorkInfo of the workmanager:
+### WorkInfo of the WorkManager:
 ```kotlin
 // from viewModel
 internal val outputWorkInfos: LiveData<List<WorkInfo>>
@@ -149,4 +149,29 @@ internal val outputWorkInfos: LiveData<List<WorkInfo>>
 init {
     outputWorkInfos = workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
 }
+
+// from activity
+override fun onCreate(savedInstanceState: Bundle?) {
+    // other code
+    viewModel.outputWorkInfos.observe(this, workInfosObserver())
+}
+
+private fun workInfosObserver(): Observer<List<WorkInfo>> {
+    return Observer { listOfWorkInfo ->
+
+        // If there are no matching work info, do nothing
+        if (listOfWorkInfo.isNullOrEmpty()) {
+            return@Observer
+        }
+
+        // get the first workInfo object
+        val workInfo = listOfWorkInfo[0]
+
+        Log.d("workInfo", "workInfosObserver: workInfo = $workInfo")
+        // workInfosObserver: workInfo = WorkInfo{mId='e74e2632-882d-44e1-a3be-58500cdaa558', mState=SUCCEEDED, mOutputData=Data {KEY_IMAGE_URI : content://media/external/images/media/35, }, mTags=[OUTPUT, com.example.background.workers.SaveImageToFileWorker], mProgress=Data {}}
+    }
+}
 ```
+
+### Work Cancelation:
+The work/s can be canceled using the id, by tag and by unique chain name.

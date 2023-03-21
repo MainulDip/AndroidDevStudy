@@ -39,6 +39,8 @@ class BlurViewModel(application: Application) : ViewModel() {
 
     internal val outputWorkInfos: LiveData<List<WorkInfo>>
 
+    // work cancellation cancelled
+
     init {
         imageUri = getImageUri(application.applicationContext)
 
