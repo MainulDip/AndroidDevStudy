@@ -181,3 +181,20 @@ internal  fun cancelWork() {
     workManager.cancelUniqueWork(IMAGE_MANIPULATION_WORK_NAME)
 }
 ```
+
+
+### Work Constraints:
+These are certain condition check for the device state, ie, device is charging, etc. Constraints.Builder is used to create and adding it to workRequest hooked it up.
+
+```kotlin
+// constraints
+val constraints = Constraints.Builder()
+    .setRequiresCharging(true)
+    .build()
+
+// Add WorkRequest to save the image to the filesystem
+val workRequest = OneTimeWorkRequestBuilder<SaveImageToFileWorker>()
+    .setConstraints(constraints)
+    .addTag(TAG_OUTPUT)
+    .build()
+```
