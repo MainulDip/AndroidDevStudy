@@ -174,4 +174,10 @@ private fun workInfosObserver(): Observer<List<WorkInfo>> {
 ```
 
 ### Work Cancelation:
-The work/s can be canceled using the id, by tag and by unique chain name.
+The work/s can be canceled using the id, by tag and by unique chain name. For Unique work, the "uniqueWorkName" is required to target the work
+```kotlin
+// work cancellation
+internal  fun cancelWork() {
+    workManager.cancelUniqueWork(IMAGE_MANIPULATION_WORK_NAME)
+}
+```
