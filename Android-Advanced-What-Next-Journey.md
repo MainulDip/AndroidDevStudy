@@ -1,5 +1,5 @@
 ## So what's next to the Advanced Android Journey:
-NB: Topics that followed by *** are to check first.
+NB: Topics followed by *** are to check first.
 
 * *** AGP : Android Gradle Plugin
 * Android Manifest Merge Conflict [Create intentional merge conflict and then resolve it]

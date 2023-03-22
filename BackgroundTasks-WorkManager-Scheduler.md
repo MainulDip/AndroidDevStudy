@@ -1,8 +1,8 @@
 ## Overview:
-This part covers some quick jump starting instruction set to run Background Tasks Scheduler in Android.
+This part covers some quick jump-starting instruction set to run Background Tasks Scheduler in Android.
 
 ### WorkManager:
-It's a part of Android Jetpack and Architecture Componet. It's a combination of opportunistic and guaranteed execution technique. 
+It's a part of the Android Jetpack and Architecture Component. It's a combination of opportunistic and guaranteed execution techniques. 
 - Opportunistic execution means that WorkManager will do the background work as soon as it can. 
 - Guaranteed execution means that WorkManager will take care of the logic to start background work under a variety of situations, even if you navigate away from your app.
 
@@ -20,11 +20,11 @@ dependencies {
 ### WorkManager classes:
 - Worker: This is where you put the code for the actual work you want to perform in the background. You'll extend this class and override the doWork() method.
 - WorkRequest: This represents a request to do some work. You'll pass in your Worker as part of creating your WorkRequest. When making the WorkRequest you can also specify things like Constraints on when the Worker should run.
-- WorkManager: This class actually schedules your WorkRequest and makes it run. It schedules WorkRequests in a way that spreads out the load on system resources, while honoring the constraints you specify.
+- WorkManager: This class schedules your WorkRequest and makes it run. It schedules WorkRequests in a way that spreads out the load on system resources while honoring the constraints you specify.
 
 
 ### Data Input Object (Result):
-Input and output is passed in and out via Data objects from worker. Data objects are lightweight containers for key/value pairs. They are meant to store a small amount of data that might pass into and out from WorkRequests.
+Input and output are passed in and out via Data objects from the worker. Data objects are lightweight containers for key/value pairs. They are meant to store a small amount of data that might pass into and out of WorkRequests.
 ```kotlin
 /**
  ** Call from ViewModel
@@ -116,7 +116,7 @@ workManager.beginWith(cleanupRequest)
 ```
 ### unique work for workmanager:
 to ensure the first data sync finish before starting a new one
-beginUniqueWork is used with workManager instance
+beginUniqueWork is used with the workManager instance
 ```kotlin
 // change beginWith with beginUniqueWork
 workManager
@@ -127,14 +127,14 @@ workManager
     )
 ```
 ### Work Status and Tag with LiveData:
-WorkRequest status can be retrived by getting a LiveData that holds a WorkInfo object. WorkInfo is an object that contains details about the current state of a WorkRequest. Like BLOCKED, CANCELLED, ENQUEUED, FAILED, RUNNING or SUCCEEDED status and if any output data from the work when the workRequest finished 
+WorkRequest status can be retrieved by getting a LiveData that holds a WorkInfo object. WorkInfo is an object that contains details about the current state of a WorkRequest. Like BLOCKED, CANCELLED, ENQUEUED, FAILED, RUNNING or SUCCEEDED status and if any output data from the work when the workRequest finished 
 
 * There are 3 different ways to get LiveData<WorkInfo> or LiveData<List<WorkInfo>>
  - getWorkInfoByIdLiveData : LiveData<WorkInfo>
  - getWorkInfosForUniqueWorkLiveData : LiveData<List<WorkInfo>>
  - getWorkInfosByTagLiveData : LiveData<List<WorkInfo>>
 
- * Work Tag: in viewModel, tag can be used to label a work (or works), so all the similar tag works status can be retirved.
+ * Work Tag: in ViewModel, a tag can be used to label a work (or works), so all the similar tag works status can be retrieved.
 ```kotlin
 val workRequest = OneTimeWorkRequestBuilder<CustomWorker>()
     .addTag(TAG_OUTPUT_CONSTANT)
