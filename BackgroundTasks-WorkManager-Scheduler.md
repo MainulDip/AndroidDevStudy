@@ -173,7 +173,7 @@ private fun workInfosObserver(): Observer<List<WorkInfo>> {
 }
 ```
 
-### Work Cancelation:
+### Work Cancellation:
 The work/s can be canceled using the id, by tag and by unique chain name. For Unique work, the "uniqueWorkName" is required to target the work
 ```kotlin
 // work cancellation
@@ -198,3 +198,4 @@ val workRequest = OneTimeWorkRequestBuilder<SaveImageToFileWorker>()
     .addTag(TAG_OUTPUT)
     .build()
 ```
+### WaterMe App:
