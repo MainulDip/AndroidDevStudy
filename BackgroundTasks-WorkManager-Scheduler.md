@@ -23,6 +23,11 @@ dependencies {
 - WorkManager: This class schedules your WorkRequest and makes it run. It schedules WorkRequests in a way that spreads out the load on system resources while honoring the constraints you specify.
 
 
+### Scheduling Work | OneTimeRequest:
+* OneTimeWorkRequest.from(MyWork::class.java) : For simple work, which requires no additional configuration, use the static method from
+* OneTimeWorkRequestBuilder<MyWork>() : For more complex work, builder pattern is used.
+Docs: https://developer.android.com/guide/background/persistent/getting-started/define-work#Overview
+
 ### Data Input Object (Result):
 Input and output are passed in and out via Data objects from the worker. Data objects are lightweight containers for key/value pairs. They are meant to store a small amount of data that might pass into and out of WorkRequests.
 ```kotlin
@@ -39,9 +44,7 @@ internal fun applyBlur(blurLevel: Int) {
 // data passing
 private fun createInputDataForUri(): Data {
     val builder = Data.Builder()
-    imageUri?.let {
-        builder.putString(KEY_IMAGE_URI, imageUri.toString())
-    }
+    builder.putString(KEY_IMAGE_URI, imageUri.toString())
     return builder.build()
 }
 

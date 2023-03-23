@@ -1,6 +1,7 @@
 ## So what's next to the Advanced Android Journey:
 NB: Topics followed by *** are to check first.
 
+* *** Android Notification
 * *** AGP: Android Gradle Plugin
 * Android Manifest Merge Conflict [Create intentional merge conflict and then resolve it]
 * Data Structure and Algorithm:

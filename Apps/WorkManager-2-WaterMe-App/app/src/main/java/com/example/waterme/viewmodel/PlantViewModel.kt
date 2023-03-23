@@ -18,8 +18,12 @@ package com.example.waterme.viewmodel
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
+import androidx.work.workDataOf
 import com.example.waterme.data.DataSource
+import com.example.waterme.worker.PLANTS_WORK_DATA
+import com.example.waterme.worker.WaterReminderWorker
 import java.util.concurrent.TimeUnit
 
 class PlantViewModel(application: Application): ViewModel() {
@@ -32,9 +36,13 @@ class PlantViewModel(application: Application): ViewModel() {
         plantName: String
     ) {
         // TODO: create a Data instance with the plantName passed to it
+        val workData = workDataOf(PLANTS_WORK_DATA to plantName)
 
         // TODO: Generate a OneTimeWorkRequest with the passed in duration, time unit, and data
         //  instance
+        val workRequest = OneTimeWorkRequest.Builder(WaterReminderWorker::class.java)
+            .setInputData(workData)
+            .
 
         // TODO: Enqueue the request as a unique work request
     }
