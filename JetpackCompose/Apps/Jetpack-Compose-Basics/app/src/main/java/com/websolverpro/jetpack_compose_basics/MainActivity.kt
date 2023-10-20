@@ -1,5 +1,6 @@
 package com.websolverpro.jetpack_compose_basics
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,13 +17,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            JetpackComposeBasicsTheme {
+            JetpackComposeBasicsTheme () {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    Greeting("Android Cool")
                 }
             }
         }
@@ -37,10 +38,17 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, name = "Light Mode")
+@Preview(showBackground = true, name = "Dark Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_UNDEFINED,
+)
 @Composable
 fun GreetingPreview() {
     JetpackComposeBasicsTheme {
-        Greeting("Android")
+        Surface(
+            color = MaterialTheme.colorScheme.background
+        ) {
+            Greeting("Android")
+        }
     }
 }

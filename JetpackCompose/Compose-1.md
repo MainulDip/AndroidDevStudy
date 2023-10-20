@@ -59,3 +59,6 @@ fun GreetingPreview() {
 - Row : arrange items horizontally
 - Box : For Stacking Components
 - Spacer : provide horizontal spacing
+
+### Color Scheme and Surface:
+Surface( color = MaterialTheme.colorScheme.background ) {...} Set the background color and if the colorScheme has `onBackground` property defined, the text be that
