@@ -12,4 +12,4 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val Black = Color(R.color.black)
-val White = Color(R.color.white)
+val White = Color(color = 0xFFFFFFFF)
