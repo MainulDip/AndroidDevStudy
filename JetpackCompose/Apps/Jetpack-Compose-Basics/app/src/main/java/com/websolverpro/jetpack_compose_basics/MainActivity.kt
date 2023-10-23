@@ -4,11 +4,13 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -42,9 +44,17 @@ fun MyApp(
     modifier: Modifier = Modifier,
     names: List<String> = listOf("World", "Compose")
 ) {
+
+    var shouldShowOnboarding by remember { mutableStateOf(true) }
+
     Column(modifier = modifier.padding(vertical = 4.dp)) {
-        for (name in names) {
-            Greeting(name = name)
+
+        if (shouldShowOnboarding) { // Where does this come from?
+            OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
+        } else {
+            for (name in names) {
+                Greeting(name = name)
+            }
         }
     }
 }
@@ -82,6 +92,33 @@ private fun Greeting(name: String) {
                 }
             }
         }
+    }
+}
+
+@Composable
+fun OnboardingScreen(onContinueClicked: () -> Unit, modifier: Modifier = Modifier) {
+    // TODO: This state should be hoisted
+
+    Column(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("Welcome to the Basics Codelab!")
+        Button(
+            modifier = Modifier.padding(vertical = 24.dp),
+            onClick = onContinueClicked
+        ) {
+            Text("Continue")
+        }
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320, heightDp = 320)
+@Composable
+fun OnboardingPreview() {
+    JetpackComposeBasicsTheme {
+        OnboardingScreen(onContinueClicked = {})
     }
 }
 

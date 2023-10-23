@@ -76,7 +76,7 @@ https://developer.android.com/jetpack/compose/modifiers-list
 ### Recomposition and State:
 Compose apps transform data into UI by calling composable functions. If data changes, Compose re-executes these functions with the new data, creating an updated UI through recomposition. Compose also looks at what data is needed by an individual composable so that it only needs to recompose components whose data has changed and skip recomposing those that are not affected.
 
-* Composable functions can execute frequently and in any order, anybody must not rely on the ordering in which the code is executed, or on how many times this function will be recomposed.
+* Composable functions can execute frequently and in any order, anybody must not rely on the ordering in which the code is executed, or on how many times this function will be recomposed
 
 * State and MutableState (`mutableStateOf(...)`) are interfaces that hold some value and trigger UI updates (recompositions) whenever that value changes.
 
