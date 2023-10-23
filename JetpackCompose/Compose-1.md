@@ -90,3 +90,93 @@ var state by remember { mutableStateOf (...) }
 // access or modify : `state = ...`
 ```
 Note: Delegated Properties : https://kotlinlang.org/docs/delegated-properties.html
+
+### remember vs rememberSaveable (persist on configuration changes, like rotation):
+Instead of using remember, rememberSaveable will save each state surviving configuration changes (such as rotations) and process death.
+```kotlin
+var state by rememberSaveable { mutableStateOf(true) } // using rememberSaveable to define config persistent state
+```
+
+### State Hoisting (lifting or elevating state):
+In Composable functions, state that is read or modified by multiple functions should live in a common ancestor—this process is called state hoisting.
+
+- State Hoisting is can be done by passing state to it's children using callback function
+
+```kotlin
+@Composable
+fun Parent (/* args */) {
+
+    // state
+    var shouldShowOnboarding by remember { mutableStateOf(true) }
+
+    Column {
+        if (shouldShowOnboarding) {
+            // modify state by passing callback fn as target's click handler 
+            Child(onContinueClicked = { shouldShowOnboarding = false })
+        } else { /* do other things */}
+    }
+}
+
+
+/**
+* passing state through callback lambda
+*/
+@Composable
+fun Child(onContinueClicked: () -> Unit) {
+
+    Button(
+        onClick = onContinueClicked
+    ) {
+        Text("...")
+    }
+}
+```
+
+### LazyRow and LazyColumn:
+LazyColumn and LazyRow are equivalent to RecyclerView in Android Views. LazyColumn renders only the visible items on screen, allowing performance gains when rendering a big list.
+```kotlin
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+
+@Composable
+private fun Parent(
+    // creating a list of 1000 numbers
+    names: List<String> = List(1000) { "$it" } 
+) {
+    LazyColumn {
+        // using LazyListScope.items() to emit new composable when scrolled
+        items(items = names) { name ->
+            Child(name = name)
+        }
+    }
+}
+```
+
+### Animation:
+`animateDpAsState` returns a State object whose value will continuously be updated by the animation until it finishes. It takes a "target value" whose type is Dp
+
+```kotlin
+/**
+* @Composable
+public fun animateDpAsState(
+    targetValue: Dp, // accepts Float, Color, Offset, etc too
+    animationSpec: AnimationSpec<Dp>, // Physics animation will be used by default.
+    label: String,
+    finishedListener: ((Dp) -> Unit)?
+): State<Dp>
+*
+*/
+val extraPadding by animateDpAsState(
+    if (expanded) 48.dp else 0.dp,
+    animationSpec = spring(
+        dampingRatio = Spring.DampingRatioMediumBouncy,
+        stiffness = Spring.StiffnessLow
+    )
+)
+```
+
+* androidx.compose.animation.core
+* https://developer.android.com/jetpack/compose/animation/introduction
+
+### Animation Bug:
+* properties can never be negative, otherwise it could crash the app.

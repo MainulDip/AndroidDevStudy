@@ -4,12 +4,17 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
@@ -19,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Bottom
@@ -42,18 +48,21 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MyApp(
     modifier: Modifier = Modifier,
-    names: List<String> = listOf("World", "Compose")
+    names: List<String> = List(1000) { "$it" }
 ) {
 
-    var shouldShowOnboarding by remember { mutableStateOf(true) }
+    var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
 
     Column(modifier = modifier.padding(vertical = 4.dp)) {
 
         if (shouldShowOnboarding) { // Where does this come from?
             OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
         } else {
-            for (name in names) {
-                Greeting(name = name)
+            LazyColumn() {
+
+                items(items = names) {name ->
+                        Greeting(name = name)
+                }
             }
         }
     }
@@ -63,11 +72,19 @@ fun MyApp(
 private fun Greeting(name: String) {
 
     // define state
-    var expanded by remember {
+    var expanded by rememberSaveable {
         mutableStateOf(false)
     }
 
-    val extraPadding = if (expanded) 48.dp else 0.dp
+//    val extraPadding = if (expanded) 48.dp else 0.dp
+
+    val extraPadding by animateDpAsState(
+        if (expanded) 48.dp else 0.dp, label = "",
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        )
+    )
 
     Surface(
         color = MaterialTheme.colorScheme.primary,
@@ -97,7 +114,6 @@ private fun Greeting(name: String) {
 
 @Composable
 fun OnboardingScreen(onContinueClicked: () -> Unit, modifier: Modifier = Modifier) {
-    // TODO: This state should be hoisted
 
     Column(
         modifier = modifier.fillMaxSize(),

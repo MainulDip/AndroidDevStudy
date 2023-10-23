@@ -1,8 +1,8 @@
 ## Birds Eye view (Overviw):
-Building Android/Spring (Java/Kotlin) Apps from scratch should have some standardalized workflow to build it quickly, more systamically, also maintain and running Tests. Here are some personalized workflow docs and why cases.
+Building Android/Spring (Java/Kotlin) Apps from scratch should have some standardized workflow to build it quickly, more systemically, also maintain and running Tests. Here are some personalized workflow docs and why cases.
 
 
-### Why Interface and Abstract Classesz? How those help:
+### Why Interface and Abstract Classes? How those help:
  If the values of properties and implementations of functions are not known, make the class abstract. For example, Vegetables have many properties common to all vegetables, but you can't create an instance of a non-specific vegetable, because you don't know, for example, its shape or color. So Vegetable is an abstract class that leaves it up to the subclasses to determine specific details about each vegetable.
 
 Interfaces don’t have a constructor, one class can inherit multiple interfaces. Where only one abstract class can be inherited.
@@ -24,7 +24,7 @@ Abstract classes can’t be final because the main reason they exist is for othe
 
 
 ### When to use an interface (common functionality for unrelated classes):
-- If the functionality we are creating will be useful across a wide range of disparate objects, use an interface. Abstract classes should be used primarily for objects that are closely related, whereas interfaces are best suited for providing a common functionality to unrelated classes.
+- If the functionality we are creating will be useful across a wide range of disparate objects, use an interface. Abstract classes should be used primarily for objects that are closely related, whereas interfaces are best suited for providing a common functionality to unrelated classes
 
 - Interfaces are a good choice when we think that the API will not change for a while.
 
