@@ -1,9 +1,11 @@
 package com.websolverpro.jetpack_compose_basics
 
 import android.content.res.Configuration
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
@@ -15,8 +17,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -31,6 +39,7 @@ import androidx.compose.ui.Alignment.Companion.Bottom
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.websolverpro.jetpack_compose_basics.ui.theme.JetpackComposeBasicsTheme
 import kotlin.math.exp
 
@@ -78,13 +87,13 @@ private fun Greeting(name: String) {
 
 //    val extraPadding = if (expanded) 48.dp else 0.dp
 
-    val extraPadding by animateDpAsState(
-        if (expanded) 48.dp else 0.dp, label = "",
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessLow
-        )
-    )
+//    val extraPadding by animateDpAsState(
+//        if (expanded) 48.dp else 0.dp, label = "",
+//        animationSpec = spring(
+//            dampingRatio = Spring.DampingRatioMediumBouncy,
+//            stiffness = Spring.StiffnessLow
+//        )
+//    )
 
     Surface(
         color = MaterialTheme.colorScheme.primary,
@@ -93,19 +102,35 @@ private fun Greeting(name: String) {
         Row {
             Column(modifier = Modifier
                 .weight(1f)
-                .padding(bottom = extraPadding)
+//                .padding(bottom = extraPadding)
+                .animateContentSize(
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                        stiffness = Spring.StiffnessLow
+                    )
+                )
                 .padding(24.dp)) {
-                Text(text = "Hello, ")
-                Text(text = name)
+                Text(text = "Hello, ", style = MaterialTheme.typography.bodyLarge.copy(fontSize = 20.sp))
+                Text(text = name, style = MaterialTheme.typography.bodyLarge)
+                if (expanded) {
+                    Text(
+                        text = ("Composem ipsum color sit lazy, " +
+                                "padding theme elit, sed do bouncy. ").repeat(4),
+                    )
+                }
             }
 
             Column(modifier = Modifier
 //                .fillMaxWidth()
                 .padding(24.dp)) {
-                ElevatedButton(
-                    onClick = { expanded = !expanded }
-                ) {
-                    Text(if (expanded) "Show less" else "Show more")
+//                ElevatedButton(
+//                    onClick = { expanded = !expanded }
+//                ) {
+//                    Text(if (expanded) "Show less" else "Show more")
+//                }
+
+                IconButton(onClick = { expanded = !expanded }) {
+                    Icon(if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore, contentDescription = if (expanded) "Show less" else "Show more")
                 }
             }
         }

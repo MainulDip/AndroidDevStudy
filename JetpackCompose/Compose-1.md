@@ -60,10 +60,17 @@ fun GreetingPreview() {
 - Box : For Stacking Components
 - Spacer : provide horizontal spacing
 
-### Color Scheme and Surface:
+### Theming and Color Scheme and Surface:
 inside `setContent:AppNameTheme` the Surface( color = MaterialTheme.colorScheme.background ) {...} wrapper Set the background color (if Theme.kt has any background property) and if the colorScheme has `onBackground` property defined, the text be that
 
 Assigning Theme's Color from `res/values/colors.xml` using `R.color.*` will not work out-of-the-box. Best practice is to Assign colors directly using `Color(color = 0xXXXXXXXX)` and use it from the `Theme.kt` file
+
+Also, From any descendant composables, three properties of MaterialTheme can be retrieved and modified: `colorScheme`, `typography` and `shapes`.
+
+```kotlin
+// using MaterialTheme.typography.bodyLarge.copy retrieving and modifying a predefined style
+Text(text = "Hello, ", style = MaterialTheme.typography.bodyLarge.copy(fontSize = 20.sp))
+```
 
 ### Importing:
 Choose `androidx.compose.*` for compiler and runtime classes `androidx.compose.ui.*` for UI toolkit and libraries
@@ -174,9 +181,27 @@ val extraPadding by animateDpAsState(
     )
 )
 ```
+```kotlin
+
+// animate based on property change using Modifier
+Modifier.animateContentSize(
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        )
+    )
+```
 
 * androidx.compose.animation.core
 * https://developer.android.com/jetpack/compose/animation/introduction
 
 ### Animation Bug:
 * properties can never be negative, otherwise it could crash the app.
+
+### Material3 Icon
+add artifacts ``
+```kotlin
+IconButton(onClick = { expanded = !expanded }) {
+    Icon(if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore, contentDescription = if (expanded) "Show less" else "Show more")
+}
+```
