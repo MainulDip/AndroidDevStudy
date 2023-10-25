@@ -8,7 +8,7 @@ All about Networking and concurrency usages.
     - Race-condition: when multiple threads try to access the same value in memory at the same time. Race conditions can result in hard to reproduce, random looking bugs, which may cause your the to crash, often unpredictably.
 
 ### Kotlin Coroutine:
-Coroutines enable multitasking, but provide another level of abstraction over simply working with threads. One key feature of coroutines is the ability to store state, so that they can be halted and resumed. It provide singnaling with other coroutines (cooperative multitasking)
+Coroutines enable multitasking, but provide another level of abstraction over simply working with threads. One key feature of coroutines is the ability to store state, so that they can be halted and resumed. It provide signaling with other coroutines (cooperative multitasking)
 * CoroutineScope: is a context that enforces cancellation and other rules to its children and their children recursively. ie: launch() and async().
 * Job: a cancelable unit of work with a lifecycle, inside a CoroutineScope. ie: launch()
 * Dispatcher: it manages which backing thread the coroutine will use for its execution, removing the responsibility of when and where to use a new thread from the developer. Main for UI thread, Default, IO, or Unconfined will use other threads.
@@ -39,14 +39,14 @@ Note: the lambda passed to runBlocking and async are suspend functions, but runB
 * Content-Encoding:
     - br
 ### REST server (REpresentational State Transfer):
- - Client-Server architecture: Client and Server are Seperated
+ - Client-Server architecture: Client and Server are Separated
  - Resource exposed as URIs (Unified Resources Identifiers)
  - Uniform interface for CRUD operations
- - Stateless: Doesn't need to remember cliens states between requests, each HTTP request (GET/POST/PUT/DELETE) should contain necessary headers, parameters, etc.
+ - Stateless: Doesn't need to remember client's states between requests, each HTTP request (GET/POST/PUT/DELETE) should contain necessary headers, parameters, etc.
 
 ### Rerofit (Server Communication):
 It's a well supported library to communicate with the server by REST api.
-```kotiln
+```kotlin
 // add module build.gradle dependency
 // Retrofit 
 implementation "com.squareup.retrofit2:retrofit:2.9.0"
@@ -85,7 +85,7 @@ private fun getMarsPhotos() {
 This is required to access internet and ensure extra layer of privacy protection.
 ```txt
 # to ask internet permission, add user-permission as direct child of <manifest> tag in manifests/AndroidManifest.xml
-# Also app need to be uninstall and reinstll again to test
+# Also app need to be uninstall and reinstall again to test
 
 <manifest>
 <uses-permission android:name="android.permission.INTERNET" />
@@ -103,7 +103,7 @@ catch (e: SomeException) {
 }
 ```
 ### Moshi (Android JSON Parser):
-It Converts JSON string to Kotiln Object.
+It Converts JSON string to Kotlin Object.
 ```kotlin
 // add moshi to build.gradle (Module)
 // Moshi

@@ -80,6 +80,7 @@ Choose `androidx.compose.*` for compiler and runtime classes `androidx.compose.u
 https://developer.android.com/jetpack/compose/modifiers-list
 
 - `Modifier.weight(1f)` : The weight modifier makes the element fill all available space, making it flexible, effectively pushing away the other elements that don't have a weight, which are called inflexible. it kinda opposite of `fillMaxWidth()`
+- `Modifier.verticalScroll(state: rememberScrollState(),...)` : Modify element to allow to scroll vertically when height of the content is bigger than max constraints allow.
 
 ### Recomposition and State:
 Compose apps transform data into UI by calling composable functions. If data changes, Compose re-executes these functions with the new data, creating an updated UI through recomposition. Compose also looks at what data is needed by an individual composable so that it only needs to recompose components whose data has changed and skip recomposing those that are not affected.
@@ -139,9 +140,13 @@ fun Child(onContinueClicked: () -> Unit) {
     }
 }
 ```
+### Other state variable:
+`rememberScrollState()` : Create and remember the ScrollState based on the currently appropriate scroll configuration to allow changing scroll position or observing scroll behavior. Used to persist scroll position on Column/Row Composable like `Modifier.verticalScroll(state: rememberScrollState(),...)`
 
 ### LazyRow and LazyColumn:
 LazyColumn and LazyRow are equivalent to RecyclerView in Android Views. LazyColumn renders only the visible items on screen, allowing performance gains when rendering a big list.
+
+Some props are `contentPadding, reverseLayout: Boolean, horizontalArrangement: Arrangement.Horizontal, verticalAlignment: Alignment.Vertical, flingBehavior: FlingBehavior, userScrollEnabled: Boolean`
 ```kotlin
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -158,6 +163,30 @@ private fun Parent(
         }
     }
 }
+```
+### LazyHorizontalGrid:
+Instead of creating a LazyRow and let each item hold a Column with multiple Composable elements, `LazyHorizontalGrid` is a nicer mapping from items to grid elements. 
+
+Props as similar like LazyRow and LazyColumn.
+
+```kotlin
+LazyHorizontalGrid(
+        rows = GridCells.Fixed(2),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = modifier.height(168.dp)
+    ) {
+        items(DataList) { item ->
+            ChildComposable(...)
+        }
+    }
+```
+
+### Vertical/Horizontal Scrolling Lazy<Layout> or Layout:
+Lazy based layout provide out of the box scrollable feature, but Lazy layouts are good for Big amount of lists. When a list has only a limited number of elements, a simple Column or Row can be made scrollable adding the scroll behavior manually using `verticalScroll` or `horizontalScroll` modifiers and `ScrollState` prop . The ScrollState prop is used to create persistent scroll behavior using `rememberScrollState`
+```kotlin
+Column( Modifier.verticalScroll(rememberScrollState()) ) {...}
 ```
 
 ### Animation:
@@ -210,8 +239,23 @@ IconButton(onClick = { expanded = !expanded }) {
 ### Alignments Of Children From Parent Con (Column, Row, Box):
 Alignment can be used on the *`parent` container (Column, Row, Box) to position its children.
 
-On `Column` 's children's `horizontal` alignment is set using `Start`, `CenterHorizontally`, `End`
+On `Column`'s `cross/horizontal axis` children's alignment is set using `horizontalAlignment: Alignment.<Prop>`, Ex. `Start`, `CenterHorizontally`, `End`
 
-On `Row`, children's `vertical` alignment is set using `Top, CenterVertically, Bottom`
+On `Row`'s `cross/vertical axis` children's alignment is set using `verticalAlignment: Alignment.<Prop>`, Ex. `Top, CenterVertically, Bottom`
 
 On `Box`, children's both `vertical` and `horizontal` alignment can be set using `TopStart, TopCenter, TopEnd, CenterStart, Center, CenterEnd, BottomStart, BottomCenter, BottomEnd`
+
+Note: Column and Row has Cross and Main Axis. Column's main axis is the `Vertical` and Row's Main axis is `Horizontal`
+
+Row's Main axis alignment/arrangement can be set using `horizontalArrangement: Arrangement.<Prop>`. EX. `Equal Weight, Space Between, Space Around, Space Evenly, End (LTR), Center, Start (LTR), spacedBy(Value.dp)`
+
+Column's Main axis alignment/arrangement can be set using `verticalArrangement: Arrangement.<Prop>`. Ex. `Equal Weight, Space Between, Space Around, Space Evenly, Top, Center, Bottom, spacedBy(Value.dp)`
+
+### Slot API:
+Material components make heavy use of slot APIs, a pattern Compose introduces to bring in a layer of customization on top of composables. Slot-based layouts leave single/multiple empty space in the UI for the developer to fill as they wish. You can use them to create more flexible layouts. Like `TopAppBar` allows the content for title, navigationIcon, and actions along with the composable child callback.
+
+Another slot-based layout `Scaffold` provides slots for the most common top-level Material components, such as TopAppBar, BottomAppBar, FloatingActionButton, and Drawer
+Docs : https://developer.android.com/jetpack/compose/layouts/basics#slot-based-layouts
+
+
+### Bottom Navigation
