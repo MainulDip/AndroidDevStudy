@@ -63,6 +63,7 @@ fun GreetingPreview() {
 ### Theming and Color Scheme and Surface:
 inside `setContent:AppNameTheme` the Surface( color = MaterialTheme.colorScheme.background ) {...} wrapper Set the background color (if Theme.kt has any background property) and if the colorScheme has `onBackground` property defined, the text be that
 
+* Surface is a component in the Compose Material library. It follows general Material Design patterns.
 Assigning Theme's Color from `res/values/colors.xml` using `R.color.*` will not work out-of-the-box. Best practice is to Assign colors directly using `Color(color = 0xXXXXXXXX)` and use it from the `Theme.kt` file
 
 Also, From any descendant composables, three properties of MaterialTheme can be retrieved and modified: `colorScheme`, `typography` and `shapes`.
@@ -205,3 +206,12 @@ IconButton(onClick = { expanded = !expanded }) {
     Icon(if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore, contentDescription = if (expanded) "Show less" else "Show more")
 }
 ```
+
+### Alignments Of Children From Parent Con (Column, Row, Box):
+Alignment can be used on the *`parent` container (Column, Row, Box) to position its children.
+
+On `Column` 's children's `horizontal` alignment is set using `Start`, `CenterHorizontally`, `End`
+
+On `Row`, children's `vertical` alignment is set using `Top, CenterVertically, Bottom`
+
+On `Box`, children's both `vertical` and `horizontal` alignment can be set using `TopStart, TopCenter, TopEnd, CenterStart, Center, CenterEnd, BottomStart, BottomCenter, BottomEnd`

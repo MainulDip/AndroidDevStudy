@@ -1,5 +1,5 @@
 ## Overview:
-All about Data Persistance in Andriod.
+All about Data Persistance in Android.
 
 ### SQL Refresh:
 - table: the type of information. Its the template of the data
@@ -24,7 +24,7 @@ AND area_acres > 100000
 ```
 
 ### Common SQL Functions:
-* Aggregate functions:
+* Aggregate functions :
  - SUM(column_name) => calculate the sum of all values/rows in the column_name
  - COUNT(column_name) => return number of rows in that column
 * Non-aggregate function:
