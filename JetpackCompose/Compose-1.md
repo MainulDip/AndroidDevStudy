@@ -258,4 +258,74 @@ Another slot-based layout `Scaffold` provides slots for the most common top-leve
 Docs : https://developer.android.com/jetpack/compose/layouts/basics#slot-based-layouts
 
 
-### Bottom Navigation
+### Navigation (NavigationBar/NavigationBarItem and NavigationRail/NavigationRailItem):
+Inside `NavigationBar` (From Compose Material library) navigation item can be assigned horizontally using `NavigationBarItem`, which will get styled automatically by Material Lib.
+
+```kotlin
+NavigationBar (containerColor = MaterialTheme.colorScheme.surfaceVariant, modifier = modifier) { // this RowScope
+    NavigationBarItem(
+        selected = true,
+        onClick = { /*TODO*/ },
+        icon = {
+            Icon(imageVector = Icons.Default.Spa, contentDescription = "")
+        },
+        label = {
+            Text(text = "Home")
+        })
+}
+```
+`NavigationRail` provide Vertical interface for Navigation Items as `NavigationRailItem`.
+### Scaffold:
+Scaffold implements the basic material design visual layout structure.  It contains slots for various Material components to construct full layout.
+```kotlin
+// Signature
+@Composable
+fun Scaffold(
+    modifier: Modifier = Modifier,
+    topBar: @Composable () -> Unit = {},
+    bottomBar: @Composable () -> Unit = {},
+    snackbarHost: @Composable () -> Unit = {},
+    floatingActionButton: @Composable () -> Unit = {},
+    floatingActionButtonPosition: FabPosition = FabPosition.End,
+    containerColor: Color = MaterialTheme.colorScheme.background,
+    contentColor: Color = contentColorFor(containerColor),
+    contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
+    content: @Composable (PaddingValues) -> Unit
+): Unit
+```
+
+Example:
+```kotlin
+AppTheme {
+    Scaffold (bottomBar = { AppBottomNavigation()}) { paddingValues ->
+        AppContainerHome(
+            modifier = Modifier.padding(
+                paddingValues
+            )
+        )
+    }
+}
+```
+### Window Size For Portrait/Landscape Layout Rendering:
+There are three window size class widths: Compact, Medium and Expanded. When the app is in portrait mode it is Compact width, when it is in landscape mode it is Expanded width.
+Note: calculateWindowSize() is still experimental 
+```kotlin
+class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            val windowSizeClass = calculateWindowSizeClass(this)
+            MySootheApp(windowSizeClass)
+        }
+    }
+}
+
+@Composable
+fun ComposeApp(windowSize: WindowSizeClass) {
+    when (windowSize.widthSizeClass) {
+        WindowWidthSizeClass.Compact -> LLayoutPortrait()
+        else -> LayoutLandscape()
+    }
+}
+```
