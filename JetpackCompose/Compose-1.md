@@ -306,6 +306,7 @@ AppTheme {
     }
 }
 ```
+- Scaffold hoists state using rememberScaffoldState.
 ### Window Size For Portrait/Landscape Layout Rendering:
 There are three window size class widths: Compact, Medium and Expanded. When the app is in portrait mode it is Compact width, when it is in landscape mode it is Expanded width.
 Note: calculateWindowSize() is still experimental 

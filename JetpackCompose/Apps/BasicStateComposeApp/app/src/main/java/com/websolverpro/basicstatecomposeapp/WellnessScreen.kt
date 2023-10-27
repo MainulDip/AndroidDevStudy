@@ -16,8 +16,12 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun WellnessScreen(modifier: Modifier = Modifier) {
 //    WaterCounter(modifier)
+//    StatefulCounter(modifier)
 
-    StatefulCounter(modifier)
+    Column(modifier = modifier) {
+        StatefulCounter()
+        WellnessTasksList()
+    }
 }
 
 @Composable
@@ -40,7 +44,7 @@ fun StatefulCounter(modifier: Modifier = Modifier) {
 
     Column {
         StatelessCounter("Tag 1",waterCount, { waterCount++ })
-        StatelessCounter("Tag 2",juiceCount, { juiceCount++ })
-        StatelessCounter("Tag 3",waterCount, { waterCount++ })
+//        StatelessCounter("Tag 2",juiceCount, { juiceCount++ })
+//        StatelessCounter("Tag 3",waterCount, { waterCount++ })
     }
 }

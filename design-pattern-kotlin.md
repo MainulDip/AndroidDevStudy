@@ -91,7 +91,7 @@ fun main() {
 
 
 ### Design Pattern Common:
-* Adapter: Adapter is a design pattern that adapts the data into something that can be used by RecyclerView. Usually adapter fetch data from a datastore/databases and format the data to feed the ui/recyclerview.
+* Adapter: Adapter is a design pattern that adapts the data into something that can be used by RecyclerView. Usually adapter fetch data from a datastore/databases and format the data to feed the ui/recyclerview
 
 * ViewHolders: RecyclerView doesn't interact directly with item views, but deals with ViewHolders. A ViewHolder represents a single list item view in RecyclerView, and can be reused when possible. A ViewHolder instance holds references to the individual views within a list item layout (hence the name "view holder"). This makes it easier to update the list item view with new data. View holders also add information that RecyclerView uses to efficiently move views around the screen
 * LayoutInflater: inflate an XML layout into a hierarchy of view objects. Or simply it converts xml layout file into a view objects

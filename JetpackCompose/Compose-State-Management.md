@@ -58,3 +58,19 @@ Mechanism:
 * Decoupled: The state for a stateless composable function can be stored anywhere. For example, in a ViewModel.
 
 Note: A Composable can be `StateFull` or `StateLess`. By State Hoisting, a state (in a Compose Fn) is lifted upward to it's parent, making that stateless, and the state is passed using callback lambda from it's parent/caller. 
+
+### LazyColumn and rememberLazyListState:
+```kotlin
+@Composable
+fun LazyColumn(
+// ...
+    state: LazyListState = rememberLazyListState(),
+// ...
+)
+```
+
+The composable function rememberLazyListState creates an initial state for the list using rememberSaveable. When the Activity is recreated, the scroll state is maintained without you having to code anything.
+
+Docs : https://developer.android.com/jetpack/compose/lists#react-to-scroll-position
+
+### Observable MutableList (Management State With List Data) :

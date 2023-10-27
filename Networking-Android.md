@@ -171,7 +171,7 @@ imageView.load("https://www.example.com/image.jpg")
 imageView.load(File("/path/to/image.jpg"))
 ```
 ### Binding Adapter (Custom xml attribute setter binding) :
-For each xml attribute, android system use specific setter method to handle the value settings/implementation. 
+For each xml attribute, android system use specific setter method to handle the value settings/implementation
 To use a custom type attribute, the setter needs to be supplied
 ```xml
 <ImageView
