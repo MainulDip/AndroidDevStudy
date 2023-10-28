@@ -74,3 +74,24 @@ The composable function rememberLazyListState creates an initial state for the l
 Docs : https://developer.android.com/jetpack/compose/lists#react-to-scroll-position
 
 ### Observable MutableList (Management State With List Data) :
+From and Initial List : The extension function `toMutableStateList()` is the way to create an observable MutableList from an initial mutable or immutable Collection, such as List.
+```kotlin
+val listNum = listOf(1,2,3,4)
+val list = remember { listNum.toMutableStateList() }
+```
+
+From Empty List : the factory method `mutableStateListOf` can be used to create the observable MutableList and then the elements can be added to the initial state.
+```kotlin
+// don't
+val listNum = listOf(1,2,3,4)
+val list = remember { mutableStateListOf<WellnessTask>().apply { addAll(listNum) } }
+// list.addAll(listNum) will add duplicate item on every recomposition, so no addAll operation os state directly
+```
+
+Note : The `mutableStateOf` function returns an object of type MutableState<T>, `mutableStateListOf` and `toMutableStateList` functions return an object of type SnapshotStateList<T>
+
+Note : rememberSaveable with List<CustomType> will not work, need to provide custom saver (@Parcelize bundle). https://developer.android.com/jetpack/compose/state#restore-ui-state
+
+
+Docs for saving ui state : https://developer.android.com/topic/libraries/architecture/saving-states#onsaveinstancestate
+### Compose state and ViewModels:
