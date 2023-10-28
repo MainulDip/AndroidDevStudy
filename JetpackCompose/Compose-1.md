@@ -144,7 +144,7 @@ fun Child(onContinueClicked: () -> Unit) {
 `rememberScrollState()` : Create and remember the ScrollState based on the currently appropriate scroll configuration to allow changing scroll position or observing scroll behavior. Used to persist scroll position on Column/Row Composable like `Modifier.verticalScroll(state: rememberScrollState(),...)`
 
 ### LazyRow and LazyColumn:
-LazyColumn and LazyRow are equivalent to RecyclerView in Android Views. LazyColumn renders only the visible items on screen, allowing performance gains when rendering a big list.
+LazyColumn and LazyRow are equivalent to RecyclerView in Android Views. LazyColumn renders only the visible items on screen, allowing performance gains when rendering a big list
 
 Some props are `contentPadding, reverseLayout: Boolean, horizontalArrangement: Arrangement.Horizontal, verticalAlignment: Alignment.Vertical, flingBehavior: FlingBehavior, userScrollEnabled: Boolean`
 ```kotlin
@@ -252,7 +252,7 @@ Row's Main axis alignment/arrangement can be set using `horizontalArrangement: A
 Column's Main axis alignment/arrangement can be set using `verticalArrangement: Arrangement.<Prop>`. Ex. `Equal Weight, Space Between, Space Around, Space Evenly, Top, Center, Bottom, spacedBy(Value.dp)`
 
 ### Slot API:
-Material components make heavy use of slot APIs, a pattern Compose introduces to bring in a layer of customization on top of composables. Slot-based layouts leave single/multiple empty space in the UI for the developer to fill as they wish. You can use them to create more flexible layouts. Like `TopAppBar` allows the content for title, navigationIcon, and actions along with the composable child callback.
+Material components make heavy use of slot APIs, a pattern Compose introduces to bring in a layer of customization on top of composable. Slot-based layouts leave single/multiple empty space in the UI for the developer to fill as they wish. You can use them to create more flexible layouts. Like `TopAppBar` allows the content for title, navigationIcon, and actions along with the composable child callback.
 
 Another slot-based layout `Scaffold` provides slots for the most common top-level Material components, such as TopAppBar, BottomAppBar, FloatingActionButton, and Drawer
 Docs : https://developer.android.com/jetpack/compose/layouts/basics#slot-based-layouts
@@ -307,6 +307,7 @@ AppTheme {
 }
 ```
 - Scaffold hoists state using rememberScaffoldState.
+
 ### Window Size For Portrait/Landscape Layout Rendering:
 There are three window size class widths: Compact, Medium and Expanded. When the app is in portrait mode it is Compact width, when it is in landscape mode it is Expanded width.
 Note: calculateWindowSize() is still experimental 

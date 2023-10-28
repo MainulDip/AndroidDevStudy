@@ -95,3 +95,33 @@ Note : rememberSaveable with List<CustomType> will not work, need to provide cus
 
 Docs for saving ui state : https://developer.android.com/topic/libraries/architecture/saving-states#onsaveinstancestate
 ### Compose state and ViewModels:
+ViewModels provide the UI state and access to the business logic located in other layers of the app. ViewModels survive configuration changes, so they have a longer lifetime than the Composition (Composable/Views).
+* So in Compose (With viewModel) there is no need to use `remember` fn.
+
+```kotlin
+class WellnessViewModel : ViewModel() {
+    private val _tasks = getWellnessTasks().toMutableStateList()
+    val tasks: List<WellnessTask>
+        get() = _tasks
+
+
+   fun remove(item: WellnessTask) {
+       _tasks.remove(item)
+   }
+}
+
+private fun getWellnessTasks() = List(30) { i -> WellnessTask(i, "Task # $i") }
+
+/////////////////////////////////// Compose/View /////////////////////
+
+@Composable
+fun WellnessScreen(modifier: Modifier = Modifier, wellnessViewModel: WellnessViewModel = viewModel()) {
+
+    WellnessTasksList(
+        list = wellnessViewModel.tasks,
+        onCloseTask = { task -> wellnessViewModel.remove(task) })
+
+}
+```
+
+Note: To track any changes on data, it needs to be defined as `MutableState<T>`. Or sometime (for modification) removing the value and reassigning can force Compose to track the item, but this is an expensive task.
