@@ -232,11 +232,81 @@ Note: For design pattern about this, see the design-pattern-kotlin.md file
     - onBindViewHolder: It binds data using the CustomViewHolder class members through holder parameter. It also provide the position of the exact view element by position parameter to bind data exactly. We can attach onClickListener to fire another activity or all sort of things here
 
 ### Menu Item (On App Bar):
-see android-navigation-fundamental.md
+see Navigation-Fragments.md
+
+### TabLayout and ViewPager:
+TabLayout provides a horizontal layout to display tabs.
+https://developer.android.com/reference/com/google/android/material/tabs/TabLayout
+https://developer.android.com/reference/com/google/android/material/tabs/TabLayoutMediator
+```kotlin
+class HomeViewPagerFragment : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = FragmentViewPagerBinding.inflate(inflater, container, false)
+        val tabLayout = binding.tabs
+        val viewPager = binding.viewPager
+
+        viewPager.adapter = SunflowerPagerAdapter(this)
+
+        // Set the icon and text for each tab
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.setIcon(getTabIcon(position))
+            tab.text = getTabTitle(position)
+        }.attach()
+
+
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+
+        return binding.root
+    }
+
+    private fun getTabIcon(position: Int): Int {
+        return when (position) {
+            MY_GARDEN_PAGE_INDEX -> R.drawable.garden_tab_selector
+            PLANT_LIST_PAGE_INDEX -> R.drawable.plant_list_tab_selector
+            else -> throw IndexOutOfBoundsException()
+        }
+    }
+
+    private fun getTabTitle(position: Int): String? {
+        return when (position) {
+            MY_GARDEN_PAGE_INDEX -> getString(R.string.my_garden_title)
+            PLANT_LIST_PAGE_INDEX -> getString(R.string.plant_list_title)
+            else -> null
+        }
+    }
+}
+
+//////////////////////////////////////////////
+
+const val MY_GARDEN_PAGE_INDEX = 0
+const val PLANT_LIST_PAGE_INDEX = 1
+
+class SunflowerPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+
+    /**
+     * Mapping of the ViewPager page indexes to their respective Fragments
+     */
+    private val tabFragmentsCreators: Map<Int, () -> Fragment> = mapOf(
+        MY_GARDEN_PAGE_INDEX to { GardenFragment() },
+        PLANT_LIST_PAGE_INDEX to { PlantListFragment() }
+    )
+
+    override fun getItemCount() = tabFragmentsCreators.size
+
+    override fun createFragment(position: Int): Fragment {
+        return tabFragmentsCreators[position]?.invoke() ?: throw IndexOutOfBoundsException()
+    }
+}
+```
+
+### Material Android View Components:
+https://developer.android.com/reference/com/google/android/material/classes.html
+and check the available package list starting com.google.android.material.*
 
 ### Tasks:
-* Fragments, proto datastore (https://developer.android.com/codelabs/android-proto-datastore?hl=en#2)
-* ViewModel, Observable Data Objects and LiveData, 
-* Kotlin Flow..............
-* Everyting on -> App Architecture (Android Developers Docs)
-* Custom Annotation Java Kotlin.
+* Fragments, proto datastore (https://developer.android.com/codelabs/android-proto-datastore?hl=en#2).

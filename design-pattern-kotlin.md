@@ -144,7 +144,7 @@ binding.wordCount.text =
 
 ### LiveData and Observer:
 * LiveData is a observable data that can update the specific data ui when state changes
-* Observer is a concept that automatically update the ui if the targated live data changes.
+* Observer is a concept that automatically update the ui if the targated live data changes
 ```kotlin
 // defining livedata | Usually inside a viewmodel class
 private val _currentWordCount = MutableLiveData<Int>(0) // default value is 0
