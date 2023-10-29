@@ -82,11 +82,11 @@ binding.tipResult.text = getString(R.string.tip_amount, formattedTip)
 * Development Placeholder Text Attribute in activity xml: tools:text="Tip Amount: $7"
 
 ### Theming and Colors:
-As standered practice with Material UI Design, there can be 12 named color attributes.
-* 1st group: Primary, Primary Variand, Secondary, Secondary variant
-* 2nd group: Backgroun, Surface, Error
+As standard practice with Material UI Design, there can be 12 named color attributes.
+* 1st group: Primary, Primary Variant, Secondary, Secondary variant
+* 2nd group: Background, Surface, Error
 * 3rd group: On Primary, On Secondary, 
-* 4th group: On Backgroun, On Surface, On Error
+* 4th group: On Background, On Surface, On Error
 
 => Those are mapped into theme xml by camelCase (Not PascalCase, not snake_case) with 'color' prefix like => colorPrimary, colorPrimaryVariant, colorOnPrimary.
 
@@ -116,13 +116,13 @@ dependencies {
 Note: Material 2 to 3 => Theme.MaterialComponents.* become Theme.Material3.* for themes and Widget.MaterialComponents.* become Widget.Material3.* for widget styles.
 
 ### Extending Theme or calling other resource files attribute:
-Themes defaul value can be changed by defining inside theme file (usually themes.xml). Theme's name is defiened inside resources' style "name" attribute, and usually there will be a parent theme like "<style name="Theme.UITesting" parent="Theme.MaterialComponents.DayNight.DarkActionBar">". The Theme is hooked by the AndroidManifest.xml application attribute's android:theme="@style/Theme.UITesting" entry.
+Themes default value can be changed by defining inside theme file (usually themes.xml). Theme's name is defined inside resources' style "name" attribute, and usually there will be a parent theme like "<style name="Theme.UITesting" parent="Theme.MaterialComponents.DayNight.DarkActionBar">". The Theme is hooked by the AndroidManifest.xml application attribute's android:theme="@style/Theme.UITesting" entry.
 
-Gradle will enlist all defiend attributes inside res directory, filename can be anything (stick with best practice) but attribute name should be specific like style, dimen, bool, color, etc. When referencing from other xml files, use @attributetype/attribute_unique_name convension. 
+Gradle will enlist all defined attributes inside res directory, filename can be anything (stick with best practice) but attribute name should be specific like style, dimen, bool, color, etc. When referencing from other xml files, use @attributetype/attribute_unique_name convention. 
 
 Docs : Resources Type https://developer.android.com/guide/topics/resources/more-resources
 
-* Widget : For a specific view type, widget can also be defiend to extend the style at component basis. Widget name should be on "Widget.AppName.ViewName" convension where parent name is "Widget.MaterialComponent.ViewName". Several attributes can be set once for a targeted view and can be reused maintaining DRY principle.
+* Widget : For a specific view type, widget can also be defined to extend the style at component basis. Widget name should be on "Widget.AppName.ViewName" convension where parent name is "Widget.MaterialComponent.ViewName". Several attributes can be set once for a targeted view and can be reused maintaining DRY principle.
 
 ### Activity xml's parent view:
 Parent view should define the xml namespaces
@@ -138,7 +138,7 @@ Parent view should define the xml namespaces
 
 
 ### Hiding Keyboard | using view.setOnFocusChangeListener :
-Keyboard can be hide when enter is pressed and when focus is changed. To utilize view.setOnFocusChangeListener, activity's (xml) layout container should be enlist android:clickable="true" and android:focusableInTouchMode="true" (Not inside non-layout container like scrollview). Then use view.setOnFocusChangeListener. To hide keyboar on enter press, its simple
+Keyboard can be hide when enter is pressed and when focus is changed. To utilize view.setOnFocusChangeListener, activity's (xml) layout container should be enlist android:clickable="true" and android:focusableInTouchMode="true" (Not inside non-layout container like scrollview). Then use view.setOnFocusChangeListener. To hide keyboard on enter press, its simple
 ```kotlin
 // inside onCreate func
 view.apply {
@@ -175,7 +175,7 @@ private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
 * End-to-end tests or big tests verify larger parts of the app at the same time, such as a whole screen or user flow.
 * Medium tests are in between and check the integration between two or more units.
 
-#### Instumented/UI testing example using espresso:
+#### Instrumented/UI testing example using espresso:
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
@@ -216,7 +216,7 @@ testImplementation 'org.mockito:mockito-core:3.12.4'
 * unit tests run on the JVM and not on an actual device, so there is no Context. The mock method allows us to create a "mocked" instance of a Context. It doesn't have any real functionality, but it can be used to test methods that require a context..............
 
 ### RecyclerView, Adapter, ViewHolder, Layout Inflatter:
-Note: For design pattery about this, see the design-pattern-kotlin.md file
+Note: For design pattern about this, see the design-pattern-kotlin.md file
 * RecyclerView: Android optimized view for list items.
 * Adapter: Adapter is a design pattern that adapts the data into something that can be used by RecyclerView. Usually adapter fetch data from a datastore/databases and format the data to feed the ui/recyclerview.
 
@@ -228,8 +228,8 @@ Note: For design pattery about this, see the design-pattern-kotlin.md file
 - Define the CustomAdapter class with necessary constructor args and inherit from the RecyclerView.Adapter<CustomViewHolder>(). Then override all 3 abstract methods as IDE Suggest
 - The 3 Adapter methods are
     - getItemCount: Provide the size of the data/list
-    - onCreateViewHolder: Create view object from the layout file using LayoutInFlatter. Then return the CustomViewHolder(inflatedLayout). On background it passess the object to the onBindViewHolder method's holder parameter.
-    - onBindViewHolder: It binds data using the CustomViewHolder class members through holder parameter. It also provide the position of the exact view element by position parameter to bind data exactly. We can attatch onClickListener to fire another activity or all sort of things here
+    - onCreateViewHolder: Create view object from the layout file using LayoutInFlatter. Then return the CustomViewHolder(inflatedLayout). On background it passes the object to the onBindViewHolder method's holder parameter.
+    - onBindViewHolder: It binds data using the CustomViewHolder class members through holder parameter. It also provide the position of the exact view element by position parameter to bind data exactly. We can attach onClickListener to fire another activity or all sort of things here
 
 ### Menu Item (On App Bar):
 see android-navigation-fundamental.md

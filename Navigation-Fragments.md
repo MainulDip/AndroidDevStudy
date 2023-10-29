@@ -18,7 +18,7 @@ An intent is an object representing some action to be performed. Like lanuching 
 
 ### Setting Implicit Intent:
 * types: Action_VIEW (Open in browser), CATEGORY_APP_MAPS (Launhes Maps), CATEGORY_APP_EMAIL (launching the email app), CATEGORY_APP_GALLERY (launching the gallery (photos), ACTION_SET_ALARM, ACTION_DIAL (phone call)
-* Commont Types: https://developer.android.com/guide/components/intents-common
+* Common Types: https://developer.android.com/guide/components/intents-common
 
 * Steps:
     - Define intent like val intent = Intent(Intent.ACTION_VIEW, query_url)
@@ -68,7 +68,7 @@ An intent is an object representing some action to be performed. Like lanuching 
         }
     }
 ```
-### Activity Lyfecycle Methods:
+### Activity Lifecycle Methods:
 * onCreate() : called once, just after the activity is initialized (when the new Activity object is created in memory). Tasks here are inflate the layout, initialized variables, define click listeners, or set up view binding.
 
 * onStart(): is called just after onCreate(). After onStart() runs, the activity is visible on the screen. Unlike onCreate(), which is called only once to initialize the activity, onStart() can be called many times in the lifecycle of your activity. onStart() is paired with a corresponding onStop().
@@ -183,7 +183,7 @@ With app selected in the Project Navigator, add the following fragments (File > 
 * intent in Fragment: fragments don't have direct access to the intent, so can be referenced it with activity.intent
 
 
-### Setting Up Jetpck Navigaiton Component:
+### Setting Up Jetpack Navigation Component:
 * Navigation Dependency Adding:
     - in project build.gradle (also top level) add nav_version equal to 2.5.2 in buildscript ext object.
         - or constant can also be defiend inside dsl object by > def constantName = "constantValue"
@@ -199,7 +199,7 @@ With app selected in the Project Navigator, add the following fragments (File > 
     - app-level build.gradle file, within plugins at the top, add
         - id 'androidx.navigation.safeargs.kotlin'
 
-### Jetpack Navigation Component Brif:
+### Jetpack Navigation Component Brief:
  The navigation component simply refers to the collection of tools for implementing navigation, particularly between fragments.
 
 The Navigation component has three key parts
@@ -222,7 +222,7 @@ app:navGraph="@navigation/nav_graph" />
 
 3. NavController: this object control the navigation between destinations displayed in the NavHost. When working with intents, you had to call startActivity to navigate to a new screen. With the Navigation component, you can call the NavController's navigate() method to swap the fragment that's displayed.
 
-### Brif Start up of the Jetpack Navigation Component:
+### Brief Start up of the Jetpack Navigation Component:
 - Creating Navigation Graph: File > New > Android Resource File and create Resource Type "Navigation", give it a name (which is referenced from FragmentContainerView's' app:navGraph attribute inside of an activity).
 
 - Destination: Inside the newly created file, add destinations. 
@@ -260,7 +260,7 @@ app:navGraph="@navigation/nav_graph" />
         navController = navHostFragment.navController
         setupActionBarWithNavController(navController)
 ```
-### Activiti to Fragment to Intent Summary
+### Activitiy to Fragment to Intent Summary
 - Setup a container for Fragment inside an activity. 
 ### Navigational Components:
 * NavHostFragment: Container for home/destinations fragments, provide destination direction/action's info. But the actual navigation is done using code by NavController.
@@ -292,9 +292,9 @@ The ViewModel is a model of the app data that is displayed in the views. Models 
  ### ViewModel Implementation:
  1. add the ViewModel Dependencies inside module's build.gradle
  2. create Model class Inheriting form ViewModel()
- 3. Inside UI-Controller (Framgment/Activity) delegate property of the Model class by viewModels()
+ 3. Inside UI-Controller (Fragment/Activity) delegate property of the Model class by viewModels()
 
- * viewModels() return Lazyly, so when the reference is first access, it will be created.
+ * viewModels() return Lazily, so when the reference is first access, it will be created.
 
  NB: by delegating from viewModels(), the android system handles the data persistance of the Model class. The delegate class creates the viewModel object for you on the first access, and retains its value through configuration changes and returns the value when requested.
 
@@ -320,13 +320,13 @@ private val myViewModel by viewModels<MyViewModel>()
  private val sharedViewModel: OrderViewModel by activityViewModels()
  ```
 
- ### Livedata:
+ ### LiveData:
  LiveData is an observable data holder class that is lifecycle-aware.
  - LiveData holds data; LiveData is a wrapper that can be used with any type of data.
  - LiveData is observable, which means that an observer is notified when the data held by the LiveData object changes.
  - LiveData is lifecycle-aware, meaning it only updates observers that are in an active lifecycle state. When you attach an observer to the LiveData, the observer is associated with a LifecycleOwner (usually an activity or fragment). The LiveData only updates observers that are in an active lifecycle state such as STARTED or RESUMED. You can read more about LiveData and observation : https://developer.android.com/topic/libraries/architecture/livedata.html#work_livedata .
 
- ### Creating Livedata and hooking observer:
+ ### Creating LiveData and hooking observer:
  When data is changed hooked observer will be notified and it will update the UI according to the observer callback in fragment/activity.
  1. MutableLiveData : private val _something = MutableLiveData<String>() [Or initial value using MutableLiveData(InitialValue)]
  2. LiveData<T>: For getter only (for the newly created val above)
@@ -340,7 +340,7 @@ viewModel.currentScrambledWord.observe(viewLifecycleOwner, Observer { newWord ->
  ```
  Note : if observed data is changed, it will call the lambda.
  ### LiveData With DataBindings:
-Data binding binds the UI components in layouts to data sources using a declarative format. It's a part of the Android Jetpack library.
+Data binding binds the UI components in layouts to data sources using a declarative format. It's a part of the Android JetPack library.
 * In simpler terms Data binding is binding data (from code) to views + view binding (binding views to code)
 ```kotlin
 // Here viewModel is the delegated GameViewModel : ViewModel() instance.
@@ -469,14 +469,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main)
  */
 ```
 
-### Fragment to Framment Navigation or Navigation to a destination:
+### Fragment to Fragment Navigation or Navigation to a destination:
 To retrieve the NavController, Use
 * Form Fragment: Fragment.findNavController()
 * From View: View.findNavController()
 * From Activity: Activity.findNavController(viewId: Int)
 
 ```kotlin
-// Navigatie to a destination from a fragment
+// Navigate to a destination from a fragment
 import androidx.navigation.fragment.findNavController
 
 findNavController().navigate(R.id.action_startFragment_to_flavorFragment)
@@ -496,13 +496,13 @@ Docs: https://developer.android.com/guide/navigation/navigation-navigate
  ```
 
  ### viewModels() vs activityViewModels vs navGraphViewModels() :
- * viewModels() is used to scoped to the fragment where it initialised. When that attached fragment get destroy, viewModels() will also get destroyed.
+ * viewModels() is used to scoped to the fragment where it initialized. When that attached fragment get destroy, viewModels() will also get destroyed.
     => private val sharedViewModel: OrderViewModel by viewModels()
 
  * activityViewModels() is used to scoped to its activity and when its activity get destroy, activityViewModels() will be destroyed as well.
     => private val sharedViewModel: OrderViewModel by activityViewModels()
 
- * navGraphViewModels() is ViewModel that bind to navigation graph and will persist throughout the entire backstack of that navigation graph. This is how we persist our data throughout certain Fragment and dispose these when exit this navigation graph.
+ * navGraphViewModels() is ViewModel that bind to navigation graph and will persist throughout the entire back-stack of that navigation graph. This is how we persist our data throughout certain Fragment and dispose these when exit this navigation graph.
     => private val viewModel: TheViewModel by navGraphViewModels(R.navigation.nav_graph)
 
 
@@ -527,12 +527,12 @@ The Android framework provides a class called SimpleDateFormat, which is a class
 Docs: https://developer.android.com/reference/java/text/SimpleDateFormat#date-and-time-patterns
 
 
-### LivecycleOwner and Livedata observer:
+### LifecycleOwner and LiveData observer:
 Fragments/UI controllers are the lifecycle owner. LifecycleOwner is a class that has an Android lifecycle, such as an activity or a fragment. 
 
-A LiveData observer observes the changes to the app's livedata only if the lifecycle owner is in active states.
+A LiveData observer observes the changes to the app's liveData only if the lifecycle owner is in active states.
 
-In dataBinding, UI controllers read the data when first read. To update UI instantly when a livedata changes, lificycle owner is also need to be bound. It's the way of setting observer on LiveData.
+In dataBinding, UI controllers read the data when first read. To update UI instantly when a livedata changes, lifecycle owner is also need to be bound. It's the way of setting observer on LiveData.
 
 * viewLifecycleOwner is tied to when the fragment has (and loses) its UI (onCreateView(), onDestroyView())
 
