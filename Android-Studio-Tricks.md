@@ -17,3 +17,6 @@ Debugging From Scratch:
 => Find the main activity (entry point) in manifest.xml
 => From entry Point, find the attached modules or view files
 => Find if there is a Navigation Graph
+
+### Notes on adding Dependencies:
+* First add the root/project level `build.gradle` requirements and build/sync. Then add all other module level gradle requirements.
