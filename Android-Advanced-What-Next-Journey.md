@@ -1,6 +1,6 @@
 ## So what's next to the Advanced Android Journey:
 NB: Topics followed by *** are to check first.
-* *** Dagger-Hilt
+* *** Dagger-Hilt, android project structures
 * *** Android Notification
 * *** RX-Java, RX-Android and Retrofit
 * *** AGP: Android Gradle Plugin
@@ -40,3 +40,10 @@ NB: Topics followed by *** are to check first.
     - JNI (Java Native Interface): https://www.baeldung.com/jni
         - https://www.baeldung.com/java-native
 - Android AR/VR/3d.
+### Next Android Specific:
+- Dagger-Hilt and Dagger2
+- Clean Code and MVVM
+- Room and Room Migration
+- Retrofit
+- Notification
+- Work Manager

@@ -7,3 +7,13 @@
 ### Compose:
 - typing `wc` in editor for column template
 - Tooling : https://developer.android.com/jetpack/compose/tooling#editor-actions
+
+### Jump Start Unknown/Other's Project:
+Visual Debugging : 
+=> Use layout Inspector with live emulator's update
+=> Analyze the app inside emulator and layout inspector at the same time
+
+Debugging From Scratch:
+=> Find the main activity (entry point) in manifest.xml
+=> From entry Point, find the attached modules or view files
+=> Find if there is a Navigation Graph
