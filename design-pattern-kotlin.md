@@ -103,10 +103,14 @@ fun main() {
 
  * The main classes or components in Android Architecture are UI Controller (activity/fragment), ViewModel, LiveData and Room.
 
- ### ViewModel:
- It's a Model to feed data to View(UI Controller's like activity/fragment) Closely. It separate the data from the UI/View so that the data/state can persist untill UI finishes (garbase collected).
+ ### Repository Design Pattern:
+ The repository pattern is a design pattern that isolates the data layer from the rest of the app. The data layer refers to the part of the app, separate from the UI, that handles the app's data and business logic, exposing consistent APIs for the rest of your app to access this data.
+ <img src="./Images/other-images/repository-design-pattern.png"/>
 
- * the viewModel is created by delegating viewModels() UI Controller's method so that the Android system can persist the viewModel object state internally and keep that until the UI is garbase collected or finished.
+ ### ViewModel:
+ It's a Model to feed data to View(UI Controller's like activity/fragment) Closely. It separate the data from the UI/View so that the data/state can persist until UI finishes (garbage collected).
+
+ * the viewModel is created by delegating viewModels() UI Controller's method so that the Android system can persist the viewModel object state internally and keep that until the UI is garbage collected or finished.
 
  ```kotlin
  // 1. add the ViewModel Dependencies inside module's build.gradle
