@@ -170,7 +170,7 @@ interface ScheduleDao {
 Marks the JVM backing field of the annotated property as volatile, meaning that writes to this field are immediately made visible to other threads.
 
 ### synchronized (lock: Any, block: () -> R): R | on method:
-This function (like java)  protects the code block from concurrent execution by multiple threads by the monitor of the instance (or, for static methods, the class or object/companion) on which the method is defined.
+This function (like java)  protects the code block from concurrent execution by multiple threads by the monitor of the instance (or, for static methods, the class or object/companion) on which the method is defined
 ### Room Migration:
 * migration object with a migration strategy is required for when the schema changes
 * A migration object is an object that defines how to take all rows with the old schema and convert them to rows in the new schema, so that no data is lost.
