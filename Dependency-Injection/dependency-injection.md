@@ -40,3 +40,4 @@ The service locator pattern is a design pattern used in software development to 
 - Hilt : Built on top of Dagger, maintained by google
 - Dagger2 : Maintained by google but more lower-level than Hilt, hence complex
 - Google Guice (pronounced like "juice") : https://github.com/google/guice
+### Manual Dependency Injection (Container Pattern):
