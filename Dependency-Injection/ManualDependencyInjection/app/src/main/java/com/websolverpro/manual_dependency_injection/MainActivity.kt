@@ -12,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.websolverpro.manual_dependency_injection.datasource.LoginRetrofitService
+import com.websolverpro.manual_dependency_injection.datasource.LoginUserData
 import com.websolverpro.manual_dependency_injection.datasource.User
 //import com.google.gson.GsonBuilder
 import com.websolverpro.manual_dependency_injection.datasource.UserLocalDataSource
@@ -31,6 +32,8 @@ import retrofit2.create
 class MainActivity : ComponentActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var loginData: LoginUserData
+    private lateinit var appContainer: AppContainer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +41,14 @@ class MainActivity : ComponentActivity() {
             ManualDependencyInjectionTheme {
 
                 val appContainer = (application as MyApplication).appContainer
-                loginViewModel = LoginViewModel(appContainer.userRepository)
+                loginViewModel = appContainer.loginViewModelFactory.create()
+
+                // Login flow has started. Populate loginContainer in AppContainer
+                appContainer.loginContainer = LoginContainer(appContainer.userRepository)
+
+                loginViewModel = appContainer.loginContainer!!.loginViewModelFactory.create()
+                loginData = appContainer.loginContainer!!.loginData
+
 
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -49,6 +59,14 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+
+    override fun onDestroy() {
+        // Login flow is finishing
+        // Removing the instance of loginContainer in the AppContainer
+        appContainer.loginContainer = null
+        super.onDestroy()
     }
 }
 

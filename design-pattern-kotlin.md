@@ -442,3 +442,14 @@ int main()
 * G++ : C++ compiler, which stands for "GNU C++" compiler
 
 NB: Both can be used with c and c++, they are the same, just different front-end (will justify later)
+
+### Android App Structure:
+Model-View-ViewModel with Repository
+
+UI/View Layer
+
+Domain Layer (optional utils class with `UseCase` suffix each with a singular job) to apply further business logic on Data from the `ViewModel Layer`. Sometime Domain layer is replaced by `Utils` functions. But applying `Domain Layer` is a good practice.
+
+ViewModel Layer: Apply business logics on Data and forward to Domain or UI/View Layers
+
+Data Layer : Consist of `Repository`, `DataSource` and Database `Models` layers, where repository collects data form DataSources and apply business logics that involve sort/merge/manage data to confirm appropriate shape from different sources.  

@@ -41,3 +41,6 @@ The service locator pattern is a design pattern used in software development to 
 - Dagger2 : Maintained by google but more lower-level than Hilt, hence complex
 - Google Guice (pronounced like "juice") : https://github.com/google/guice
 ### Manual Dependency Injection (Container Pattern):
+`Singleton pattern` to share/reuse objects: Dependency Injection using singleton pattern makes testing more difficult because all tests share the same singleton instance.
+
+`Container Pattern` to manage Dependencies: To solve the issue of reusing objects and inject those for different scenarios (app/test), a dependencies container class can be used to get dependencies. All instances provided by this container can be public.
