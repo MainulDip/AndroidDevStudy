@@ -8,6 +8,7 @@ import com.websolverpro.manual_dependency_injection.repository.UserRepository
 import com.websolverpro.manual_dependency_injection.viewmodel.LoginViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.runBlocking
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -21,7 +22,7 @@ class AppContainer {
         .build()
         .create(LoginRetrofitService::class.java)
 
-    val remoteDataSource = UserRemoteDataSource(retrofit2.getUser())
+    val remoteDataSource = UserRemoteDataSource(runBlocking { retrofit2.getUser() })
 
     val localDataSource = UserLocalDataSource()
 

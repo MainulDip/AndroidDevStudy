@@ -1,7 +1,7 @@
-package com.websolverpro.`dagger-basics`.factories
+package com.websolverpro.dagger2basics.factories
 
-import com.websolverpro.`dagger-basics`.repository.UserRepository
-import com.websolverpro.`dagger-basics`.viewmodel.LoginViewModel
+import com.websolverpro.dagger2basics.repository.UserRepository
+import com.websolverpro.dagger2basics.viewmodel.LoginViewModel
 
 // Definition of a Factory interface with a function to create objects of a type
 interface Factory<T> {

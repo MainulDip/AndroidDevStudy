@@ -1,4 +1,4 @@
-package com.websolverpro.`dagger-basics`.ui.theme
+package com.websolverpro.dagger2basics.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

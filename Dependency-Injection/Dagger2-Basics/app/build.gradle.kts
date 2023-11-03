@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.websolverpro.dagger_basics"
+    namespace = "com.websolverpro.dagger2basics"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.websolverpro.dagger_basics"
+        applicationId = "com.websolverpro.dagger2basics"
         minSdk = 29
         targetSdk = 34
         versionCode = 1

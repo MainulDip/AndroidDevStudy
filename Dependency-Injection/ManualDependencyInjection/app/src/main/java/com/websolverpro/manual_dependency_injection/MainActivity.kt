@@ -49,6 +49,8 @@ class MainActivity : ComponentActivity() {
                 loginViewModel = appContainer.loginContainer!!.loginViewModelFactory.create()
                 loginData = appContainer.loginContainer!!.loginData
 
+                println(appContainer.remoteDataSource.userId)
+
 
                 // A surface container using the 'background' color from the theme
                 Surface(

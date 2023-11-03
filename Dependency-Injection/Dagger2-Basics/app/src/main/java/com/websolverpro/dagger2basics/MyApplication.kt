@@ -1,4 +1,4 @@
-package com.websolverpro.`dagger-basics`
+package com.websolverpro.dagger2basics
 
 import android.app.Application
 

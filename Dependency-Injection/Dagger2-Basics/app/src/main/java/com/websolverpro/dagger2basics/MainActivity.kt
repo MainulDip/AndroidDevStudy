@@ -1,4 +1,4 @@
-package com.websolverpro.`dagger-basics`
+package com.websolverpro.dagger2basics
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,10 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.websolverpro.`dagger-basics`.datasource.LoginUserData
+import com.websolverpro.dagger2basics.datasource.LoginUserData
 //import com.google.gson.GsonBuilder
-import com.websolverpro.`dagger-basics`.ui.theme.ManualDependencyInjectionTheme
-import com.websolverpro.`dagger-basics`.viewmodel.LoginViewModel
+import com.websolverpro.dagger2basics.ui.theme.DaggerBasicsTheme
+import com.websolverpro.dagger2basics.viewmodel.LoginViewModel
 
 class MainActivity : ComponentActivity() {
 
@@ -24,16 +24,17 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ManualDependencyInjectionTheme {
+            DaggerBasicsTheme {
 
-                val appContainer = (application as MyApplication).appContainer
-                loginViewModel = appContainer.loginViewModelFactory.create()
-
-                // Login flow has started. Populate loginContainer in AppContainer
-                appContainer.loginContainer = LoginContainer(appContainer.userRepository)
-
-                loginViewModel = appContainer.loginContainer!!.loginViewModelFactory.create()
-                loginData = appContainer.loginContainer!!.loginData
+//                val appContainer = (application as MyApplication).appContainer
+                val appContainer2 = (application as MyApplication).appContainer
+//                loginViewModel = appContainer.loginViewModelFactory.create()
+//
+//                // Login flow has started. Populate loginContainer in AppContainer
+//                appContainer.loginContainer = LoginContainer(appContainer.userRepository)
+//
+//                loginViewModel = appContainer.loginContainer!!.loginViewModelFactory.create()
+//                loginData = appContainer.loginContainer!!.loginData
 
 
                 // A surface container using the 'background' color from the theme
@@ -67,7 +68,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    ManualDependencyInjectionTheme {
+    DaggerBasicsTheme {
         Greeting("Android")
     }
 }
