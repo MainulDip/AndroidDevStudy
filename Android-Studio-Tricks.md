@@ -20,3 +20,8 @@ Debugging From Scratch:
 
 ### Notes on adding Dependencies:
 * First add the root/project level `build.gradle` requirements and build/sync. Then add all other module level gradle requirements.
+
+### Chaingin Project Name:
+=> From Studio's project tab as `Android`, refactor all occurrence by selecting `com.something.<packagename>` to new name. 
+=> Also change app level build.gradle's `applicationID` and `namespace` with valid format (no dash `-`, use underscore `_`)
+=> Also change settings.gradle's rootprojectname. 
