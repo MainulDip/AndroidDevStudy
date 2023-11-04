@@ -1,3 +1,11 @@
+### Topics:
+* ViewModel (Shared/Single)
+* LiveData
+* Data Binding
+* LifecycleOwner to set LiveData observer
+* Adaptive Layout (SlidingPaneLayout)
+* For `Flow` see DataPersistance markdown
+
 ### ViewModel (Android Jetpack Architecture Components):
 The ViewModel is a model of the app data that is displayed in the views. Models are components that are responsible for handling the data for an app. ViewModels are Models Specific to Views. ViewModel allow your app to follow the architecture principle, driving the UI from the model.
 ### UI Controllers(activity/fragment) vs ViewModel:

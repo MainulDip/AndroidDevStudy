@@ -13,31 +13,31 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class AppContainer {
 
-    private lateinit var loginViewModel: LoginViewModel
-
-    val retrofit2 by lazy {
-        Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com//todos/1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(LoginRetrofitService::class.java)
-    }
-
-//    val someusr = User(12,12,"Something", true)
-
-
-    val remoteDataSource = UserRemoteDataSource(runBlocking { retrofit2.getUser() })
-
-//    val remoteDataSource = UserRemoteDataSource(someusr)
-
-    val localDataSource = UserLocalDataSource()
-
-    val userRepository = UserRepository(localDataSource, remoteDataSource)
-
-    // LoginContainer will be null when the user is NOT in the login flow
-    var loginContainer: LoginContainer? = null
-
-    val loginViewModelFactory = LoginViewModelFactory(userRepository)
+//    private lateinit var loginViewModel: LoginViewModel
+//
+//    val retrofit2 by lazy {
+//        Retrofit.Builder()
+//            .baseUrl("https://jsonplaceholder.typicode.com//todos/1/")
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//            .create(LoginRetrofitService::class.java)
+//    }
+//
+////    val someusr = User(12,12,"Something", true)
+//
+//
+//    val remoteDataSource = UserRemoteDataSource(runBlocking { retrofit2.getUser() })
+//
+////    val remoteDataSource = UserRemoteDataSource(someusr)
+//
+//    val localDataSource = UserLocalDataSource()
+//
+//    val userRepository = UserRepository(localDataSource, remoteDataSource)
+//
+//    // LoginContainer will be null when the user is NOT in the login flow
+//    var loginContainer: LoginContainer? = null
+//
+//    val loginViewModelFactory = LoginViewModelFactory(userRepository)
 
 
 }

@@ -718,7 +718,7 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 * Project Configuration on Android Studio: ctrl+alt+shift+s to edit
 ### Back Navigation Customization:
-For some case, like webview and slidingPaneLayout, we need custom navigation instade of the default to create better ux for the user, so user can navigate inside webview or can navigate slidingpanelayout differently on both smaller and larger screen. If custom behaviout is not implemented, pressing the back button will close the current stack/task
+For some case, like webview and slidingPaneLayout, we need custom navigation instade of the default to create better ux for the user, so user can navigate inside webview or can navigate slidingPaneLayout differently on both smaller and larger screen. If custom behaviout is not implemented, pressing the back button will close the current stack/task
 
 ### SlidingPaneLayout Custom Back Button Implementation:
 SlidingPaneLayout provide the state of the layout through isEnable and isOpen as boolean. The boolean isSlideable will only be true if the second pane is slidable, which would be on a smaller screen and a single pane is being displayed. The value of isOpen will be true if the second pane - the contents pane is completely open.
@@ -766,11 +766,11 @@ val slidingPaneLayout = binding.slidingPaneLayout
 ### Important Topics:
 * FragmentManager / supportFragmentManager: this class responsible for performing actions on app's fragments, such as adding, removing, or replacing them, and adding them to the back stack.
 
-Every FragmentActivity and subclasses thereof, such as AppCompatActivity, have access to the FragmentManager through the getSupportFragmentManager() method. Inside fragment it can be retrived by getParentFragmentManager() or getChildFragmentManager().
+Every FragmentActivity and subclasses thereof, such as AppCompatActivity, have access to the FragmentManager through the getSupportFragmentManager() method. Inside fragment it can be retrieved by getParentFragmentManager() or getChildFragmentManager().
 
 Docs: https://developer.android.com/guide/fragments/fragmentmanager
 
-* NavController : Navigating to a destination is done using a NavController, an object that manages app navigation within a NavHost. Each NavHost has its own corresponding NavController. Can be retrived by findNavController() method.
+* NavController : Navigating to a destination is done using a NavController, an object that manages app navigation within a NavHost. Each NavHost has its own corresponding NavController. Can be retrieved by findNavController() method.
 ```kotlin
 findNavController().navigate(R.id.action_startOrderFragment_to_entreeMenuFragment)
 ```

@@ -14,20 +14,24 @@ import com.websolverpro.dagger2basics.datasource.LoginUserData
 //import com.google.gson.GsonBuilder
 import com.websolverpro.dagger2basics.ui.theme.DaggerBasicsTheme
 import com.websolverpro.dagger2basics.viewmodel.LoginViewModel
+import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
 
-    private lateinit var loginViewModel: LoginViewModel
+    @Inject lateinit var loginViewModel: LoginViewModel
     private lateinit var loginData: LoginUserData
     private lateinit var appContainer: AppContainer
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        (applicationContext as MyApplication).appComponent.inject(this)
+
         super.onCreate(savedInstanceState)
         setContent {
             DaggerBasicsTheme {
 
 //                val appContainer = (application as MyApplication).appContainer
-                val appContainer2 = (application as MyApplication).appContainer
+//                val appContainer2 = (application as MyApplication).appContainer
 //                loginViewModel = appContainer.loginViewModelFactory.create()
 //
 //                // Login flow has started. Populate loginContainer in AppContainer
@@ -52,7 +56,7 @@ class MainActivity : ComponentActivity() {
     override fun onDestroy() {
         // Login flow is finishing
         // Removing the instance of loginContainer in the AppContainer
-        appContainer.loginContainer = null
+//        appContainer.loginContainer = null
         super.onDestroy()
     }
 }
