@@ -5,7 +5,7 @@ import com.websolverpro.dagger2basics.datasource.UserRemoteDataSource
 import javax.inject.Inject
 
 /**
- * Merges local and remote fetch
+ * Merges local and remote fetches
  */
 class UserRepository @Inject constructor (
     private val localDataSource: UserLocalDataSource,
