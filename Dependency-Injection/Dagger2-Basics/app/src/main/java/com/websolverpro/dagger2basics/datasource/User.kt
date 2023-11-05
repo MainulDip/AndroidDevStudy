@@ -1,5 +1,7 @@
 package com.websolverpro.dagger2basics.datasource
 
+import dagger.Module
+import dagger.Provides
 import javax.inject.Inject
 
 data class User @Inject constructor (val  userId: Int)
@@ -11,3 +13,15 @@ data class User @Inject constructor (val  userId: Int)
 //    "title": "delectus aut autem",
 //    "completed": false
 //}
+
+
+@Module
+class SingleUser () {
+
+    private var theUser = User(77)
+
+    @Provides
+    fun getAllUsers(): User {
+        return theUser
+    }
+}

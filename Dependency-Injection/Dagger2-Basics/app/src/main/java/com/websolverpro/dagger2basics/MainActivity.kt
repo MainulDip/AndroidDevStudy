@@ -25,6 +25,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         (applicationContext as MyApplication).appComponent.inject(this)
+        println("Getting user from loginViewModel user's id is : ${loginViewModel.userFromViewModel}")
 
         super.onCreate(savedInstanceState)
         setContent {
@@ -46,7 +47,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    Greeting("Getting user from loginViewModel user's id is : ${loginViewModel.userFromViewModel}")
                 }
             }
         }
@@ -62,9 +63,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting(text: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
+        text = "$text!",
         modifier = modifier
     )
 }

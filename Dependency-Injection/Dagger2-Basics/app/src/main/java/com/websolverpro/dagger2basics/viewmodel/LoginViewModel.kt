@@ -4,5 +4,5 @@ import com.websolverpro.dagger2basics.repository.UserRepository
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(userRepository: UserRepository) {
-
+    val userFromViewModel = userRepository.userFromRepo
 }
