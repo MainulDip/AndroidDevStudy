@@ -43,4 +43,4 @@ The service locator pattern is a design pattern used in software development to 
 ### Manual Dependency Injection (Container Pattern):
 `Singleton pattern` to share/reuse objects: Dependency Injection using singleton pattern makes testing more difficult because all tests share the same singleton instance.
 
-`Container Pattern` to manage Dependencies: To solve the issue of reusing objects and inject those for different scenarios (app/test), a dependencies container class can be used to get dependencies. All instances provided by this container can be public.
+`Container Pattern` to manage Dependencies: To solve the issue of reusing objects and inject those for different scenarios (app/test), a dependencies container class can be used to get dependencies. All instances provided by this container can be public

@@ -81,6 +81,17 @@ class EnterDetailsFragment : Fragment() {
         return view
     }
 
+    /**
+     * User Registration Form
+     * After Adding Credentials, Next Button press will
+     * Trigger EnterDetailsViewModel's validate fn
+     * On validation success, fields will be stored there
+     * as the property is a observed live data, onChange, it will
+     * trigger the observe callback declared inside onCreateView of
+     * this class, which will again trigger RegistrationViewModel's updateUserData fn
+     * and trigger the RegistrationActivity's onDetailsEntered fn
+     */
+
     private fun setupViews(view: View) {
         errorTextView = view.findViewById(R.id.error)
 
@@ -97,6 +108,11 @@ class EnterDetailsFragment : Fragment() {
         }
     }
 }
+
+/**
+ * Sealed class used here are for defining the livedata's type and restricting
+ * livedata's observe callback's when case (so no need to use else block)
+ */
 
 sealed class EnterDetailsViewState
 object EnterDetailsSuccess : EnterDetailsViewState()
