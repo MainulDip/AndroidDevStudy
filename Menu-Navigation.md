@@ -44,6 +44,6 @@ There are two ways to provide contextual actions:
 
 ### Popup Menu:
 Guide: https://developer.android.com/develop/ui/views/components/menus#PopupMenu
-
 ### Bottom Navigation:
 Guide: https://www.geeksforgeeks.org/bottom-navigation-bar-in-android/.
+Docs: https://developer.android.com/reference/com/google/android/material/bottomnavigation/BottomNavigationView

@@ -112,6 +112,9 @@ With Fragment, Android Navigation Component is used. Navigation Component can be
 
 - `FragmentManager` classes (`supportFragmentManager`) are used to navigation between Activity/Fragment to Fragment when `Navigation Graph` is not begin used
 
+
+Guide `FragmentManager`: https://developer.android.com/guide/fragments/fragmentmanager
+
 ### Activity/Fragment to Fragment Navigation (With NavController/NavGraph):
 Navigation Graph (Fragment Focused Navigation) represents app's navigation configuration in a recourse file (commonly NavGraph.xml). A host view is used (As Activity's ContentView) where individual `Fragments` are swapped to make the navigation happen. This host view is used to hold the `Navigation Graph` inside FragmentContainerView. FragmentContainerView has `androidx.navigation.fragment.NavHostFragment` Navigation Component Implementation, which by default comes with Navigation Component Package.
 
