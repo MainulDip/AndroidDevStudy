@@ -158,3 +158,10 @@ R8: Tool to optimize app for release
 - Obfuscate the code: rename fn and variable's into short unreadable names for release app (make reverse-engineering difficult)
 
 * in build.gradle set buildTypes { release {...}} include `minifyEnable true`, `shrinkEnable true` and add `proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'`
+
+### Ongoing:
+- https://developer.android.com/guide/navigation/migrate
+- Menu system
+
+### From:
+- Dagger-Codelab-1

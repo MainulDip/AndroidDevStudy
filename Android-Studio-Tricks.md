@@ -25,3 +25,7 @@ Debugging From Scratch:
 => From Studio's project tab as `Android`, refactor all occurrence by selecting `com.something.<packagename>` to new name. 
 => Also change app level build.gradle's `applicationID` and `namespace` with valid format (no dash `-`, use underscore `_`)
 => Also change settings.gradle's rootprojectname. 
+
+### Some Common Errors:
+* non-Gradle Java modules + Android-Gradle modules in one project:
+    - `Invalidate Cache and Restart` => after restart => close the project => then delete `.gradle` and `.idea` directory from the root of the project => open Android Studio and Open the selected project.

@@ -26,4 +26,4 @@ Serialization is a mechanism for converting the state (Data) of an object into a
 
 - Retrofit and Moshi [ can be used with coroutine ]
 
-### Android Coroutine
+### Android Coroutines:
