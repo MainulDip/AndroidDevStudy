@@ -61,6 +61,8 @@ android {
 }
 ```
 
+ViewBinding Guide: https://developer.android.com/topic/libraries/view-binding#activities
+
 ### DataBinding vs ViewBinding:
 View binding and data binding both generate binding classes that can be used to reference views directly. 
 
@@ -76,6 +78,8 @@ On the other hand, view binding has the following limitations compared to data b
 
 
 Because of these considerations, in some cases it's best to use both view binding and data binding in a project. You can use data binding in layouts that require advanced features and use view binding in layouts that don't.
+
+DataBinding Guide: https://developer.android.com/topic/libraries/data-binding#using_the_data_binding_library
 
 ### Activity to Activity, Fragment to Activity and Fragment to Fragment Navigation:
 Navigation can be done without using Navigation Graph.

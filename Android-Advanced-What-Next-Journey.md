@@ -42,6 +42,9 @@ NB: Topics followed by *** are to check first.
 - Android AR/VR/3d.
 ### Next Android Specific:
 - Dagger-Hilt and Dagger2
+    - Ongoing : Dagger-CodeLab-1
+    - Brushing-Up Navigation, NavControllers and Menu (Menu-Navigation.md, Munu-Apps)
+    - Quick-Note-Android.md
 - Clean Code and MVVM
 - Room and Room Migration
 - Retrofit
