@@ -151,9 +151,52 @@ The Navigation Component consists of three key parts, working together in harmon
 NavController object is used to navigate into a destination abd show the appropriate destination in the NavHostFragment.
 
 ### Brief about Navigation Graph:
-Inside Navigation Graph, the Navigation component refers to individual screens as destinations. Destinations can be fragments, activities, or custom destinations. You can add any type of destination to your graph, but note that activity destinations are considered terminal destinations, because once you navigate to an activity destination, you are operating within a separate navigation host and graph.
+Inside Navigation Graph, the Navigation component refers to individual screens as destinations. Destinations can be fragments, activities, or custom destinations. activity destinations are considered terminal destinations, because once you navigate to an activity destination, you are operating within a separate navigation host and graph.
 
 The Navigation component refers to the way in which users get from one destination to another as actions. Actions can also describe transition animations and pop behavior.
+
+navigation XML file anatomy =>
+- `<navigation>` is the root node of every navigation graph.
+- `<navigation>` contains one or more destinations, represented by `<activity>` or `<fragment>` elements.
+- `app:startDestination` is an attribute that specifies the destination that is launched by default when the user first opens the app.
+
+
+- `android:id` defines an ID for the fragment that you can use to reference the destination elsewhere in this XML and your code.
+- `android:name` declares the fully qualified class name of the fragment to instantiate when you navigate to that destination.
+- `tools:layout` specifies what layout should be shown in the graphical editor.
+
+Note: Its easier to make navigation graph than describe in words
+
+### Attaching NavGraph in NavHostFragment:
+Inside a layout file of an Activity, NavHostFragment host the NavGraph and Swapping take place inside of it. 
+```xml
+<LinearLayout>
+    <fragment
+        android:id="@+id/my_nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/mobile_navigation" />
+</LinearLayout>
+```
+
+### Using NavController With Navigation Graph:
+`NavController` triggers wapping of fragments in the `NavHostFragment`.
+
+NavController can be referenced from fragment, activity or view using
+
+- Fragment.findNavController()
+- View.findNavController()
+- Activity.findNavController(viewId: Int)
+
+with the NavController, a destination or action ID can be used to navigate.
+```kotlin
+findNavController().navigate(R.id.flow_step_one_dest, null)
+
+Navigation.createNavigateOnClickListener(R.id.flow_step_one_dest, bundle = null)
+```
+
 
 ### 
 ### Drawer Layout and Navigation:

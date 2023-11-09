@@ -3,10 +3,34 @@ Menu navigation can be done with `FragmentManager` or `NavController` using Navi
 
 Ongoing > Menu, Drawer, Bottom Navigation > https://developer.android.com/codelabs/android-navigation#0
 
+### Menu:
+Menu can be created as xml file using android-studio's `new` => `create resource file` => select type as `Menu`
+
+```xml
+<menu ...>
+
+    <item
+        android:id="@+id/item_1"
+        android:checkable="true"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_lock_silent_mode_off"
+        android:title="DD"
+        android:titleCondensed="D"
+        android:visible="true"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/item_2"
+        android:icon="@android:drawable/btn_star_big_on"
+        android:title="Item"
+        android:visible="true"
+        app:showAsAction="always" />
+</menu>
+```
+
 ### Drawer Layout || Navigation Drawer:
 https://developer.android.com/guide/navigation/integrations/ui#add_a_navigation_drawer
 
-### NavigationUI (NavController) || Top app bar:
+### NavigationUI (NavController) || Top AppBar/ToolBar/ActionBar:
 The top app bar provides a consistent place along the top of your app for displaying information and actions from the current screen.
 
 NavigationUI provides support for the following top app bar types
@@ -16,7 +40,7 @@ NavigationUI provides support for the following top app bar types
 
 Top App Bar Guide: https://developer.android.com/guide/navigation/integrations/ui
 
-### Option Menu:
+### Option Menu (Top NavBar):
 The options menu is the primary collection of menu items for an activity. It's where you place actions that have a global impact on the app, such as "Search," "Compose email," and "Settings."
 
 Option Menu Guide : https://developer.android.com/develop/ui/views/components/menus#options-menu
@@ -30,10 +54,18 @@ Guide: https://developer.android.com/guide/navigation/integrations/ui#include_co
 ### ActionBar:
 A primary toolbar within the activity that may display the activity title, application-level navigation affordances, and other interactive items.
 
-From your activity, you can retrieve an instance of ActionBar by calling getActionBar().
+From your activity, you can retrieve an instance of ActionBar by calling getActionBar()/supportActionBar().
 
 Docs: https://developer.android.com/reference/android/app/ActionBar
 Docs Guide: https://developer.android.com/develop/ui/views/components/appbar
+
+```kotlin
+// setting an action bar without app title, where the layout file has a toolbar view
+val toolbar = findViewById<Toolbar>(R.id.toolbar)
+    setSupportActionBar(toolbar) // setting an action bar
+    // by default the actionBar's title will be app name defined in manifest.xml
+    supportActionBar?.setDisplayShowTitleEnabled(false); // removing actionBar/toolBar's title as app name
+```
 
 ### ActionMode || Contextual Menu:
 Represents a contextual mode of the user interface. Action modes can be used to provide alternative interaction modes and replace parts of the normal UI until finished. Examples of good action modes include text selection and contextual actions.
