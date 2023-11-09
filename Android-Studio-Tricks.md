@@ -26,6 +26,22 @@ Debugging From Scratch:
 => Also change app level build.gradle's `applicationID` and `namespace` with valid format (no dash `-`, use underscore `_`)
 => Also change settings.gradle's rootprojectname. 
 
+### Easy Debug:
+Add Associated Class (tools:context) in root layout element per file => `tools:context="com.domain.project.package.className"`
+
 ### Some Common Errors:
 * non-Gradle Java modules + Android-Gradle modules in one project:
     - `Invalidate Cache and Restart` => after restart => close the project => then delete `.gradle` and `.idea` directory from the root of the project => open Android Studio and Open the selected project.
+
+* Kotlin and compileDebugJavaWithJavac' version mismatch => Make all the version use same JDK
+```kotlin
+// build.gradle.kt :app level
+compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+kotlinOptions {
+    jvmTarget = JavaVersion.VERSION_17
+}
+```

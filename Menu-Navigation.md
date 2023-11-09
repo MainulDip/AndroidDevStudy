@@ -1,6 +1,8 @@
 ### Overview:
 Menu navigation can be done with `FragmentManager` or `NavController` using NavigationUI. NavigationUI is NavGraph based.
 
+Ongoing > Menu, Drawer, Bottom Navigation > https://developer.android.com/codelabs/android-navigation#0
+
 ### Drawer Layout || Navigation Drawer:
 https://developer.android.com/guide/navigation/integrations/ui#add_a_navigation_drawer
 

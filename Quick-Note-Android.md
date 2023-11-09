@@ -142,6 +142,14 @@ Docs: See `Create a navigation graph` section from https://developer.android.com
 * Note: Each activity Needs separate Navigation Graph.
 - `NavController` classes (``)
 
+### Brief about JetPack Navigation (NavController):
+The Navigation Component consists of three key parts, working together in harmony. They are:
+
+- `Navigation Graph` (New XML resource) - contains all navigation-related information (Destination, Args) in one centralized location per activity.
+- `NavHostFragment` (Layout XML view)=> a special widget inside layout. It displays different destinations from Navigation Graph.
+- `NavController` (Kotlin/Java object) - keeps track of the current position within the navigation graph. It orchestrates swapping destination content in the NavHostFragment as user moves through a navigation graph.
+NavController object is used to navigate into a destination abd show the appropriate destination in the NavHostFragment.
+
 ### Brief about Navigation Graph:
 Inside Navigation Graph, the Navigation component refers to individual screens as destinations. Destinations can be fragments, activities, or custom destinations. You can add any type of destination to your graph, but note that activity destinations are considered terminal destinations, because once you navigate to an activity destination, you are operating within a separate navigation host and graph.
 
@@ -165,3 +173,4 @@ R8: Tool to optimize app for release
 
 ### From:
 - Dagger-Codelab-1
+- JetPack Compose CodeLab

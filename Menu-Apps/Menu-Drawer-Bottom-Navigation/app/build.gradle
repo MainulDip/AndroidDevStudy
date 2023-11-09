@@ -19,11 +19,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
-    compileSdkVersion 31
+    compileSdk 33
     defaultConfig {
         applicationId 'com.example.android.codelabs.navigation'
         minSdkVersion 21
-        targetSdkVersion 31
+        //noinspection EditedTargetSdkVersion
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -45,12 +46,17 @@ android {
     productFlavors {
     }
 
-    lintOptions {
-        abortOnError false
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = JavaVersion.VERSION_17
+    }
+    namespace 'com.example.android.codelabs.navigation'
+    lint {
+        abortOnError false
     }
 }
 
