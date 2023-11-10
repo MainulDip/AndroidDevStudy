@@ -26,6 +26,7 @@ Menu can be created as xml file using android-studio's `new` => `create resource
         app:showAsAction="always" />
 </menu>
 ```
+### Navigation Animation and NavigationOptions:
 
 ### Drawer Layout || Navigation Drawer:
 https://developer.android.com/guide/navigation/integrations/ui#add_a_navigation_drawer
