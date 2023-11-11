@@ -200,21 +200,51 @@ Navigation.createNavigateOnClickListener(R.id.flow_step_one_dest, bundle = null)
 ### NavController With Destination-ID/Action-ID/Destination:
 NavigationController can call different method to navigate to the destination
 
-- Using Fragment/View's id
-
-- Using Action id
+- Using Fragment/View's id (the id of the next navigating Fragment)
 ```kotlin
-findNavController().navigate(resId = R.id.flow_step_one_dest, args = null, navOptions = options)
+findNavController().navigate(R.id.id_of_next_fragment, null)
 ```
 
-- 
+- Using Action id (this provide some extra benefit, like, automatic animation inclusion and safe args auto generation of action class)
+```kotlin
+findNavController().navigate(resId = R.id.next_destination, args = null, navOptions = options)
+
+// or 
+Navigation.createNavigateOnClickListener(R.id.next_destination, null)
+```
+
+- Using NavDirections
 ```kotlin
 val action: NavDirections = HomeFragmentDirections.nextAction() // arguments can be supplied here
 findNavController().navigate(action) // NavOptions can also fit here
 ```
+### Argument Passing/Receiving With NavController:
+Arguments can be Passed using NavController's `navigate()` method's parameter.
+
+Receiving/Reading arguments can be done on the navigated fragment using
+- using `argument` bundle of the fragment, like `val argumentName = arguments?.getInt("argumentName")`
+- using safe args plugin (which is auto generated). It's type safe (no need like getInt()), so considered best practice for receiving arguments. It's done like this from the receiving/navigated fragment
+```kotlin
+val safeArgs: FragmentNameArgs by navArgs()
+val argumentName = safeArgs.argumentName
+```
+
+### Safe Args:
+It Generates classes from the Navigation Graph and provide a type safe way to call graph's definition. It provide
+- Fragment's argument accessor as `FragmentNameArgs`
+- Fragment's Direction class as `FragmentNameDirections` and it's actions as method of it
+
+```kotlin
+// Argument class hookup
+val safeArgs: FlowStepFragmentArgs by navArgs()
+val argumentName = safeArgs.argumentName
+
+// Direction class hookup
+val action: NavDirections = HomeFragmentDirections.nextAction() // arguments can be supplied here
+findNavController().navigate(action)
+```
 
 
-### 
 ### Drawer Layout and Navigation:
 
 ### ProGuard and R8:

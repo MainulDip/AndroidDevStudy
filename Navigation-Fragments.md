@@ -242,14 +242,15 @@ app:navGraph="@navigation/nav_graph" />
             app:destination="@id/wordListFragment" >
             <argument
                 android:name="letter"
-                app:argType="string" />
+                app:argType="string"
+                android:defaultValue="Dummy Text" />
         </action>
     </fragment>
 ```
 
-- arguments vs intent.extra: in fragment there are no intent.extra available because when navigation between fragments, we don't fire new intents. Data is transfered between fragments using FragmentDirection/action and can be get using arguments?.getString(Key).toString()
+- arguments vs intent.extra: in fragment there are no intent.extra available because when navigation between fragments, we don't fire new intents. Data is transferred between fragments using FragmentDirection/action and can be get using arguments?.getString(Key).toString()
 
-- Fragment Labeling: Set title/lebel name in app/action bar from main activity using
+- Fragment Labeling: Set title/label name in app/action bar from main activity using
 ```kotlin
 /**
          * setting action/top bar's title as Fragment's title
@@ -260,7 +261,7 @@ app:navGraph="@navigation/nav_graph" />
         navController = navHostFragment.navController
         setupActionBarWithNavController(navController)
 ```
-### Activitiy to Fragment to Intent Summary:
+### Activity to Fragment to Intent Summary:
 - Setup a container for Fragment inside an activity. 
 ### Navigational Components:
 * NavHostFragment: Container for home/destinations fragments, provide destination direction/action's info. But the actual navigation is done using code by NavController.
