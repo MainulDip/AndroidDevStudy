@@ -56,3 +56,7 @@ class FlowStepFragment : Fragment() {
         )
     }
 }
+
+//class FlowStepOneFragment : FlowStepFragment()
+
+//typealias FlowStepOneFragment = FlowStepFragment

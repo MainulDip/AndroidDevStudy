@@ -197,6 +197,19 @@ findNavController().navigate(R.id.flow_step_one_dest, null)
 Navigation.createNavigateOnClickListener(R.id.flow_step_one_dest, bundle = null)
 ```
 
+### NavController With Destination-ID/Action-ID/Destination:
+NavigationController can call different method to navigate to the destination
+
+- Using Fragment/View's id
+
+- Using Action id
+
+- 
+```kotlin
+val action: NavDirections = HomeFragmentDirections.nextAction() // arguments can be supplied here
+findNavController().navigate(action) // NavOptions can also fit here
+```
+
 
 ### 
 ### Drawer Layout and Navigation:

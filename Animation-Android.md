@@ -90,3 +90,5 @@ val image: ImageView = findViewById(R.id.image)
 val hyperspaceJump: Animation = AnimationUtils.loadAnimation(this, R.anim.hyperspace_jump)
 image.startAnimation(hyperspaceJump)
 ```
+
+### Animation With NavController:

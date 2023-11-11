@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false);
+//        supportActionBar?.setDisplayShowTitleEnabled(false);
 
         val host: NavHostFragment = supportFragmentManager
                 .findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment? ?: return

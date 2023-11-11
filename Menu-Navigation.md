@@ -27,6 +27,19 @@ Menu can be created as xml file using android-studio's `new` => `create resource
 </menu>
 ```
 ### Navigation Animation and NavigationOptions:
+The Defined animation can be used with NavigationController's NavOption using NavOptionBuilder
+```kotlin
+val options: NavOptions = navOptions {
+    anim {
+        enter = R.anim.slide_in_right
+        exit = R.anim.slide_out_left
+        popEnter = R.anim.slide_in_left
+        popExit = R.anim.slide_out_right
+    }
+}
+
+findNavController().navigate(resId = R.id.destination_id, args = null, navOptions = options)
+```
 
 ### Drawer Layout || Navigation Drawer:
 https://developer.android.com/guide/navigation/integrations/ui#add_a_navigation_drawer
