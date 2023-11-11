@@ -203,6 +203,9 @@ NavigationController can call different method to navigate to the destination
 - Using Fragment/View's id
 
 - Using Action id
+```kotlin
+findNavController().navigate(resId = R.id.flow_step_one_dest, args = null, navOptions = options)
+```
 
 - 
 ```kotlin

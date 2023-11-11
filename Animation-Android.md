@@ -92,3 +92,39 @@ image.startAnimation(hyperspaceJump)
 ```
 
 ### Animation With NavController:
+NavController can use animation defined in
+- Navigation Graph's `action`, which will automatically picked
+- Creating a NavOptions object using `navOptions{anime{...}}` (NavOptionsBuilder) and passing it by `findNavController().navigate(action, navOptions)`
+
+Note : if animation is in xml's action, no need for navOption only for animations
+```xml
+<fragment
+    android:id="@+id/home_dest"
+    ...>
+
+    <action
+        android:id="@+id/next_action"
+        app:destination="@id/flow_step_one_dest"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+</fragment>
+```
+
+```kotlin
+val options = navOptions {
+    anim {
+        enter = R.anim.slide_in_right
+        exit = R.anim.slide_out_left
+        popEnter = R.anim.slide_in_left
+        popExit = R.anim.slide_out_right
+    }
+}
+
+// both can be used
+// val action = HomeFragmentDirections.nextAction()
+// findNavController().navigate(action, options)
+
+findNavController().navigate(resId = R.id.flow_step_one_dest, args = null, navOptions = options)
+```

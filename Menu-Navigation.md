@@ -26,6 +26,7 @@ Menu can be created as xml file using android-studio's `new` => `create resource
         app:showAsAction="always" />
 </menu>
 ```
+Then use the menu
 ### Navigation Animation and NavigationOptions:
 The Defined animation can be used with NavigationController's NavOption using NavOptionBuilder
 ```kotlin

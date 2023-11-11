@@ -218,7 +218,7 @@ app:navGraph="@navigation/nav_graph" />
 
 * on name attribute of the FragmentContainerView, specifying androidx.navigation.fragment.NavHostFragment other than a specific fragment, allows FragmentContainerView to navigate between fragments in editor panel.
 
-2. NavHost: used to display destinations from a navigation graph within an activity. When you navigate between fragments, the destination shown in the NavHost is updated. You'll use a built-in implementation, called NavHostFragment, in your MainActivity
+2. NavHost: used to display destinations from a navigation graph within an activity. When you navigate between fragments, the destination shown in the NavHost is updated. You'll use a built-in implementation, called NavHostFragment, in your MainActivity.
 
 3. NavController: this object control the navigation between destinations displayed in the NavHost. When working with intents, you had to call startActivity to navigate to a new screen. With the Navigation component, you can call the NavController's navigate() method to swap the fragment that's displayed.
 
@@ -260,12 +260,12 @@ app:navGraph="@navigation/nav_graph" />
         navController = navHostFragment.navController
         setupActionBarWithNavController(navController)
 ```
-### Activitiy to Fragment to Intent Summary
+### Activitiy to Fragment to Intent Summary:
 - Setup a container for Fragment inside an activity. 
 ### Navigational Components:
 * NavHostFragment: Container for home/destinations fragments, provide destination direction/action's info. But the actual navigation is done using code by NavController.
 
-* NavController: Conducts Actual Navigation Using the NavHostFragment's NavDirections info.
+* NavController: Conducts Actual Navigation Using the NavHostFragment's NavDirections info
 ```kotlin
 val action: NavDirections = LetterListFragmentDirections.actionLetterListFragmentToWordListFragment(letter = holder.button.text.toString())
 holder.view.findNavController().navigate(action)
