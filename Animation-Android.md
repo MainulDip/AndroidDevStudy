@@ -96,7 +96,7 @@ NavController can use animation defined in
 - Navigation Graph's `action`, which will automatically picked
 - Creating a NavOptions object using `navOptions{anime{...}}` (NavOptionsBuilder) and passing it by `findNavController().navigate(action, navOptions)`
 
-Note : if animation is in xml's action, no need for navOption only for animations
+Note : if animation is in xml's action, no need for navOption only for animations.
 ```xml
 <fragment
     android:id="@+id/home_dest"

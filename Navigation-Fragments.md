@@ -374,7 +374,7 @@ android:text="@{gameViewModel.currentScrambledWord}"
        android:layout_height="match_parent">
 
        <androidx.constraintlayout.widget.ConstraintLayout
-         ...
+         ... >
        </androidx.constraintlayout.widget.ConstraintLayout>
    </ScrollView>
 </layout>

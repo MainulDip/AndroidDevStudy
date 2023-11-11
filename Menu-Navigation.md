@@ -41,6 +41,25 @@ val options: NavOptions = navOptions {
 
 findNavController().navigate(resId = R.id.destination_id, args = null, navOptions = options)
 ```
+### NavigationUI and navigation-ui-ktx of NavController:
+NavigationUI class and the navigation-ui-ktx kotlin extensions is included with Navigation-Component/NavController. NavigationUI has static methods that associate menu items with navigation destinations, and navigation-ui-ktx is a set of extension functions that do the same. 
+
+* If NavigationUI finds a menu item with the same ID as a destination on the current graph, it configures the menu item to navigate to that destination.
+
+Individual menu items are mapped in activity's `onCreateOptionsMenu` and `onOptionsItemSelected` override callback.
+```kotlin
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
+        // TODO STEP 9.2 - Have Navigation UI Handle the item selection - make sure to delete
+        //  the old return statement above
+//        // Have the NavigationUI look for an action or destination matching the menu
+//        // item id and navigate there if found.
+//        // Otherwise, bubble up to the parent.
+//        return item.onNavDestinationSelected(findNavController(R.id.my_nav_host_fragment))
+//                || super.onOptionsItemSelected(item)
+        // TODO END STEP 9.2
+    }
+```
 
 ### Drawer Layout || Navigation Drawer:
 https://developer.android.com/guide/navigation/integrations/ui#add_a_navigation_drawer
