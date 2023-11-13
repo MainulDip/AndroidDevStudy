@@ -50,3 +50,8 @@ NB: Topics followed by *** are to check first.
 - Retrofit
 - Notification
 - Work Manager
+- Application Component
+    - Service
+    - BroadcastReceiver
+    - ContentProvider
+    - Activity (Done)

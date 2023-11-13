@@ -46,7 +46,38 @@ NavigationUI class and the navigation-ui-ktx kotlin extensions is included with 
 
 * If NavigationUI finds a menu item with the same ID as a destination on the current graph, it configures the menu item to navigate to that destination.
 
+### Activity and Fragment ActionBar Menu Inject:
+Inside Activity, ActionBar Menu is declared in it's `onCreateOptionsMenu` override.
+
+`menuInflater.inflate(R.menu.menu_res_file, menu)` is used to inflate and inject menu. If underlying Fragment has it's own actionBar menu defined, inflated menu will take the right side spot following Fragment defined menu items left of it.
+
+Inside Fragment, in `onCreateView` we need to declare `setHasOptionsMenu(true)` then inside `onCreateOptionsMenu` the menu is inflated.
+```kotlin
+override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    inflater.inflate(R.menu.main_menu, menu)
+}
+```
+
+```kotlin
+/**
+* Injecting menu (in action menu) if there is no NavigationView on current layout (current layout can change ie, for rotation/configuration change)
+*/
+override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    val retValue = super.onCreateOptionsMenu(menu)
+    // suppose we don't have nav_view for portrait orientation
+    // then we want to inject inflated menu into the action-bar navigation.
+    val navigationView = findViewById<NavigationView>(R.id.nav_view)
+
+    if (navigationView == null) {
+        menuInflater.inflate(R.menu.overflow_menu, menu)
+        return true
+    }
+    return retValue
+}
+```
+
 Individual menu items are mapped in activity's `onCreateOptionsMenu` and `onOptionsItemSelected` override callback.
+
 ```kotlin
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
