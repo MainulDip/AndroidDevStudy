@@ -1,6 +1,11 @@
 ### Overview:
 Menu navigation can be done with `FragmentManager` or `NavController` using NavigationUI. NavigationUI is NavGraph based.
 
+Working Example:
+See Menu-App > Menu-Drawer-Bottom-Navigation
+<a href="./Menu-Apps/Menu-Drawer-Bottom-Navigation">Menu-Drawer-Bottom-Navigation</a>
+See screen-shot image of the MainActivity
+
 Ongoing > Menu, Drawer, Bottom Navigation > https://developer.android.com/codelabs/android-navigation#0
 
 ### Menu:
@@ -45,6 +50,12 @@ findNavController().navigate(resId = R.id.destination_id, args = null, navOption
 NavigationUI class and the navigation-ui-ktx kotlin extensions is included with Navigation-Component/NavController. NavigationUI has static methods that associate menu items with navigation destinations, and navigation-ui-ktx is a set of extension functions that do the same. 
 
 * If NavigationUI finds a menu item with the same ID as a destination on the current graph, it configures the menu item to navigate to that destination.
+
+* view?.setupWithNavController(navController) => bind view that contain menu with NavigationUI
+* setupActionBarWithNavController(navController, appBarConfig) => add drawer/hamburger and back/up icon and set it control by NavigationUI
+* AppBarConfiguration => Set's AppBar behaviors
+* item.onNavDestinationSelected(...) => add the navigation behavior to the optionMenu
+* findNavController(R.id.my_nav_host_fragment).navigateUp(appBarConfiguration) => set back/up button press behaviors
 
 ### Activity and Fragment ActionBar Menu Inflate:
 Inside Activity, ActionBar Menu is declared/created in it's `onCreateOptionsMenu` override.
@@ -113,6 +124,14 @@ https://developer.android.com/guide/navigation/navigation-custom-back
 Drawer Layout are defined in xml. Then to configure and add the collapsible behavior through appBar, `AppBarConfiguration` and `setupActionBarWithNavController(navController, appBarConfig)` need to be called. Also the `topLevelDestinationIds` and `DrawerLayout` need to be injected in `AppBarConfiguration`.
 
 Then `setupActionBarWithNavController(navController, appBarConfig)` needs to be called. It will set the behavior (navigation) using the menu-id/destination-id match.
+```kotlin
+val drawerLayout : DrawerLayout? = findViewById(R.id.drawer_layout)
+        appBarConfiguration = AppBarConfiguration(
+                setOf(R.id.home_dest, R.id.deeplink_dest),
+                drawerLayout)
+```
+
+
 https://developer.android.com/guide/navigation/integrations/ui#add_a_navigation_drawer
 
 ### NavigationUI (NavController) || Top AppBar/ToolBar/ActionBar:
@@ -125,8 +144,10 @@ NavigationUI provides support for the following top app bar types
 
 Top App Bar Guide: https://developer.android.com/guide/navigation/integrations/ui
 
-### Option Menu (Top NavBar):
+### Option Menu (Top NavBar's Right Side):
 The options menu is the primary collection of menu items for an activity. It's where you place actions that have a global impact on the app, such as "Search," "Compose email," and "Settings."
+
+* Top app bar is combination of ActionBar (left side) and Options Menu (Right side). As it seems by my personal observation. But can change in some point.
 
 Option Menu Guide : https://developer.android.com/develop/ui/views/components/menus#options-menu
 

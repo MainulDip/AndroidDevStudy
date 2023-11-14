@@ -87,6 +87,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Setting bottom navigation menu for regular devices (not tablet/low-height devices)
+     */
     private fun setupBottomNavMenu(navController: NavController) {
         // TODO STEP 9.3 - Use NavigationUI to set up Bottom Nav
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
@@ -95,6 +98,10 @@ class MainActivity : AppCompatActivity() {
         // TODO END STEP 9.3
     }
 
+    /**
+     * Setting side/drawer navigation menu for tablet and smaller height devices
+     * (not for regular phone)
+     */
     private fun setupNavigationMenu(navController: NavController) {
         // TODO STEP 9.4 - Use NavigationUI to set up a Navigation View
 //        // In split screen mode, you can drag this view out from the left
@@ -104,16 +111,28 @@ class MainActivity : AppCompatActivity() {
         // TODO END STEP 9.4
     }
 
+    /**
+     * For tablet's layout (left panel) and drawer layout's Navigation
+     * It will add the drawer/ham-burger icon to the action bar (left side)
+     * and will adjust with the back/up button behavior
+     * (as both (actionbar and back/up) are controlling by NavController this case
+     * without this, the drawer layout's sliding feature will still work but
+     * will not show the drawer-icon and back/up button icon
+     */
     private fun setupActionBar(navController: NavController,
                                appBarConfig : AppBarConfiguration) {
         // TODO STEP 9.6 - Have NavigationUI handle what your ActionBar displays
 //        // This allows NavigationUI to decide what label to show in the action bar
 //        // By using appBarConfig, it will also determine whether to
 //        // show the up arrow or drawer menu icon
-        setupActionBarWithNavController(navController, appBarConfig)
+//        setupActionBarWithNavController(navController, appBarConfig)
         // TODO END STEP 9.6
     }
 
+    /**
+     * Create optionMenu for regular mobile layout
+     * if(navigationView == null) check will confirm as we don't have this in regular mobile layout
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val retValue = super.onCreateOptionsMenu(menu)
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
@@ -126,6 +145,9 @@ class MainActivity : AppCompatActivity() {
         return retValue
     }
 
+    /**
+     * add the navigation behavior to the optionMenu
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 //        return super.onOptionsItemSelected(item)
         // TODO STEP 9.2 - Have Navigation UI Handle the item selection - make sure to delete
@@ -139,11 +161,16 @@ class MainActivity : AppCompatActivity() {
         // TODO END STEP 9.2
     }
 
-    // TODO STEP 9.7 - Have NavigationUI handle up behavior in the ActionBar
+    /**
+     * Set navigation behavior when actionbar's back/up button is pressed
+     * Without this the back button will show because of setupActionBarWithNavController called previously
+     * but tapping on the back/up button will not do anything and
+     * topLevelDestination's name will not show as no AppBarConfiguration is passed from here
+     * will only show app name in action bar
+     */
     override fun onSupportNavigateUp(): Boolean {
         // Allows NavigationUI to support proper up navigation or the drawer layout
         // drawer menu, depending on the situation
         return findNavController(R.id.my_nav_host_fragment).navigateUp(appBarConfiguration)
     }
-    // TODO END STEP 9.7
 }
