@@ -100,4 +100,5 @@
         android:name="com.example.android.codelabs.navigation.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/settings_fragment" />
+
 </navigation>

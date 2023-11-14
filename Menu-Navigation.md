@@ -46,12 +46,12 @@ NavigationUI class and the navigation-ui-ktx kotlin extensions is included with 
 
 * If NavigationUI finds a menu item with the same ID as a destination on the current graph, it configures the menu item to navigate to that destination.
 
-### Activity and Fragment ActionBar Menu Inject:
-Inside Activity, ActionBar Menu is declared in it's `onCreateOptionsMenu` override.
+### Activity and Fragment ActionBar Menu Inflate:
+Inside Activity, ActionBar Menu is declared/created in it's `onCreateOptionsMenu` override.
 
 `menuInflater.inflate(R.menu.menu_res_file, menu)` is used to inflate and inject menu. If underlying Fragment has it's own actionBar menu defined, inflated menu will take the right side spot following Fragment defined menu items left of it.
 
-Inside Fragment, in `onCreateView` we need to declare `setHasOptionsMenu(true)` then inside `onCreateOptionsMenu` the menu is inflated.
+Inside Fragment, in `onCreateView` we need to declare `setHasOptionsMenu(true)` then inside `onCreateOptionsMenu` the menu is created/inflated.
 ```kotlin
 override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
     inflater.inflate(R.menu.main_menu, menu)
@@ -76,23 +76,43 @@ override fun onCreateOptionsMenu(menu: Menu): Boolean {
 }
 ```
 
-Individual menu items are mapped in activity's `onCreateOptionsMenu` and `onOptionsItemSelected` override callback.
+### Navigate from ActionBar Menu Item to a Fragment/Activity/Destination:
+The actual navigation is done inside Activity's `onOptionsItemSelected` override.
+
+With NavigationUI and NavGraph Destination/Action, `MenuItem.onNavDestinationSelected` extension fn is used to navigate inside host Fragment's Navigation-Graph. If inflated menu file's item has same id as fragment id, then it will be captured automatically.
 
 ```kotlin
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
-        // TODO STEP 9.2 - Have Navigation UI Handle the item selection - make sure to delete
-        //  the old return statement above
-//        // Have the NavigationUI look for an action or destination matching the menu
-//        // item id and navigate there if found.
-//        // Otherwise, bubble up to the parent.
-//        return item.onNavDestinationSelected(findNavController(R.id.my_nav_host_fragment))
-//                || super.onOptionsItemSelected(item)
-        // TODO END STEP 9.2
+
+        // Checking other menu item's click behavior
+        println("pressed menu ${item.title}")
+
+        // Navigating to a navgraph's destination with matching menu-item and destination ids.if no match, apply default behavior with super...
+        return item.onNavDestinationSelected(findNavController(R.id.my_nav_host_fragment))
+                || super.onOptionsItemSelected(item)
     }
 ```
+Without NavGraph, this can be done manually by switch/match case and findNavController().navigate(...) or supportFragmentManager's way
+
+### Bottom Navigation:
+`BottomNavigationView` has slot for menu to include. It will reflect automatically when rendered if it's in inflated/set layout. It is set-up inside activity's `onCreate` using NavigationUI's `setupWithNavController` extension fn which will connect a menu item with the same ID as a destination on the current graph
+```kotlin
+// Inside activity's onCreate fn
+val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
+//        bottomNav?.setupWithNavController(navController)
+bottomNav?.setupWithNavController(findNavController(R.id.my_nav_host_fragment))
+```
+
+### Up/Back Navigation:
+Using NavigationUI, Up/Back navigation can be set using `AppBarConfiguration`, `setupActionBarWithNavController(navController, appBarConfig)` and the behavior is set inside of `onSupportNavigateUp` activity's override by calling `findNavController(R.id.my_nav_host_fragment).navigateUp(appBarConfiguration)`
+
+### Custom Back Navigation behavior (override default):
+https://developer.android.com/guide/navigation/navigation-custom-back
 
 ### Drawer Layout || Navigation Drawer:
+Drawer Layout are defined in xml. Then to configure and add the collapsible behavior through appBar, `AppBarConfiguration` and `setupActionBarWithNavController(navController, appBarConfig)` need to be called. Also the `topLevelDestinationIds` and `DrawerLayout` need to be injected in `AppBarConfiguration`.
+
+Then `setupActionBarWithNavController(navController, appBarConfig)` needs to be called. It will set the behavior (navigation) using the menu-id/destination-id match.
 https://developer.android.com/guide/navigation/integrations/ui#add_a_navigation_drawer
 
 ### NavigationUI (NavController) || Top AppBar/ToolBar/ActionBar:
@@ -143,6 +163,4 @@ There are two ways to provide contextual actions:
 
 ### Popup Menu:
 Guide: https://developer.android.com/develop/ui/views/components/menus#PopupMenu
-### Bottom Navigation:
-Guide: https://www.geeksforgeeks.org/bottom-navigation-bar-in-android/.
-Docs: https://developer.android.com/reference/com/google/android/material/bottomnavigation/BottomNavigationView
+
