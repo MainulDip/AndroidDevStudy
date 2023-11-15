@@ -21,6 +21,10 @@
             android:id="@id/deeplink_dest"
             android:icon="@drawable/ic_android"
             android:title="@string/deeplink" />
+        <item
+            android:id="@+id/settings_dest"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/settings" />
     </group>
     <!-- TODO STEP 9.8 - Add a menu item for settings_fragment -->
     <!--<item-->

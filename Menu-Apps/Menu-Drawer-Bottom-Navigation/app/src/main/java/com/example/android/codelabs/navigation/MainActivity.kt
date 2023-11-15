@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         // You should also remove the old appBarConfiguration setup above
         val drawerLayout : DrawerLayout? = findViewById(R.id.drawer_layout)
         appBarConfiguration = AppBarConfiguration(
-                setOf(R.id.home_dest, R.id.deeplink_dest),
+                setOf(R.id.home_dest, R.id.deeplink_dest), // drawer/hamburger icon will only show on these destination
                 drawerLayout)
         // TODO END STEP 9.5
 
@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
 //        // This allows NavigationUI to decide what label to show in the action bar
 //        // By using appBarConfig, it will also determine whether to
 //        // show the up arrow or drawer menu icon
-//        setupActionBarWithNavController(navController, appBarConfig)
+        setupActionBarWithNavController(navController, appBarConfig)
         // TODO END STEP 9.6
     }
 
