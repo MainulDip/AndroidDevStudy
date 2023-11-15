@@ -216,6 +216,55 @@ More complicated navigation can include nested navigation graphs. The app:startD
 
 Docs: https://developer.android.com/guide/navigation/principles
 
+### Web Link to Deep Link:
+to allow a web link to open an activity of an app, a intent filter and associated URL can be used. Docs: https://developer.android.com/training/app-links/deep-linking#adding-filters
+
+This can be done with Navigation Library. by allowing to map URLs directly to destinations in the navigation graph using `<deepLink>` attribute.
+```xml
+<fragment ...>
+    <argument android:name="myarg" />
+    <deepLink app:uri="www.example.com/{myarg}" />
+</fragment>
+```
+Note: without scheme name will support both http and https, placeholder is the argument
+
+Also Manifest should have the `nav-graph` listed. Which will generate all the necessary `intent-filter` regarding deep-link listed in the navigation graph
+```xml
+<activity>
+    <intent-filter></intent-filter>
+    <nav-graph android:value="@navigation/mobile_navigation" />
+</activity>
+```
+
+The generated manifest will look
+```xml
+<!-- Generated Manifest.xml -->
+<activity>
+    <intent-filter></intent-filter>
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data android:scheme="http" />
+
+        <data android:scheme="https" />
+
+        <data android:host="www.example.com" />
+
+        <data android:pathPrefix="/" />
+    </intent-filter>
+</activity>
+```
+adb command to launch this
+```sh
+adb shell am start -a android.intent.action.VIEW -d "http://www.example.com/urlTest"
+```
+
+* Android 12 and ahead, app needs to manually configured to open a specific link by default. Or need to be verified. Otherwise will open in Chrome by default
+
 ### NavigationUI (NavController) || Top AppBar/ToolBar/ActionBar:
 The top app bar provides a consistent place along the top of your app for displaying information and actions from the current screen.
 

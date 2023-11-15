@@ -74,7 +74,7 @@ However, view binding is intended to handle simpler use cases and provides the f
 On the other hand, view binding has the following limitations compared to data binding:
 
 - View binding doesn't support layout variables or layout expressions, so it can't be used to declare dynamic UI content straight from XML layout files.
-- View binding doesn't support two-way data binding.
+- View binding doesn't support two-way data binding
 
 
 Because of these considerations, in some cases it's best to use both view binding and data binding in a project. You can use data binding in layouts that require advanced features and use view binding in layouts that don't.
@@ -161,7 +161,7 @@ navigation XML file anatomy =>
 - `app:startDestination` is an attribute that specifies the destination that is launched by default when the user first opens the app.
 
 
-- `android:id` defines an ID for the fragment that you can use to reference the destination elsewhere in this XML and your code.
+- `android:id` defines an ID for the fragment that you can use to reference the destination elsewhere in this XML and your code
 - `android:name` declares the fully qualified class name of the fragment to instantiate when you navigate to that destination.
 - `tools:layout` specifies what layout should be shown in the graphical editor.
 
