@@ -316,3 +316,6 @@ There are two ways to provide contextual actions:
 ### Popup Menu:
 Guide: https://developer.android.com/develop/ui/views/components/menus#PopupMenu
 
+### Next Todo:
+=> Come back after Dagger2 and Hilt
+=> Also JetPack Compose
