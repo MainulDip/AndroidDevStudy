@@ -261,4 +261,4 @@ R8: Tool to optimize app for release
 
 ### From:
 - Dagger-Codelab-1
-- JetPack Compose CodeLab | View to JetPack
+- JetPack Compose CodeLab | View => JetPack
