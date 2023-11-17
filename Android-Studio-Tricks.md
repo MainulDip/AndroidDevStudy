@@ -8,6 +8,9 @@
 - typing `wc` in editor for column template
 - Tooling : https://developer.android.com/jetpack/compose/tooling#editor-actions
 
+### Digging Tricks:
+1. Ctrl + click function and inspect usages in current project. There are options for include/exclude Test classes, preview sources, etc. 
+
 ### Jump Start Unknown/Other's Project:
 Visual Debugging: 
 => Use layout Inspector with live emulator's update
@@ -21,7 +24,7 @@ Debugging From Scratch:
 ### Notes on adding Dependencies:
 * First add the root/project level `build.gradle` requirements and build/sync. Then add all other module level gradle requirements.
 
-### Chaingin Project Name:
+### Changing Project Name:
 => From Studio's project tab as `Android`, refactor all occurrence by selecting `com.something.<packagename>` to new name. 
 => Also change app level build.gradle's `applicationID` and `namespace` with valid format (no dash `-`, use underscore `_`)
 => Also change settings.gradle's rootprojectname. 

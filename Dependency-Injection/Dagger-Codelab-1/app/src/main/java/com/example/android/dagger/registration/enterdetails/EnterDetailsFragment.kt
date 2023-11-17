@@ -57,6 +57,12 @@ class EnterDetailsFragment : Fragment() {
         registrationViewModel = (activity as RegistrationActivity).registrationViewModel
 
         enterDetailsViewModel = EnterDetailsViewModel()
+
+        /**
+         * setting observable on enterDetailsState (which is a liveData)
+         * so, if enterDetailsState value gets changed, the associated block
+         * underneath will be called
+         */
         enterDetailsViewModel.enterDetailsState.observe(
             viewLifecycleOwner
         ) { state ->
