@@ -14,5 +14,28 @@ Link: https://github.com/android/codelab-android-dagger
 - and finally it will call UserManager's register fn, from there the SharedPreference Store
 - will be populated, and will instantiate UserDataRepository with current UserManager Object
 
-### Some Brush-Up:
+### Include Dagger to a Project:
+```kotlin
+// app level build.gradle
 
+plugins {
+   id 'com.android.application'
+   id 'kotlin-android'
+   id 'kotlin-android-extensions'
+   id 'kotlin-kapt'
+}
+
+...
+
+dependencies {
+    ...
+    def dagger_version = "2.40"
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+}
+```
+
+
+### Injection of Interface Type:
+
+### Instance of Context Injection:
