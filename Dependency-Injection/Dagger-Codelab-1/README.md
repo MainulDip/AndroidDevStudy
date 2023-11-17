@@ -19,23 +19,81 @@ Link: https://github.com/android/codelab-android-dagger
 // app level build.gradle
 
 plugins {
-   id 'com.android.application'
-   id 'kotlin-android'
-   id 'kotlin-android-extensions'
-   id 'kotlin-kapt'
+//    id 'com.android.application'
+//    id 'kotlin-android'
+//    id 'kotlin-android-extensions'
+//    id 'kotlin-kapt'
 }
 
-...
+// ...
 
 dependencies {
-    ...
-    def dagger_version = "2.40"
-    implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    // ...
+    // def dagger_version = "2.40"
+    // implementation "com.google.dagger:dagger:$dagger_version"
+    // kapt "com.google.dagger:dagger-compiler:$dagger_version"
+}
+```
+### Dagger @Component:
+An interface annotated with `@Component` will make Dagger generate code with all the dependencies required to satisfy the parameters of the methods it exposes. Dagger will create a Container like as manual dependency injection. @Component Interface is the entry point.
+
+* All Dagger Interfaces are usually put inside a separate package/directory named `di`
+### @Module, @Binds and @BindsInstance annotations:
+`@Module` : use this to tell Dagger what implementation of an `Interface` we want to use. This will be passed as @Component param. Modules are a way to encapsulate how to provide objects in a semantic way by grouping similar task
+
+@Provides : 
+ 
+`@Bind` : Inside @Module interface, @Binds is used to tell Dagger which implementation it needs to use when providing an interface.
+
+`@BindsInstance` : it tells Dagger that it needs to add that instance in the graph, for objects that are constructed outside of the graph (e.g. instances of Context). This is used inside `@Component` and `@Component.Factory` inside of it. 
+
+```kotlin
+@Component(modules = [StorageModule::class])
+interface AppComponent {
+
+    /**
+     * it's a factory for a/this component
+     * A factory is a type with a single method that returns a new component
+     * instance each time it is called. The parameters of that method allow the caller to
+     * provide the modules, dependencies and bound instances required by the component
+     */
+    @Component.Factory
+    interface Factory {
+        /**
+         * There must be exactly one abstract method,
+         * which must return the component type or one of its supertypes
+         * kt's function without body inside interface is abstract fn
+         * from Application, Context will be passed using
+         * DaggerAppComponent.factory().create(applicationContext)
+        */
+        fun create(@BindsInstance context: Context): AppComponent
+    }
+
+    /**
+     * We're telling Dagger that
+     * RegistrationActivity will requests (field) injection and that it has to
+     * provide the dependencies which are annotated with @Inject
+     */
+    fun inject(activity: RegistrationActivity)
+}
+
+
+
+/**
+ * @Module is used to instruct Dagger what implementation of
+ * an `Interface` we want to use. This will be passed as @Component param.
+ * Modules are a way to encapsulate how to provide
+ * objects in a semantic way by grouping similar task
+ */
+@Module
+interface StorageModule {
+    /**
+     * @Binds instruct Dagger of which implementation it needs to use when providing an interface.
+     * the return type should be that interface and implementations are defined inside parameter's type
+     */
+    @Binds
+    fun provideStorage(storage: SharedPreferencesStorage) : Storage
 }
 ```
 
-
-### Injection of Interface Type:
-
-### Instance of Context Injection:
+### Calling DaggerAppComponent.factory().create(...):
