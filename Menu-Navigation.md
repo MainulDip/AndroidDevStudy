@@ -311,7 +311,7 @@ Guide: https://developer.android.com/develop/ui/views/components/menus#context-m
 There are two ways to provide contextual actions:
 
 - In a `floating context menu`. A menu appears as a floating list of menu items, similar to a dialog, when the user performs a touch & hold on a view that declares support for a context menu. Users can perform a contextual action on one item at a time.
-- In the `contextual action mode`. This mode is a system implementation of ActionMode that displays a contextual action bar, or CAB, at the top of the screen with action items that affect the selected item(s). When this mode is active, users can perform an action on multiple items at once, if your app supports that.
+- In the `contextual action mode`. This mode is a system implementation of ActionMode that displays a contextual action bar, or CAB, at the top of the screen with action items that affect the selected item(s). When this mode is active, users can perform an action on multiple items at once, if your app supports that
 
 ### Popup Menu:
 Guide: https://developer.android.com/develop/ui/views/components/menus#PopupMenu

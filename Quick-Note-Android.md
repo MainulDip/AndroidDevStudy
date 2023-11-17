@@ -244,7 +244,7 @@ val action: NavDirections = HomeFragmentDirections.nextAction() // arguments can
 findNavController().navigate(action)
 ```
 
-### Drawer Layout and Navigation
+### Drawer Layout and Navigation:
 
 ### ProGuard and R8:
 R8: Tool to optimize app for release
