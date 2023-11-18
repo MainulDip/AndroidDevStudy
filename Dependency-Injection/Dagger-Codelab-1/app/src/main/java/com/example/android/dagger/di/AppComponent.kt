@@ -1,6 +1,7 @@
 package com.example.android.dagger.di
 
 import android.content.Context
+import com.example.android.dagger.main.MainActivity
 import com.example.android.dagger.registration.RegistrationActivity
 import dagger.BindsInstance
 import dagger.Component
@@ -32,4 +33,9 @@ interface AppComponent {
      * provide the dependencies which are annotated with @Inject
      */
     fun inject(activity: RegistrationActivity)
+
+    /**
+     * Field Injection Request Allowance For MainActivity
+     */
+    fun inject(activity: MainActivity)
 }

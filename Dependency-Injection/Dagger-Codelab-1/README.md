@@ -96,4 +96,43 @@ interface StorageModule {
 }
 ```
 
-### Calling DaggerAppComponent.factory().create(...):
+### Creating DaggerAppComponent Graph & Requesting Injection From Activity:
+Application class is a good place where the DaggerAppComponent Graph can be created. Also Context can be passed easily from there.
+```kotlin
+open class MyApplication : Application() {
+
+    val appComponent: AppComponent by lazy {
+        DaggerAppComponent.factory().create(applicationContext)
+    }
+}
+```
+From Activity with `@Inject` annotated field, Request needs to be made to do the actual injection. Needs to be done before super.onCreate in onCreate.
+```kotlin
+class RegistrationActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var registrationViewModel: RegistrationViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        /**
+         * Ask/Request Dagger Graph to Inject the dependency
+         * Perform this before calling super.onCreate inside Activity to avoid issues with fragment restoration
+         * during the restore phase, Activity will attach fragments that might want to access activity bindings.
+         */
+        (application as MyApplication).appComponent.inject(this)
+
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_registration)
+
+        // ...
+    }
+    
+    // Other Code
+}
+```
+### Scopes :
+By Scopes in Dagger means "to scope a type to the Component's lifecycle". Scoping a type to a Component means that the same instance of that type will be used every time the type needs to be provided/injected.
+
+If we annotate a Component with @Singleton, all the classes also annotated with @Singleton will be scoped to its lifetime.
+

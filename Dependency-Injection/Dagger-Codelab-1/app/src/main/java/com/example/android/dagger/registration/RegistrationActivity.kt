@@ -28,14 +28,26 @@ import javax.inject.Inject
 
 class RegistrationActivity : AppCompatActivity() {
 
+    /**
+     * Dagger-injected fields cannot be private
+     */
     @Inject
     lateinit var registrationViewModel: RegistrationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        /**
+         * Ask/Request Dagger Graph to Inject the dependency (field with @Inject annotation)
+         * Perform this before calling super.onCreate inside Activity to avoid issues with fragment restoration
+         * during the restore phase, Activity will attach fragments that might want to access activity bindings.
+         */
+        (application as MyApplication).appComponent.inject(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
-//        registrationViewModel = RegistrationViewModel((application as MyApplication).userManager)
+        // commenting override/re-assign Dagger injected field
+        // registrationViewModel = RegistrationViewModel((application as MyApplication).userManager)
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_holder, EnterDetailsFragment())
             .commit()
