@@ -131,8 +131,46 @@ class RegistrationActivity : AppCompatActivity() {
     // Other Code
 }
 ```
+
+
+From `Fragment` Request for injection needs to be made on onAttach(context: Context) override.
+```kotlin
+    @Inject
+    lateinit var registrationViewModel: RegistrationViewModel
+
+    @Inject
+    lateinit var enterDetailsViewModel: EnterDetailsViewModel
+
+override fun onAttach(context: Context) {
+    super.onAttach(context)
+    (requireActivity().application as MyApplication).appComponent.inject(this)
+}
+```
 ### Scopes :
 By Scopes in Dagger means "to scope a type to the Component's lifecycle". Scoping a type to a Component means that the same instance of that type will be used every time the type needs to be provided/injected.
 
 If we annotate a Component with @Singleton, all the classes also annotated with @Singleton will be scoped to its lifetime.
 
+```kotlin
+// AppComponent Dagger Component
+@Singleton
+@Component(modules = [StorageModule::class])
+interface AppComponent { ... }
+
+// Injected Class, as annotated with @singleton, the dagger will inject same instance for every class that request it through the @Component
+@Singleton
+class UserManager @Inject constructor(private val storage: Storage) {
+    ...
+}
+```
+### SubComponent:
+A SubComponent belongs to a Parent Component with it's own scope. With SubComponent Scoping, we can separate an instance lifecycle (that Dagger injects) from Parent Component's lifecycle (which is typically match with application lifecycle). 
+
+"`SubComponents` are components that inherit and extend the object graph of a parent component. Thus, all objects provided in the parent component will be provided in the subcomponent too. In this way, an object from a subcomponent can depend on an object provided by the parent component."
+
+* SubComponents are typically placed inside it's lifecycle matcher's directory/packages.
+
+To make a SubComponent we need 3 things
+1. From parent Component define a fun that returns that SubComponent.Factory
+2. Create a Module that bind that SubComponent with its Parent Component
+3. Add that module to the parent Component. 

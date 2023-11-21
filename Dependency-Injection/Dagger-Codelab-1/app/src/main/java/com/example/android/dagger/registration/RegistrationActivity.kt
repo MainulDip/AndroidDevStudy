@@ -34,6 +34,9 @@ class RegistrationActivity : AppCompatActivity() {
     @Inject
     lateinit var registrationViewModel: RegistrationViewModel
 
+    // Stores an instance of RegistrationComponent so that its Fragments can access it
+    lateinit var registrationComponent: RegistrationComponent
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         /**
@@ -41,7 +44,11 @@ class RegistrationActivity : AppCompatActivity() {
          * Perform this before calling super.onCreate inside Activity to avoid issues with fragment restoration
          * during the restore phase, Activity will attach fragments that might want to access activity bindings.
          */
-        (application as MyApplication).appComponent.inject(this)
+        // commenting, as now it's using RegistrationComponent SubComponent to inject fields
+        // (application as MyApplication).appComponent.inject(this)
+
+        // requesting RegistrationComponent for field injection
+        (application as MyApplication).appComponent.registrationComponent().create().inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)

@@ -2,11 +2,13 @@ package com.example.android.dagger.di
 
 import android.content.Context
 import com.example.android.dagger.main.MainActivity
-import com.example.android.dagger.registration.RegistrationActivity
+import com.example.android.dagger.registration.RegistrationComponent
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Singleton
 
-@Component(modules = [StorageModule::class])
+@Singleton
+@Component(modules = [StorageModule::class, AppSubcomponent::class])
 interface AppComponent {
 
     /**
@@ -32,10 +34,16 @@ interface AppComponent {
      * RegistrationActivity will requests (field) injection and that it has to
      * provide the dependencies which are annotated with @Inject
      */
-    fun inject(activity: RegistrationActivity)
+    // fun inject(activity: RegistrationActivity) // replaced by RegistrationComponent SubComponent
+    // Injecting RegistrationComponent SubComponent (Graph) to it's parent Component (this) graph
+    fun registrationComponent(): RegistrationComponent.Factory
 
     /**
      * Field Injection Request Allowance For MainActivity
      */
     fun inject(activity: MainActivity)
+
+    // Replaced by SubComponent (RegistrationComponent)
+//    fun inject(fragment: EnterDetailsFragment)
+//    fun inject(fragment: TermsAndConditionsFragment)
 }

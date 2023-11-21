@@ -34,7 +34,7 @@ fun main(args: Array) {
 The service locator pattern is a design pattern used in software development to encapsulate the processes involved in obtaining a service with a strong abstraction layer. This pattern uses a central registry known as the "service locator", which on request returns the information necessary to perform a certain task.
 
 * it makes software harder to test
-* some engineer Critics is an `anti-pattern`
+* some engineer Critics is an `anti-pattern`.
 
 ### DI lib for Android and Java:
 - Hilt : Built on top of Dagger, maintained by google
