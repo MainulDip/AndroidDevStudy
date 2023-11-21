@@ -8,7 +8,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [StorageModule::class, AppSubcomponent::class])
+@Component(modules = [StorageModule::class, AppSubcomponent::class]) // RegistrationComponent::class , AppSubcomponent::class]
 interface AppComponent {
 
     /**

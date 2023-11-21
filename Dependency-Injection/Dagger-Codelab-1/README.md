@@ -147,9 +147,11 @@ override fun onAttach(context: Context) {
 }
 ```
 ### Scopes :
+When 2 or more types share a same dependency, we need to tell dagger to provide a same instance for all of them. Otherwise, then requesting multiple times, dagger will provide different instances. Here the `scope` comes into play
+ 
 By Scopes in Dagger means "to scope a type to the Component's lifecycle". Scoping a type to a Component means that the same instance of that type will be used every time the type needs to be provided/injected.
 
-If we annotate a Component with @Singleton, all the classes also annotated with @Singleton will be scoped to its lifetime.
+If we annotate a Component with @Singleton, any other dependency class also annotated with @Singleton will be scoped to its lifetime.
 
 ```kotlin
 // AppComponent Dagger Component
@@ -163,14 +165,64 @@ class UserManager @Inject constructor(private val storage: Storage) {
     ...
 }
 ```
-### SubComponent:
-A SubComponent belongs to a Parent Component with it's own scope. With SubComponent Scoping, we can separate an instance lifecycle (that Dagger injects) from Parent Component's lifecycle (which is typically match with application lifecycle). 
-
+### SubComponent and Scope:
 "`SubComponents` are components that inherit and extend the object graph of a parent component. Thus, all objects provided in the parent component will be provided in the subcomponent too. In this way, an object from a subcomponent can depend on an object provided by the parent component."
 
 * SubComponents are typically placed inside it's lifecycle matcher's directory/packages.
 
-To make a SubComponent we need 3 things
-1. From parent Component define a fun that returns that SubComponent.Factory
-2. Create a Module that bind that SubComponent with its Parent Component
-3. Add that module to the parent Component. 
+To make a SubComponent and request for injection -
+1. Define a SubComponent `interface` with `@Subcomponent` Annotation. Note: Components may not be annotated with more than one component annotation (like @Subcomponent and @Module in same interface/class will throw error), for this we need to create `@Module` component separately and add that the SubComponent in @Module 's list.
+```kotlin
+// Define the SubComponent Interface
+@Subcomponent
+interface RegistrationComponent {
+    @Subcomponent.Factory
+    interface Factory {
+        fun create(): RegistrationComponent
+    }
+
+    // Classes that can be injected by this Component
+    fun inject(activity: RegistrationActivity)
+    fun inject(fragment: EnterDetailsFragment)
+    fun inject(fragment: TermsAndConditionsFragment)
+}
+
+// Add the SubComponent in Separate Class for adding it as Module
+@Module(subcomponents = [RegistrationComponent::class])
+class AppSubcomponent {
+}
+```
+2. From parent Component define a fun that returns that SubComponent.Factory
+3. Add SubComponent module class in parent Component's module list.
+4. Then request for injection using SubComponent class's function via parent component's function `(application as MyApplication).appComponent.registrationComponent().create().inject(ThisActivity)`
+5. Also create a prop in Activity from the SubComponent Type and request for injection from the activity's Fragment using `(activity as ParentActivity).parentActivityProp.inject(thisFragment)`
+
+### SubComponent Scoping:
+Note: Like as Component, Within SubComponent, When 2 or more types share a same dependency, we need to tell dagger to provide a same instance for all of them. Otherwise, then requesting multiple times, dagger will provide different instances. Here the `scope` comes into play
+
+With SubComponent Scoping, we can separate an instance lifecycle (that Dagger injects) from Parent Component's lifecycle (which is typically match with application lifecycle). 
+
+* Note, we cannot use Same Scope annotation with Parent Component and SubComponent. As javax only provide @Singleton annotation, we need to define our own annotation and use with the SubComponent
+```kotlin
+// Define Custom Scoping Annotation. Usually place this class in `di` package/directory
+@Scope
+@MustBeDocumented
+@Retention(value = AnnotationRetention.RUNTIME)
+annotation class ActivityScope()
+
+// Then Use the annotation with SubComponent interface and the class that need to have the same lifecycle as the SubComponent
+@ActivityScope
+@Subcomponent
+interface RegistrationComponent {
+    @Subcomponent.Factory
+    interface Factory {
+        fun create(): RegistrationComponent
+    }
+    // ...
+}
+
+// the class that need to be same shared inject across the SubComponent
+@ActivityScope
+class RegistrationViewModel @Inject constructor (val userManager: UserManager) {}
+
+```

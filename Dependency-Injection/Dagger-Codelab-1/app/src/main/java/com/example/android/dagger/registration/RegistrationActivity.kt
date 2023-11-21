@@ -47,8 +47,10 @@ class RegistrationActivity : AppCompatActivity() {
         // commenting, as now it's using RegistrationComponent SubComponent to inject fields
         // (application as MyApplication).appComponent.inject(this)
 
+        // populate the lateinit registrationComponent
+        registrationComponent = (application as MyApplication).appComponent.registrationComponent().create()
         // requesting RegistrationComponent for field injection
-        (application as MyApplication).appComponent.registrationComponent().create().inject(this)
+        registrationComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)

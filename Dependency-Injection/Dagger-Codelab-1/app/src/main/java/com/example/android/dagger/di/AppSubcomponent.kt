@@ -4,5 +4,5 @@ import com.example.android.dagger.registration.RegistrationComponent
 import dagger.Module
 
 @Module(subcomponents = [RegistrationComponent::class])
-class AppSubcomponent {
+interface AppSubcomponent {
 }
