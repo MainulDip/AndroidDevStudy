@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
      */
     @Inject lateinit var mainViewModel: MainViewModel
 
-    @Inject lateinit var userManager: UserManager
+//    @Inject lateinit var userManager: UserManager
 
     /**
      * If the User is not registered, RegistrationActivity will be launched,
@@ -45,7 +45,8 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        (application as MyApplication).appComponent.inject(this)
+//        (application as MyApplication).appComponent.userComponent().create().inject(this)
+        val userManager = (application as MyApplication).appComponent.userManager()
 
         super.onCreate(savedInstanceState)
 
@@ -60,6 +61,8 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             setContentView(R.layout.activity_main)
+
+            userManager.userComponent!!.inject(this)
 
 //            mainViewModel = MainViewModel(userManager.userDataRepository!!)
             setupViews()

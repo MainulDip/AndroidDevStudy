@@ -4,7 +4,7 @@ This part covers some quick jump-starting instruction set to run Background Task
 ### WorkManager:
 It's a part of the Android Jetpack and Architecture Component. It's a combination of opportunistic and guaranteed execution techniques. 
 - Opportunistic execution means that WorkManager will do the background work as soon as it can. 
-- Guaranteed execution means that WorkManager will take care of the logic to start background work under a variety of situations, even if you navigate away from your app.
+- Guaranteed execution means that WorkManager will take care of the logic to start background work under a variety of situations, even if you navigate away from your app
 
 Docs: https://developer.android.com/topic/libraries/architecture/workmanager/
 Background Work Scheduler Guide: https://developer.android.com/guide/background/
