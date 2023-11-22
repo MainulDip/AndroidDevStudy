@@ -1,8 +1,10 @@
 package com.example.android.dagger.di
 
 import android.content.Context
+import com.example.android.dagger.login.LoginComponent
 import com.example.android.dagger.main.MainActivity
 import com.example.android.dagger.registration.RegistrationComponent
+import com.example.android.dagger.settings.SettingsActivity
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -37,6 +39,10 @@ interface AppComponent {
     // fun inject(activity: RegistrationActivity) // replaced by RegistrationComponent SubComponent
     // Injecting RegistrationComponent SubComponent (Graph) to it's parent Component (this) graph
     fun registrationComponent(): RegistrationComponent.Factory
+
+    fun loginComponent(): LoginComponent.Factory
+
+    fun inject(activity: SettingsActivity)
 
     /**
      * Field Injection Request Allowance For MainActivity
