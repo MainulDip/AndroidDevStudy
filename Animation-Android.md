@@ -4,7 +4,7 @@ Docs
 2. https://developer.android.com/develop/ui/views/animations/overview
 
 ### Animation Resource File:
-An animation resource can define one of two types of animations:
+An animation resource can define one of two types of animations :
 
 1. `Property` animation
 Creates an animation by modifying an object's property values over a set period with an Animator.

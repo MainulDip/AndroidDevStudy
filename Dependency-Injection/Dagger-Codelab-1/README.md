@@ -226,3 +226,95 @@ interface RegistrationComponent {
 class RegistrationViewModel @Inject constructor (val userManager: UserManager) {}
 
 ```
+### Multiple Activity With Same Scope
+
+### Graph (SubComponent's Factory) as Dependency:
+We can instantiate the graph using Class Parameter and access the Factory Create to handle its instantiation inside of that class. And the graph will be destroyed if nothing is pointing to it. 
+```kotlin
+// parent AppComponent
+@Singleton
+@Component(modules = [StorageModule::class, AppSubcomponent::class])
+interface AppComponent {
+    //...
+    fun userManager(): UserManager
+}
+
+// AppSubComponent
+@Module(subcomponents = [RegistrationComponent::class, LoginComponent::class, UserComponent::class])
+interface AppSubcomponent {}
+
+// UserComponent
+@LoggedUserScope
+@Subcomponent
+interface UserComponent {
+
+    @Subcomponent.Factory
+    interface Factory {
+        fun create(): UserComponent
+    }
+
+    fun inject(activity: MainActivity)
+    fun inject(activity: SettingsActivity)
+}
+
+
+// Class that is scoped with the UserComponent
+@LoggedUserScope
+class UserDataRepository @Inject constructor (private val userManager: UserManager) {/*...*/}
+
+// Instantiation of SubComponent Graph
+@Singleton
+class UserManager @Inject constructor (private val storage: Storage,
+    private val userComponentFactory: UserComponent.Factory) {
+// ...
+var userComponent: UserComponent? = null
+        private set
+
+fun logout() {
+    userComponent = null
+}
+
+private fun userJustLoggedIn(){
+    userComponent = userComponentFactory.create()
+}
+
+
+// requesting fro injection from different activity
+// MainActivity
+class MainActivity : AppCompatActivity() {
+    @Inject lateinit var mainViewModel: MainViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        val userManager = (application as MyApplication).appComponent.userManager()
+
+        // ...
+        
+        userManager.userComponent!!.inject(this)
+
+    }
+}
+
+// SettingsActivity
+class SettingsActivity : AppCompatActivity() {
+
+    @Inject lateinit var settingsViewModel: SettingsViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        val userManager = (application as MyApplication).appComponent.userManager()
+        userManager.userComponent!!.inject(this)
+    
+    super.onCreate(savedInstanceState)
+
+    // ...
+}
+```
+### Testing:
+https://developer.android.com/codelabs/android-dagger#12
+
+```kotlin
+// add gradle dependency
+testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:3.4.6'
+    testImplementation 'android.arch.core:core-testing:1.1.1'
+    testImplementation 'org.mockito:mockito-inline:5.2.0'
+```

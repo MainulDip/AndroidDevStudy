@@ -304,9 +304,9 @@ class SunflowerPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment)
 }
 ```
 
-### Material Android View Components
+### Material Android View Components:
 https://developer.android.com/reference/com/google/android/material/classes.html
 and check the available package list starting com.google.android.material.*
 
 ### Tasks:
-* Fragments, proto datastore (https://developer.android.com/codelabs/android-proto-datastore?hl=en#2).
+* Fragments, proto datastore (https://developer.android.com/codelabs/android-proto-datastore?hl=en#2)
