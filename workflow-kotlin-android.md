@@ -53,3 +53,66 @@ TabLayoutMediator(tabLayout, viewPager) { tab, position ->
     tab.text = getTabTitle(position)
 }.attach()
 ```
+
+### Window Manager and Presentation and Display + DisplayManager:
+WindowManager - https://stackoverflow.com/questions/19846541/what-is-windowmanager-in-android
+
+
+DisplayManager - https://stackoverflow.com/questions/64223814/how-to-use-displaymanager-to-get-displays-and-set-a-bool
+
+
+### WindowCompact and Window:
+Helper for accessing features in Window. Like `WindowCompat.setDecorFitsSystemWindows(window, false)` to display window edge-to-edge
+
+all the window related features are here https://developer.android.com/reference/android/view/Window.html
+
+### map[key]?.invoke() and Pair with Fn as Value:
+Kotlin's Map.get(Key?) is nullable, (observe the code below) to implement the `?` check, we need to explicitly call `invoke()` operator fn to call the `value` fn. let and it() pattern can also be used
+
+```kotlin
+const val MY_GARDEN_PAGE_INDEX = 0
+const val PLANT_LIST_PAGE_INDEX = 1
+
+private val tabFragmentsCreators: Map<Int, () -> Fragment> = mapOf(
+        MY_GARDEN_PAGE_INDEX to { GardenFragment() },
+        PLANT_LIST_PAGE_INDEX to { PlantListFragment() }
+    )
+
+override fun createFragment(position: Int): Fragment {
+        return tabFragmentsCreators[position]?.invoke() ?: throw IndexOutOfBoundsException()
+    }
+```
+
+### Working with adb:
+`adb --help` for all possible actions.
+Docs https://developer.android.com/tools/adb
+
+`adb shell [-e ESCAPE] [-n] [-Tt] [-x] [COMMAND...]` for interacting with the connected device. 
+
+Call Activity Manager with `adb shell am <command>`
+
+call Package Manager with `adb shell pm <command>` like `list packages -3` to show all third party packages, `list users`
+
+
+To get the screen resolution using WindowManager -  `adb shell wm size`
+
+To get the screen the density - `adb shell wm density`
+
+override the density by adding the new density - `db shell wm density 160`
+
+
+
+
+### Note on Terms:
+1. Artifact: The compiled or source-compiled java file in the form of JRE, etc. (https://stackoverflow.com/questions/2487485/what-is-a-maven-artifact)
+2. ClassPath: These are project dependency (in the form of Artifact/JRE) that can be linked inside gradle dependency. Also by Manually creating a directory `libs` that contains `jre` dependencies and can be connect using gradle dependency.
+```kotlin
+dependencies {
+    // ...
+    compile fileTree(dir:'libs', include: ['*.jar'])
+    // ...
+}
+```
+https://stackoverflow.com/questions/26521836/how-to-add-classpath-in-an-android-studio-project
+
+3. Reflection (Kotlin Reflect): It helps learning the name or the type of a property or function at `runtime` when used with Reactive Programming (`Async`)
