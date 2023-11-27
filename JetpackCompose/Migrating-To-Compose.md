@@ -19,3 +19,33 @@ Sunflower App Structure:
 - Implemented Room Database and a `SeedDatabaseWorker` as `CoroutineWorker` to fetch data from a local json file form `./assets/plants.json`
 - The ViewPager's adapter implements the 
 ### map[key]?.invoke():
+
+### ComposeView:
+ComposeView: an Android View that can host Compose UI content using its setContent method.
+```xml
+<androidx.compose.ui.platform.ComposeView
+        android:id="@+id/compose_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+```
+
+Now the `binding` has access to this `compose_view` is as `composeView` in Fragment/Activity class. Using this, a composable view can be injected into the layout.
+```kotlin
+class PlantDetailFragment : Fragment() {
+    // ...
+    override fun onCreateView(...): View? {
+        val binding = DataBindingUtil.inflate<FragmentPlantDetailBinding>(
+            inflater, R.layout.fragment_plant_detail, container, false
+        ).apply {
+            // ...
+            composeView.setContent {
+                // You're in Compose world!
+                MaterialTheme {
+                    PlantDetailDescription()
+                }
+            }
+        }
+        // ...
+    }
+}
+```

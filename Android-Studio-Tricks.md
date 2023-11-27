@@ -5,7 +5,8 @@
 - typing `this.` + `ctrl + space` inside a lambda block (scope) will suggest more precisely
 - `alt + enter` to import
 - `alt + enter` inside a typo (word with curly underling) will fix
-### Compose:
+- `r` will refresh xml layout design
+### Compose
 - typing `wc` in editor for column template
 - Tooling : https://developer.android.com/jetpack/compose/tooling#editor-actions
 
@@ -49,3 +50,9 @@ kotlinOptions {
     jvmTarget = JavaVersion.VERSION_17
 }
 ```
+
+### Working With xml Layout file:
+- `r` for refresh the xml design layout
+- placeholder text `tools:text` and image `tools:src`
+- split code and xml side by side (not horizontally): right click the tab and select `split right`.
+- layout rendering issue: change `api version for preview` also try to make android studio full screen mode

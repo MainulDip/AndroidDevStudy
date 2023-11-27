@@ -1,6 +1,42 @@
 ### Overview:
 Modern toolkit for building native Android UI with declarative functions using Kotlin instead of the XML based layout.
 
+### Compose Dependencies:
+`Compose BOM` The Compose Bill of Materials (BOM) lets you manage all of  Compose library versions by specifying only the BOM’s version. The BOM itself has links to the stable versions of the different Compose libraries, in such a way that they work well together. When using the BOM in app, no need to add any version to the Compose library dependencies themselves. When you update the BOM version, all the libraries that you're using are automatically updated to their new versions
+https://developer.android.com/jetpack/compose/bom
+```kotlin
+android {
+    //...
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        //...
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.3.2'
+    }
+}
+
+dependencies {
+    //...
+    // Compose
+    def composeBom = platform('androidx.compose:compose-bom:2022.10.00')
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+
+    implementation "androidx.compose.runtime:runtime"
+    implementation "androidx.compose.ui:ui"
+    implementation "androidx.compose.foundation:foundation"
+    implementation "androidx.compose.foundation:foundation-layout"
+    implementation "androidx.compose.material:material"
+    implementation "androidx.compose.runtime:runtime-livedata"
+    implementation "androidx.compose.ui:ui-tooling"
+    //...
+}
+```
+
 ### Main Components:
 * MainActivity: Starting point, which extends the ComponentActivity
 * setContent | ComponentActivity.setContent : Creates the root view of the UI. 
