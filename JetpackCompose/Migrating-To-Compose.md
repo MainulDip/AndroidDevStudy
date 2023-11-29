@@ -49,3 +49,13 @@ class PlantDetailFragment : Fragment() {
     }
 }
 ```
+### Matching Of Compose Modifier with XML layout properties:
+`fillMaxWidth` is similar to the `match_parent`
+`padding` for `marginStart` and `marginEnd`
+`wrapContentWidth` is similar to `gravity` and `center_horizontal` to align text center
+
+Note: Compose provides convenient methods to get values from the dimens.xml and strings.xml files, namely: dimensionResource(id) and stringResource(id).
+
+
+
+### Compose with ViewModel and LiveData + DataBinding:
