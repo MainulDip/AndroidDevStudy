@@ -114,7 +114,7 @@ class PlantDetailFragment : Fragment() {
             // composeView implementation
             composeView.setContent {
                 MaterialTheme {
-                    PlantDetailDescription()
+                    PlantDetailDescription(plantDetailViewModel)
                 }
             }
         }

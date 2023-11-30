@@ -58,4 +58,8 @@ Note: Compose provides convenient methods to get values from the dimens.xml and 
 
 
 
-### Compose with ViewModel and LiveData + DataBinding:
+### Compose with ViewModel and LiveData + DataBinding
+Composables don't have their own ViewModel instances, the same instance is shared between the composables and the lifecycle owner that hosts that Compose code (either Activity or Fragment).
+* Pass the `ViewModel` from Activity/Fragment to `Composable Fn` as parameter.
+
+* When the `ViewModel` is injected to a Composable, LiveData is available too. Use `LiveData.observeAsState()` to observe changes. It will represent State.

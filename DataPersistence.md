@@ -94,7 +94,7 @@ fun main() = runBlocking<Unit> {
 // I'm not blocked 3
 // 3
 ```
-### Room Configs:
+### Room Dependency Configs:
 * add room version in the project level (global) variable
  - room_version = '2.4.2'
 * add room dependencies in module's build.gradle
@@ -109,7 +109,7 @@ implementation "androidx.room:room-ktx:$room_version"
  - id 'kotlin-kapt'
 
  ### Room Intro:
-- Entity: each table is represented by a class (model class or entities) or more specifically a data class.
+- Entity: each table is represented by a class (model class or `entities`) or more specifically a data class.
 - Room queries are not case sensitive
 - the data class should be annoted with @Entity or @Entity(tableName="table_name")
 - project's files should be organized by separate packages for each Entity. DAO Interface and Entity can be on same package.
@@ -132,18 +132,18 @@ interface ScheduleDao {
 }
 ```
 ### Room Model + DAO + ViewModel + AppData:
-* Entity (data class): For each table there should be a Room Model (entity)
+* Entity (`model` as data class): For each table there should be a Room Model (entity)
 
 * DAO (Interface): For each entity (Room Model) there should be an DAO (Data Access Object). Each DAO specifies all the sql query to access the room database. Usually 1 DAO From each screen.
 
-* ViewModel: For each DAO, there should be an viewmodel, which should be instantiated with lifecycle aware feature (inheriting ViewModelProvider.Factory)
+* ViewModel: For each DAO, there should be an viewmodel, which should be instantiated with lifecycle aware feature (inheriting `ViewModelProvider.Factory`). Also we can inject other object (ie, `repository to access DAO`) using the this Factory Pattern.
 
 * AppDatabase (abstract): the AppDatabase class is for creating the Database based on Entity (Room Model) and pre-populate the database with data. It will also instantiate the DAO using Singleton pattern so there will be only one instance of DAO to access from
 
 * Application class Inherit: From a Custom class that is inherited form Application() to get the applicationContext, initialized the AppDatabase's singleton using lazy
 
 
-* Manifest.xml Entry: To Use the database when application starts, enlist the custom class (that is inherited form Application) by android:name attribute inside <Application>
+* Manifest.xml Entry: To Use the database when application starts, enlist the `custom Application class` (that is inherited form Application) by android:name attribute inside <Application>
 ### Implementation Steps of the Room ORM:
 
 * Initial State
@@ -157,13 +157,60 @@ interface ScheduleDao {
 
     - Factory ViewModel: Define a viewModelFactory with DAO as constructor parameter, inherit ViewModelProvider.Factory (to make it lifecycle aware) and override it's member by returning the initialized viewModel class passing the DAO as parameter.
 
-* Application Integration Stage:
-    - Define a class that inherit Application() so we can get the real applicationContext. Inside this class define a property with lazy{} delegate which returns the Singleton of the database passing the applicationContext.
+* Get DB using Application or Repository Pattern:
+    - Application : Define a class that inherit Application() so we can get the real applicationContext. Inside this class define a property with lazy{} delegate which returns the Singleton of the database passing the applicationContext.  Aslo Include this class in Manifest.xml 's Application's android:name attribute. So that, we can call it from activity?.application as Something from UIs when initilizing viewModel's Factory.
 
-    - Include this class in Manifest.xml 's Application's android:name attribute. So that, we can call it from activity?.application as Something from UIs when initilizing viewModel's Factory.
+    - Repository Pattern : this way, the DAO (injected through AppDatabse's Singleton Instance) is retrieved through a Repository Class' Singleton Instance. The context needs to be passed from the UI through the ViewModel's Factory Initialization.
+```kotlin
+// viewmodel
+class PlantListViewModel internal constructor(
+    plantRepository: PlantRepository,
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() { }
+
+// ViewModel Factory
+class PlantListViewModelFactory(
+    private val repository: PlantRepository,
+    owner: SavedStateRegistryOwner,
+    defaultArgs: Bundle? = null
+) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(
+        key: String,
+        modelClass: Class<T>,
+        handle: SavedStateHandle
+    ): T {
+        return PlantListViewModel(repository, handle) as T
+    }
+}
+
+// a utils fn to get repository
+object InjectorUtils {
+    fun providePlantListViewModelFactory(fragment: Fragment): PlantListViewModelFactory {
+        return PlantListViewModelFactory(
+            PlantRepository.getInstance( AppDatabase.getInstance(fragment.requireContext().applicationContext).plantDao()),
+            fragment
+            )
+    }
+}
+
+// UI's viewmodel initialization
+class PlantListFragment : Fragment() {
+
+    private val viewModel: PlantListViewModel by viewModels {
+        InjectorUtils.providePlantListViewModelFactory(this)
+    }
+    // ....
+}
+
+// See Sunflower App
+```
 
 * Hooking Part
-    - From UI (Activity/Fragment), Initialize the viewModel by instantiating the viewModelFactory inside activityViewModels lambda, pass the DAO by calling the abstract method through the delegated lazy property inside the class that inherited from the Application class.
+    - ( Using Application ) From UI (Activity/Fragment), Initialize the viewModel by instantiating the viewModelFactory inside activityViewModels lambda, pass the DAO by calling the abstract method through the delegated lazy property inside the class that inherited from the Application class.
+
+    - ( Using Repository Pattern ) 
  
 
 ### @Volatile on property:
@@ -203,7 +250,25 @@ Because of this, it is ideal to run the disk I/O in the I/O dispatcher. This dis
 ### refresh strategy:
 A database refresh is a process of updating or refreshing the local database to keep it in sync with data from the network. Like the module that requests data from the repository is responsible for refreshing the local data.
 
-### DataStore | Preferences | Protobuf:
+### Shared Preferences & DataStore (Preferences & Protobuf):
+`Shared Preference` is replaced by `Preference DataStore`. Though, behind the scene PD is Using SP.
+
+To Create and fetch Shared Preference `getSharedPreferences()` and `getPreferences()` can be used (create if-not exists, or fetch is its there). And to populate and get the data use
+```kotlin
+// create Shared Preference is not exists, or get the handle if its there.
+private val sharedPreferences = context.getSharedPreferences("Name", Context.MODE_PRIVATE)
+// good practice to name it with Application's ID prefix (com.example.myapp.PREFERENCE_FILE_KEY)
+
+// populate with data
+with(sharedPreferences.edit()) {
+    putString(key, value)
+    apply()
+}
+
+// fetch data
+sharedPreferences.getString(key, "")!!
+```
+
 DataStore is ideal for small, simple datasets, such as storing login details, the dark mode setting, font size, and so on. But not suitable for complex datasets, such as an online grocery store inventory list, or a student database. There are two types of DataStore
  * Preferences DataStore: accesses and stores data based on keys, without defining a schema (database model) upfront.
  * Proto DataStore: defines the schema using Protocol buffers. It lets persist strongly typed data. Protobufs are faster, smaller, simpler, and less ambiguous than XML and other similar data formats. Proto DataStore is type safe and efficient but requires configuration and setup

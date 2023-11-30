@@ -243,8 +243,10 @@ val argumentName = safeArgs.argumentName
 val action: NavDirections = HomeFragmentDirections.nextAction() // arguments can be supplied here
 findNavController().navigate(action)
 ```
-
 ### Drawer Layout and Navigation
+
+### Binding Adapters: 
+https://developer.android.com/topic/libraries/data-binding/binding-adapters
 
 ### ProGuard and R8:
 R8: Tool to optimize app for release

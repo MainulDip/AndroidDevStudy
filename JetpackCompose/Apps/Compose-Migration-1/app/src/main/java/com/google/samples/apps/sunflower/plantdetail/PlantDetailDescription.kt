@@ -28,13 +28,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.samples.apps.sunflower.R
+import com.google.samples.apps.sunflower.data.Plant
+import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel
 
 @Composable
-fun PlantDetailDescription() {
+fun PlantDetailDescription(plantDetailViewModel: PlantDetailViewModel) {
     Surface {
         Text("Hello Compose")
     }
 }
+
+@Composable
+fun PlantDetailContent(plant: Plant) {
+    PlantName(name = plant.name)
+}
+
+@Preview(backgroundColor = 0xFFFFFFFF, showBackground = true)
+@Composable
+private fun PlantDetailContentPreview() {
+    val plant = Plant("id", "Apple", "Description", 3, 30, "")
+    MaterialTheme {
+        PlantDetailContent(plant = plant)
+    }
+}
+
 
 @Composable
 private fun PlantName(name: String) {
@@ -47,10 +64,10 @@ private fun PlantName(name: String) {
         )
 }
 
-@Preview(backgroundColor = 0xFFFFFFFF, showBackground = true)
-@Composable
-private fun PlantNamePreview() {
-    MaterialTheme {
-        PlantName(name = "Apple")
-    }
-}
+//@Preview(backgroundColor = 0xFFFFFFFF, showBackground = true)
+//@Composable
+//private fun PlantNamePreview() {
+//    MaterialTheme {
+//        PlantName(name = "Apple")
+//    }
+//}

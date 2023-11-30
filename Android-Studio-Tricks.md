@@ -56,3 +56,9 @@ kotlinOptions {
 - placeholder text `tools:text` and image `tools:src`
 - split code and xml side by side (not horizontally): right click the tab and select `split right`.
 - layout rendering issue: change `api version for preview` also try to make android studio full screen mode
+
+
+### Open Multiple Projects:
+To open multiple projects simultaneously in Android Studio, go to `Settings` > `Appearance & Behavior` > `System Settings`
+in the Project Opening section, choose `Open project in new window` & save.
+* After this, while on a project, `file` > `open` and select will open the project in new window without closing the previous one.
