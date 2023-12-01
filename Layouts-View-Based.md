@@ -304,6 +304,7 @@ class SunflowerPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment)
 }
 ```
 
+### Binding Adapters:
 ### Material Android View Components:
 https://developer.android.com/reference/com/google/android/material/classes.html
 and check the available package list starting com.google.android.material.*

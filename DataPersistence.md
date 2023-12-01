@@ -161,7 +161,137 @@ interface ScheduleDao {
     - Application : Define a class that inherit Application() so we can get the real applicationContext. Inside this class define a property with lazy{} delegate which returns the Singleton of the database passing the applicationContext.  Aslo Include this class in Manifest.xml 's Application's android:name attribute. So that, we can call it from activity?.application as Something from UIs when initilizing viewModel's Factory.
 
     - Repository Pattern : this way, the DAO (injected through AppDatabse's Singleton Instance) is retrieved through a Repository Class' Singleton Instance. The context needs to be passed from the UI through the ViewModel's Factory Initialization.
+
+* Hooking Part
+    - ( Using Application ) From UI (Activity/Fragment), Initialize the viewModel by instantiating the viewModelFactory inside activityViewModels lambda, pass the DAO by calling the abstract method through the delegated lazy property inside the class that inherited from the Application class.
+
+    - ( Using Repository Pattern ) 
+
+### Example Using Application Class:
+<details>
+<summary>AppDatabase, Entity/DataClass and DAO Example :</summary>
+
 ```kotlin
+// Entity (from Data Class)
+@Entity
+data class Schedule(
+    @PrimaryKey val id: Int,
+    @NonNull @ColumnInfo(name = "stop_name") val stopName: String,
+    @NonNull @ColumnInfo(name = "arrival_time") val arrivalTime: Int
+)
+
+// DAO (Data Access Object)
+@Dao
+interface ScheduleDao {
+
+    @Query("SELECT * FROM schedule ORDER BY arrival_time ASC")
+    fun getAll(): Flow<List<Schedule>>
+
+    @Query("SELECT * FROM schedule WHERE stop_name = :stopName ORDER BY arrival_time ASC")
+    fun getByStopName(stopName: String): Flow<List<Schedule>>
+}
+
+// AppDatabase (to return database singleton)
+@Database(entities = [Schedule::class], version = 1)
+abstract class AppDatabase: RoomDatabase() {
+
+    abstract fun scheduleDao(): ScheduleDao
+
+    // Singleton
+    companion object {
+
+        /*
+        * Marks the JVM backing field of the annotated property as volatile,
+        * meaning that writes to this field are immediately made visible to other threads
+        */
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
+
+        fun getDatabase(context: Context): AppDatabase {
+            // synchronized(object) means, Executes the given function block while holding the monitor of the given object lock.
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(context, AppDatabase::class.java, "app_database").createFromAsset("database/bus_schedule.db").build()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
+}
+
+// Application
+class BusScheduleApplication: Application() {
+    val database: AppDatabase by lazy { AppDatabase.getDatabase(this) }
+}
+
+// ViewModel
+class BusScheduleViewModel(private val scheduleDao: ScheduleDao) : ViewModel() {
+
+    // get the full bus schedule from scheduleDao param
+    fun fullSchedule(): Flow<List<Schedule>> = scheduleDao.getAll()
+
+    // get the arrival time
+    fun scheduleForStopName(name: String): Flow<List<Schedule>> = scheduleDao.getByStopName(name)
+}
+
+/*
+* ViewModel Factory
+* Create Factory class to instantiate the BusScheduleViewModel
+* As BusScheduleViewModel should be instantiated by an object that can respond to lifecycle events
+* ViewModelProvider can be used as it is a lifecycle aware class
+*/
+
+class BusScheduleViewModelFactory(private val scheduleDao: ScheduleDao) :
+    ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if(modelClass.isAssignableFrom(BusScheduleViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return BusScheduleViewModel(scheduleDao) as T
+        }
+        throw IllegalAccessException("Something wrong with the custom BusScheduleViewModel class")
+    }
+}
+
+// populate viewModel from UI Layer
+class FullScheduleFragment : Fragment() {
+
+    private val viewModel: BusScheduleViewModel by activityViewModels {
+        BusScheduleViewModelFactory((activity?.application as BusScheduleApplication).database.scheduleDao())
+    }
+    //....
+}
+```
+
+</details>
+
+
+### Example Using Repository Pattern:
+<details>
+<summary>Code example for Room DB access using Repository Pattern</summary>
+
+```kotlin
+// Repository
+class PlantRepository private constructor(private val plantDao: PlantDao) {
+
+    fun getPlants() = plantDao.getPlants()
+
+    fun getPlant(plantId: String) = plantDao.getPlant(plantId)
+
+    fun getPlantsWithGrowZoneNumber(growZoneNumber: Int) =
+        plantDao.getPlantsWithGrowZoneNumber(growZoneNumber)
+
+    companion object {
+
+        // For Singleton instantiation
+        @Volatile private var instance: PlantRepository? = null
+
+        fun getInstance(plantDao: PlantDao) =
+            instance ?: synchronized(this) {
+                instance ?: PlantRepository(plantDao).also { instance = it }
+            }
+    }
+}
+
 // viewmodel
 class PlantListViewModel internal constructor(
     plantRepository: PlantRepository,
@@ -205,19 +335,17 @@ class PlantListFragment : Fragment() {
 }
 
 // See Sunflower App
-```
+``` 
 
-* Hooking Part
-    - ( Using Application ) From UI (Activity/Fragment), Initialize the viewModel by instantiating the viewModelFactory inside activityViewModels lambda, pass the DAO by calling the abstract method through the delegated lazy property inside the class that inherited from the Application class.
-
-    - ( Using Repository Pattern ) 
- 
+</details>
 
 ### @Volatile on property:
 Marks the JVM backing field of the annotated property as volatile, meaning that writes to this field are immediately made visible to other threads.
 
 ### synchronized (lock: Any, block: () -> R): R | on method:
 This function (like java)  protects the code block from concurrent execution by multiple threads by the monitor of the instance (or, for static methods, the class or object/companion) on which the method is defined
+### Converters For Room:
+
 ### Room Migration:
 * migration object with a migration strategy is required for when the schema changes
 * A migration object is an object that defines how to take all rows with the old schema and convert them to rows in the new schema, so that no data is lost.

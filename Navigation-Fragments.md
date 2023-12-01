@@ -174,7 +174,7 @@ it's simply a reusable piece of app's ui. Like activities, fragments have a life
 With activities, onCreate() method is used to inflate the layout and bind views. But in the fragment lifecycle, onCreate() is called before the view is created, so layout inflate is not possible here. In fragment onCreateView() is used to inflete layout. Then, after the view has been created, the onViewCreated() method is called, where view binding can be done to bind properties to specific views.
 
 ### Fragment Creating:
-Like activity, each fragment will consist of two files, an XML file + a Kotlin class to display data and handle user interactions
+Like activity, each fragment will consist of two files, an XML file + a Kotlin class to display data and handle user interactions.
 
 With app selected in the Project Navigator, add the following fragments (File > New > Fragment > Fragment (Blank)), select name for the fragment (layout name will be generated automatically) and both a class and layout file should be generated for each.
 

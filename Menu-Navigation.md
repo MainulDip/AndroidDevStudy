@@ -274,7 +274,6 @@ NavigationUI provides support for the following top app bar types
 - ActionBar
 
 Top App Bar Guide: https://developer.android.com/guide/navigation/integrations/ui.
-
 ### Option Menu (Top NavBar's Right Side):
 The options menu is the primary collection of menu items for an activity. It's where you place actions that have a global impact on the app, such as "Search," "Compose email," and "Settings."
 
