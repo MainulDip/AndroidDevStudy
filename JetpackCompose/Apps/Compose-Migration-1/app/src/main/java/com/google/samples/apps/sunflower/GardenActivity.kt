@@ -31,5 +31,7 @@ class GardenActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContentView<ActivityGardenBinding>(this, R.layout.activity_garden)
+
+        println("Cachedir : ${applicationContext.cacheDir} and External Cache Dir : ${applicationContext.externalCacheDir}")
     }
 }
