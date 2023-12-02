@@ -1,7 +1,7 @@
 ## Overview:
 This doc is focused on the SudokuAppJetpack.
 
-### CoroutineContext
+### CoroutineContext:
 Persistent context for the coroutine. It is an indexed set of Element instances. An element of the coroutine context is a singleton context by itself. An indexed set is a mix between a set and a map. Every element in this set has a unique Key.
 
 We can use Dispatchers to tell Coroutines which threads to use to run this code

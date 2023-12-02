@@ -9,3 +9,12 @@ Topics to be covered. App Components (except Activity and Content Providers).
 - JetPack WorkManager (Create and run schedule task with WM)
 - Foreground Service
 - Restart Service After Reboot
+
+### Service and Intent Service:
+https://developer.android.com/guide/components/services
+```kotlin
+
+```
+
+### BackGround Work
+https://developer.android.com/guide/background

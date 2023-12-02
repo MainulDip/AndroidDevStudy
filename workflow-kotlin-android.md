@@ -61,7 +61,7 @@ WindowManager - https://stackoverflow.com/questions/19846541/what-is-windowmanag
 DisplayManager - https://stackoverflow.com/questions/64223814/how-to-use-displaymanager-to-get-displays-and-set-a-bool
 
 
-### WindowCompact and Window:
+### WindowCompact and Window
 Helper for accessing features in Window. Like `WindowCompat.setDecorFitsSystemWindows(window, false)` to display window edge-to-edge
 
 all the window related features are here https://developer.android.com/reference/android/view/Window.html

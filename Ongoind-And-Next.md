@@ -58,12 +58,18 @@ NB: Topics followed by *** are to check first.
 
 
 
-    * Service 
+    * Service ( https://youtu.be/EwwB_wZhBaw?si=pt7_jNyae5AoOUFi )
     - Start/Stop Service, Multi Threading, AsyncTask Service
     - Bound Service
-    - Intent Service
+    - Intent Service ( https://youtu.be/n6hwehPazac?si=QCycCZPPcaHwwue1 )
     - JobScheduler and JobService
-    - Broadcast Receiver (create & register), Run Service after device boot
+    - Broadcast Receiver (create & register), Run Service after device boot (https://youtu.be/HDVyFsFUuVg?si=nxKPt_Yf84yMv3BV) ( https://youtu.be/HDVyFsFUuVg?si=L21XtXMrjYA7iWtB )
     - JetPack WorkManager (Create and run schedule task with WM)
-    - Foreground Service
+    - Foreground Service ( https://youtu.be/YZL-_XJSClc?si=Q2x09nqOoFR_uYCf )
     - Restart Service After Reboot
+
+
+* Caching ( https://youtu.be/qQVCtkg-O7w?si=WZy9oDS0QeOIxapZ )
+```kotlin
+println("Cachedir : ${applicationContext.cacheDir} and External Cache Dir : ${applicationContext.externalCacheDir}")
+```
