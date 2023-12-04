@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Service-2-GeneralService</string>
+    <string name="start">Start Service</string>
+    <string name="end">End Service\n</string>
+</resources>

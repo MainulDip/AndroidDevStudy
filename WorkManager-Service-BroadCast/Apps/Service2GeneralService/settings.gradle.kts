@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Service-1-IntentService"
+rootProject.name = "Service-2-GeneralService"
 include(":app")

@@ -1,13 +1,11 @@
-package com.websolverpro.service_1
+package com.websolverpro.service_1_intentservice
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.widget.Button
-import com.websolverpro.service_1.databinding.ActivityMainBinding
+import com.websolverpro.service_1_intentservice.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

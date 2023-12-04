@@ -1,4 +1,4 @@
-package com.websolverpro.service_1
+package com.websolverpro.service_1_intentservice
 
 import android.app.IntentService
 import android.content.Intent

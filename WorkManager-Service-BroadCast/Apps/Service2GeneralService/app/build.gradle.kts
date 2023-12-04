@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.websolverpro.service_1_intentservice"
+    namespace = "com.websolverpro.service_2_generalservice"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.websolverpro.service_1_intentservice"
+        applicationId = "com.websolverpro.service_2_generalservice"
         minSdk = 27
         targetSdk = 34
         versionCode = 1
@@ -26,11 +26,6 @@ android {
             )
         }
     }
-
-    buildFeatures {
-        viewBinding = true
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8

@@ -30,6 +30,7 @@ Debugging From Scratch:
 => From Studio's project tab as `Android`, refactor all occurrence by selecting `com.something.<packagename>` to new name. 
 => Also change app level build.gradle's `applicationID` and `namespace` with valid format (no dash `-`, use underscore `_`)
 => Also change settings.gradle's rootprojectname. 
+=> find the package (`java package`) in each kotlin/java file inside `src/main` and test directories.
 
 ### Easy Debug:
 Add Associated Class (tools:context) in root layout element per file => `tools:context="com.domain.project.package.className"`
