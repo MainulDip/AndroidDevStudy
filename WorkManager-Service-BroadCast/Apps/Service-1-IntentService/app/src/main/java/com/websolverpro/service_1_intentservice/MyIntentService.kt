@@ -7,7 +7,7 @@ import android.util.Log
 class MyIntentService: IntentService("MyIntentService Debug Identifier") {
     
     /**
-     * Making Singleton access to stop later
+     * Making Singleton access to stop the service later
      */
     init {
         instance = this

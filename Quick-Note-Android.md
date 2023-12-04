@@ -257,9 +257,10 @@ R8: Tool to optimize app for release
 
 * in build.gradle set buildTypes { release {...}} include `minifyEnable true`, `shrinkEnable true` and add `proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'`
 
-### Ongoing:
+
+### Ongoing
 - (https://developer.android.com/guide/navigation/migrate)
-- Menu systems
+- Menu system
 
 ### From
 - Dagger-Codelab-1
