@@ -27,6 +27,6 @@ There are 4 main concepts,
 
 `Operators` : Converts Data Streams Before Observers (to feed by Observers). Operators are chainable with one another. There are more than 70 operators available. Most Common Operators are `Map`, `FlatMap`, `SwitchMap`, `From`, `Just`, `Range`, `Debounce`, `Buffer` etc.
 
-* Subscriptions: A connection between  Observable-Observer is called a Subscription. Observable-Observer Subscription can vary by sub classes,  like `Single-SingleObserver`, `Completable-CompletableObserver`, `Maybe-MaybeObserver`,, `Flowable-Observer`
+* Subscriptions: A connection between  Observable-Observer is called a Subscription. Observable-Observer Subscription can vary by sub classes,  like `Single-SingleObserver`, `Completable-CompletableObserver`, `Maybe-MaybeObserver`, `Flowable-Observer`
 
 * Memory Leaks Handling Interfaces : `Disposable` and `CompositeDisposable`
