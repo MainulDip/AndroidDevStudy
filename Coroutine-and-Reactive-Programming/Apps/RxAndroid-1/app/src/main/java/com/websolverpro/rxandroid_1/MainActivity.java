@@ -14,7 +14,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 public class MainActivity extends AppCompatActivity {
 
     private final static String TAG = "RxAndroidCustom";
-    private String greating = "Hello from RxJava and RxAndroid";
+    private String greeting = "Hello from RxJava and RxAndroid";
     private Observable<String> myObservable;
     private Observer<String> myObserver;
     private TextView textView;
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         textView = findViewById(R.id.tvGreeting);
 
-        myObservable = Observable.just(greating);
+        myObservable = Observable.just(greeting);
 
         myObserver = new Observer<String>() {
             @Override

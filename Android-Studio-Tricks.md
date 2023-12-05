@@ -9,6 +9,8 @@
 ### Compose
 - typing `wc` in editor for column template
 - Tooling : https://developer.android.com/jetpack/compose/tooling#editor-actions
+### Intellij Plugins:
+`Key Promoter x` suggest short-cut of possible task done through GUI in IDE 
 
 ### Digging Tricks:
 1. Ctrl + click function and inspect usages in current project. There are options for include/exclude Test classes, preview sources, etc. 

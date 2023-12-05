@@ -111,4 +111,4 @@ Service runs in ui/main thread by default. So we need to assign a background thr
 ```
 
 ### BackGround Work
-https://developer.android.com/guide/background
+https://developer.android.com/guide/background.
