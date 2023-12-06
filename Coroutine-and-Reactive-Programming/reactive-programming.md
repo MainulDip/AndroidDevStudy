@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onNext(@NonNull String s) {
                 Log.d(TAG, "onNext: ");
-                textView.setText("Observer Text");
+                textView.setText(s);
             }
 
             @Override
@@ -84,14 +84,108 @@ public class MainActivity extends AppCompatActivity {
 ### Concurrency and Multithreading with Schedulers:
 A `Scheduler` can be identified as a thread pool managing one or more threads.
 
-`Scheduler.io()` -> Used for non CPU intensive tasks like Database and filesystem iterations, network communication etc. Can have limitless thread pool.
+`Schedulers.io()` -> Used for non CPU intensive tasks like Database and filesystem iterations, network communication etc. Can have limitless thread pool.
 
 `AndroidSchedulers.mainThread()` -> This is the main thread (UI Thread). Provided to RxJava from RxAndroid.
 
-`Scheduler.newThread()` -> creates a new thread for each unit of work scheduled.
+`Schedulers.newThread()` -> creates a new thread for each unit of work scheduled.
 
-`Scheduler.single()` -> it spawns a single thread and execute tasks synchronously (one after another following the given order)
+`Schedulers.single()` -> it spawns a single thread and execute tasks synchronously (one after another following the given order)
 
-`Scheduler.trampoline()` -> executes tasks following first in first out basics. Used for recurring tasks
+`Schedulers.trampoline()` -> executes tasks following first in first out basics. Used for recurring tasks
 
-`Scheduler.from(Executor executor)` -> creates and returns a custom scheduler backed by a specific executor.
+`Schedulers.from(Executor executor)` -> creates and returns a custom scheduler backed by a specific executor.
+
+```kotlin
+protected void onCreate(Bundle savedInstanceState) {
+        //...
+        myObservable = Observable.just(greeting);
+        myObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());;
+        //...
+}
+```
+### Disposable and Disposable Observer:
+When we don't need the Observable to be observed, we can dispose the subscription using `Disposable.dispose()`. A Disposable instance is available from the Observer's onSubscribe method. We will dispose the subscription on lifecycle destroyed on the `onDestroy` override.
+
+Using Disposable Observer, the subscription will be destroyed automatically using `new DisposableObserver<T>()` and directly call myObserver.dispose() in the onDestroy override of the Activity.
+
+```kotlin
+public class MainActivity extends AppCompatActivity {
+    //....
+    private Disposable disposable;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        //...
+
+        myObserver = new Observer<String>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.d(TAG, "onSubscribe: ");
+                disposable = d;
+            }
+            //...
+        };
+
+        myObservable.subscribe(myObserver);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disposable.dispose();
+    }
+}
+```
+
+### Composite Disposable :
+When there is more than one observer, it's better to use Composite Disposable to dispose all the subscription using `CompositeDisposable.add(myDisposableObserver)` and `CompositeDisposable.clear()`
+```
+public class MainActivity extends AppCompatActivity {
+
+    private final static String TAG = "RxAndroidCustom";
+    private String greeting = "Hello from RxJava and RxAndroid";
+    private Observable<String> myObservable;
+    private DisposableObserver<String> myObserver;
+
+    private CompositeDisposable compositeDisposable;
+    private TextView textView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        textView = findViewById(R.id.tvGreeting);
+
+        myObservable = Observable.just(greeting);
+        myObservable.subscribeOn(Schedulers.io());
+
+        compositeDisposable = new CompositeDisposable();
+
+        myObserver = new DisposableObserver<String>() {
+            //...
+        };
+
+        compositeDisposable.add(myObserver);
+        myObservable.subscribe(myObserver);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.clear();
+    }
+}
+```
+
+### Chaining in RxJava :
+```kotlin
+/**
+* Chaining in RxJava
+*/
+compositeDisposable.add(
+        myObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(myObserver)      
+);
+```
+### Operators:

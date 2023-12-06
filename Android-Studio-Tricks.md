@@ -11,6 +11,16 @@
 - Tooling : https://developer.android.com/jetpack/compose/tooling#editor-actions
 ### Intellij Plugins:
 `Key Promoter x` suggest short-cut of possible task done through GUI in IDE 
+### Gradle Plugins:
+`kotlin-parcelize` gradle plugin provides a Parcelable implementation generator automatically. docs https://developer.android.com/kotlin/parcelize
+
+first add the gradle plugin `kotlin-parcelize` then use like
+```kotlin
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+class User(val firstName: String, val lastName: String, val age: Int): Parcelable
+```
 
 ### Digging Tricks:
 1. Ctrl + click function and inspect usages in current project. There are options for include/exclude Test classes, preview sources, etc. 
