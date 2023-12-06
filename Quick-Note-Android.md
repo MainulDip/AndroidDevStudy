@@ -8,8 +8,8 @@ If `binding` is enabled in a module, it generates a binding class for each XML l
 ```kotlin
 // attaching xml view as active to current activity
 setContentView(R.layout.activity_main)
-// fetching xml view by it's id
-findViewById<TextView>(R.id.notifications).propName
+// fetching xml view by it's id, should be done inside onCreate
+textView = findViewById<TextView>(R.id.notifications).propName
 ```
 
 ```kotlin
@@ -80,6 +80,16 @@ On the other hand, view binding has the following limitations compared to data b
 Because of these considerations, in some cases it's best to use both view binding and data binding in a project. You can use data binding in layouts that require advanced features and use view binding in layouts that don't.
 
 DataBinding Guide: https://developer.android.com/topic/libraries/data-binding#using_the_data_binding_library
+
+### ViewModel:
+
+### LiveData:
+
+### 2 way DataBinding:
+
+### Coroutine and Flow:
+
+### Binding Adapters:
 
 ### Activity to Activity, Fragment to Activity and Fragment to Fragment Navigation:
 Navigation can be done without using Navigation Graph.

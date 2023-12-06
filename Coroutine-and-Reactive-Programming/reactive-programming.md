@@ -80,3 +80,18 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 ```
+
+### Concurrency and Multithreading with Schedulers:
+A `Scheduler` can be identified as a thread pool managing one or more threads.
+
+`Scheduler.io()` -> Used for non CPU intensive tasks like Database and filesystem iterations, network communication etc. Can have limitless thread pool.
+
+`AndroidSchedulers.mainThread()` -> This is the main thread (UI Thread). Provided to RxJava from RxAndroid.
+
+`Scheduler.newThread()` -> creates a new thread for each unit of work scheduled.
+
+`Scheduler.single()` -> it spawns a single thread and execute tasks synchronously (one after another following the given order)
+
+`Scheduler.trampoline()` -> executes tasks following first in first out basics. Used for recurring tasks
+
+`Scheduler.from(Executor executor)` -> creates and returns a custom scheduler backed by a specific executor.

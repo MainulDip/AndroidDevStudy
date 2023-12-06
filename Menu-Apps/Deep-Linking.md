@@ -74,7 +74,7 @@ Note
 
 * By default NavDeepLinkBuilder will start your launcher Activity. This can be override using NavDeepLinkBuilder's `setComponentName()`
 
-### DeepLink BackStack:
+### DeepLink BackStack
 The backstack for a deep link is determined using the navigation graph that had been injected. If that activity has parent activity, it will also be taken.
 
 More complicated navigation can include nested navigation graphs. The app:startDestination at each level of the nested graphs determines the backstack. 
