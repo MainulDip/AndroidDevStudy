@@ -71,5 +71,5 @@ NB: Topics followed by *** are to check first.
 
 * Caching ( https://youtu.be/qQVCtkg-O7w?si=WZy9oDS0QeOIxapZ )
 ```kotlin
-println("Cachedir : ${applicationContext.cacheDir} and External Cache Dir : ${applicationContext.externalCacheDir}").
+println("Cachedir : ${applicationContext.cacheDir} and External Cache Dir : ${applicationContext.externalCacheDir}")
 ```

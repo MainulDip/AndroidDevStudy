@@ -28,17 +28,17 @@ class MainActivity : AppCompatActivity() {
 
         println(db)
 
-//        (1..10).forEach {
-//
-//            lifecycleScope.launch {
-//                db.dao.insertUser(
-//                    User(
-//                        email = "test@test$it.com",
-//                        userName = "test$it"
-//                    )
-//                )
-//            }
-//        }
+        (10..20).forEach {
+
+            lifecycleScope.launch {
+                db.dao.insertUser(
+                    User(
+                        email = "test@test$it.com",
+                        userName = "test$it"
+                    )
+                )
+            }
+        }
 
 //        deleteDatabase("user.db")
 

@@ -6,6 +6,11 @@
 - `alt + enter` to import
 - `alt + enter` inside a typo (word with curly underling) will fix
 - `r` will refresh xml layout design
+
+### Add Keyboard Custom Shortcuts:
+`Ctrl + Comma` - to toggle running device
+### Android Studio Custom Configuration:
+1. `Allow Logcat Automatically` allow this form Bottom `Run` tab's setting -> miscellaneous to see what's happening and fast check runtime errors.
 ### Compose
 - typing `wc` in editor for column template
 - Tooling : https://developer.android.com/jetpack/compose/tooling#editor-actions
