@@ -58,6 +58,9 @@ dependencies {
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$room_version")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+
 
     // optional - RxJava2 support for Room
 //    implementation("androidx.room:room-rxjava2:$room_version")

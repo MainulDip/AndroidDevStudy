@@ -76,6 +76,7 @@ fun simple(): Flow<Int> = flow { // flow builder
 }
 
 fun main() = runBlocking<Unit> {
+    // from android use lifecycleScope.launch or viewModelScope (or LiveData to observe changes and sync)
     launch {
         for (k in 1..3) {
             println("I'm not blocked $k")
@@ -108,10 +109,11 @@ implementation "androidx.room:room-ktx:$room_version"
 * add plugin to use kapt in module's plugin objecet
  - id 'kotlin-kapt'
 
- ### Room Intro:
+ ### Room Intro (@Entity):
+ @Entity is for defining the model/structure of a table.
 - Entity: each table is represented by a class (model class or `entities`) or more specifically a data class.
 - Room queries are not case sensitive
-- the data class should be annoted with @Entity or @Entity(tableName="table_name")
+- the data class should be annotated with @Entity or @Entity(tableName="table_name")
 - project's files should be organized by separate packages for each Entity. DAO Interface and Entity can be on same package.
 - sample entity class
 ```kotlin
@@ -122,16 +124,97 @@ data class Schedule(
    @NonNull @ColumnInfo(name = "arrival_time") val arrivalTime: Int
 )
 ```
-### DAO (Data Access Object) and Room Integration:
-It's a iterface that provides access to the data. Functions of DAO provide CRUD operations of the database (often using SQL commands)
+### @DAO (Data Access Object) and @Database abstract RoomDatabase:
+It's a interface that provides access to the data. Functions of DAO provide CRUD operations of the database (often using SQL commands)
 ```kotlin
 @Dao
 interface ScheduleDao {
     @Query("SELECT * FROM schedule ORDER BY arrival_time ASC")
-    fun getAll(): List<Schedule>
+    suspend fun getAll(): List<Schedule>
 }
 ```
-### Room Model + DAO + ViewModel + AppData:
+
+All @Entity and @Dao are bind together with the @Database annotation and the annotated abstract class (which also inherit the RoomDatabase abstract class) is used to instantiate the Room Database using its builder pattern.
+```kotlin
+@Database(
+    entities = [Schedule::class],
+    version = 1
+)
+abstract class ScheduleDatabase: RoomDatabase() {
+    abstract val dao: ScheduleDao
+}
+```
+### Instantiating a simple Room Database With Minimal @Entity, @DAO, @Database and Builder:
+The Room Database is created/instantiated using the `Room.databaseBuilder()` and can be deleted using `deleteDatabase("Database_Name")`
+```kotlin
+@Entity
+data class User(
+    @PrimaryKey(autoGenerate = false)
+    val email: String,
+    val userName: String
+)
+
+@Dao
+interface UserDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUser(user: User)
+
+    @Query("SELECT * FROM user")
+    suspend fun getUsers(): List<User>
+}
+
+@Database(
+    entities = [User::class],
+    version = 1
+)
+abstract class UserDatabase: RoomDatabase() {
+    abstract val dao: UserDao
+}
+
+/**
+* Instantiate the database and add some test user
+*/
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val db = Room.databaseBuilder(
+            applicationContext,
+            UserDatabase::class.java,
+            "user.db"
+        ).build()
+
+        lifecycleScope.launch {
+           // db.dao.getUsers().forEach(::println)
+            db.dao.getUsers().forEach {
+                Log.d("Room-User", "$it")
+            }
+        }
+
+       (1..10).forEach {
+
+           lifecycleScope.launch {
+               db.dao.insertUser(
+                   User(
+                       email = "test@test$it.com",
+                       userName = "test$it"
+                   )
+               )
+           }
+       }
+
+       /**
+       * Delete the database for testing purpose
+       * using `deleteDatabase("user.db")`
+       */
+
+    }
+}
+```
+
+### Organized Architectural Approach With Room Model + DAO + ViewModel + AppData:
 * Entity (`model` as data class): For each table there should be a Room Model (entity)
 
 * DAO (Interface): For each entity (Room Model) there should be an DAO (Data Access Object). Each DAO specifies all the sql query to access the room database. Usually 1 DAO From each screen.
