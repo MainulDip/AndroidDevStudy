@@ -74,6 +74,7 @@ kotlinOptions {
 - placeholder text `tools:text` and image `tools:src`
 - split code and xml side by side (not horizontally): right click the tab and select `split right`.
 - layout rendering issue: change `api version for preview` also try to make android studio full screen mode
+### androidTestImplementation vs testImplementation vs implementation:
 
 
 ### Open Multiple Projects:

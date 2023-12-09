@@ -12,4 +12,10 @@ interface UserDao {
 
     @Query("SELECT * FROM user")
     suspend fun getUsers(): List<User>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertSchool(school: School)
+
+    @Query("SELECT * FROM School")
+    suspend fun getSchools(): List<School>
 }
