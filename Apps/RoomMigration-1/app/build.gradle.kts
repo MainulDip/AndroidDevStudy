@@ -59,6 +59,8 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")
+//    androidTestImplementation("androidx.test:core:1.5.0")
+//    androidTestImplementation("androidx.test:core-ktx:1.5.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.5")
 
@@ -98,5 +100,5 @@ dependencies {
     // optional - Paging 3 Integration
 //    implementation("androidx.room:room-paging:$room_version")
 
-    testImplementation("com.google.truth:truth:1.1.4")
+    androidTestImplementation("androidx.test.ext:truth:1.5.0")
 }

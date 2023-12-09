@@ -43,6 +43,11 @@ Debugging From Scratch:
 ### Notes on adding Dependencies:
 * First add the root/project level `build.gradle` requirements and build/sync. Then add all other module level gradle requirements.
 
+### Importing Helper Not Working:
+1. write the full function name and call (ie, functionName()), then check if there is any help from the IDE
+2. add or inspect if the correct dependency is there in build.gradle
+3. manually add import like `library.package.name.*` the try again
+
 ### Changing Project Name:
 => From Studio's project tab as `Android`, refactor all occurrence by selecting `com.something.<packagename>` to new name. 
 => Also change app level build.gradle's `applicationID` and `namespace` with valid format (no dash `-`, use underscore `_`)
@@ -74,10 +79,14 @@ kotlinOptions {
 - placeholder text `tools:text` and image `tools:src`
 - split code and xml side by side (not horizontally): right click the tab and select `split right`.
 - layout rendering issue: change `api version for preview` also try to make android studio full screen mode
-### androidTestImplementation vs testImplementation vs implementation:
+### androidTestImplementation vs testImplementation vs implementation vs androidTestCompileOnly:
 
 
 ### Open Multiple Projects:
 To open multiple projects simultaneously in Android Studio, go to `Settings` > `Appearance & Behavior` > `System Settings`
 in the Project Opening section, choose `Open project in new window` & save.
 * After this, while on a project, `file` > `open` and select will open the project in new window without closing the previous one.
+
+
+### Migration from kapt to ksp :
+https://developer.android.com/build/migrate-to-ksp
