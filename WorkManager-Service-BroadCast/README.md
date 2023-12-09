@@ -110,9 +110,104 @@ Service runs in ui/main thread by default. So we need to assign a background thr
 
 ```
 ### Broadcast and Broadcast Receivers:
+Docs https://developer.android.com/guide/components/broadcasts
 `Broadcast` - Sending Intent To another app. In short, it can be system wide events, those are send by the android system and can receive/listen by an app. 
 `Broadcast Receiver` - Receiving an Intent from another app or from system and handling it silently.
 
+Broadcast examples, `System Boot Completed`, `Incoming-Call Broadcast`, `Airplane Mode Toggle`, etc.
+
+Broadcast Receivers are listeners and action handles on those events. Like, if `Incoming-Call` triggered, other app could react on these.
+
+The are 2 Kind of Broadcast Receivers,
+1. `Dynamic` -> Dynamic Broadcast Receiver needs the app to be in active mode. We attach the BroadCast Receiver inside `onCreate` using `registerReceiver()` and un-attach on `onDestroy` using `unregisterReceiver()`
+```kotlin
+class AirPlaneModeReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
+        if (intent?.action == Intent.ACTION_AIRPLANE_MODE_CHANGED) {
+            /**
+             * Check if AirPaneMode is on or off
+             */
+            val isTurnedOn = Settings.Global.getInt(
+                context?.contentResolver,
+                Settings.Global.AIRPLANE_MODE_ON
+            ) != 0
+
+            println("Is AirPlane Mode enabled ? = $isTurnedOn")
+        }
+    }
+}
+
+/**
+* Register this from the package
+*/
+class MainActivity : ComponentActivity() {
+
+    private val airPlaneModeReceiver = AirPlaneModeReceiver()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        /**
+         * Register for receiving Broadcast
+         */
+        registerReceiver(
+            airPlaneModeReceiver,
+            IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED)
+        )
+    }
+
+    /**
+     * Unregister from receiving Broadcast when activity destroyed
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(airPlaneModeReceiver)
+    }
+}
+```
+
+2. `Static / Manifest Declared Receiver` -> this type of receiver doesn't require for app to be in active state. These are hooked from the manifest and system package manager register the receiver when the app is installed. Also it needs `<uses-permission .../>` and `<receiver>...</receiver>` declaration in manifest. Supported broadcast list is https://developer.android.com/guide/components/broadcast-exceptions.
+
+```xml
+<manifest ...>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <application>
+    ...
+        <activity>...</activity>
+        <receiver android:name=".BootCompletedReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
+```
+```kotlin
+private const val TAG = "TAG Custom Boot"
+
+class BootCompletedReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
+        Log.d(TAG, "onReceive: $context")
+        Log.d(TAG, "onReceive: $intent")
+        Log.d(TAG, "onReceive: ${intent?.action}")
+        if (intent?.action == Intent.ACTION_BOOT_COMPLETED) {
+            Log.d(TAG, "onReceive: Boot Completed Notify Receiver From Custom BroadCast Class")
+        }
+    }
+}
+```
+### Sending Broadcast To Other App:
+```kotlin
+// sending an broadcast, any app can receive this using intent?.action == "TEST_ACTION_FROM_THIS_APP" from a `BroadcastReceiver` class
+sendBroadcast(Intent("TEST_ACTION_FROM_THIS_APP"))
+
+// Receiving above broadcast
+// It's same, define a CustomReceiver form the BroadcastReceiver()
+// register and unregister the receiver from view
+```
 
 ### BackGround Work
 https://developer.android.com/guide/background.
