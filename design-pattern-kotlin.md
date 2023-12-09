@@ -406,7 +406,7 @@ Event-driven programming is often implemented using IoC so that the custom code 
 ### Pragma | Pragmatic Information:
 Pragma is short for pragmatic information. Pragmatic means "sensible and practical". In programming, pragma refers to:
  - The code that consists of useful information on how a compiler or interpreter or assembler should process the program
- - pragma does not contribute anything to the programming language itselfpragma only affects the compiler behavior
+ - pragma does not contribute anything to the programming language itself, pragma only affects the compiler behavior
  - pragma‘s syntax may vary.
 
 

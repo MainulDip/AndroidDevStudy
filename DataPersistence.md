@@ -274,7 +274,7 @@ interface ScheduleDao {
     fun getByStopName(stopName: String): Flow<List<Schedule>>
 }
 
-// AppDatabase (to return database singleton)
+// AppDatabase ( to return database singleton)
 @Database(entities = [Schedule::class], version = 1)
 abstract class AppDatabase: RoomDatabase() {
 

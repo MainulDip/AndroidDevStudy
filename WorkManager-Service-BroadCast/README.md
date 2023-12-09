@@ -109,6 +109,10 @@ Service runs in ui/main thread by default. So we need to assign a background thr
 ```kotlin
 
 ```
+### Broadcast and Broadcast Receivers:
+`Broadcast` - Sending Intent To another app. In short, it can be system wide events, those are send by the android system and can receive/listen by an app. 
+`Broadcast Receiver` - Receiving an Intent from another app or from system and handling it silently.
+
 
 ### BackGround Work
 https://developer.android.com/guide/background.
