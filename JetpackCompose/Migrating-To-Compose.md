@@ -21,7 +21,11 @@ Sunflower App Structure:
 ### map[key]?.invoke():
 
 ### ComposeView:
-ComposeView: an Android View that can host Compose UI content using its setContent method.
+`ComposeView`: an Android View that can host Compose UI content using its setContent method. This used to integrate Compose View inside of xml view.
+
+1. First add the ComposeView in the targeted xml file.
+2. Then access the ComposeView from kotlin file using `binding` or `findViewById` whatever, and call the `setContent` callback.
+3. If Compose view needs ViewModel access, pass it when instantiating the ComposeView as contractor param.
 ```xml
 <androidx.compose.ui.platform.ComposeView
         android:id="@+id/compose_view"
@@ -59,7 +63,10 @@ Note: Compose provides convenient methods to get values from the dimens.xml and 
 
 
 ### Compose with ViewModel and LiveData + DataBinding
-Composables don't have their own ViewModel instances, the same instance is shared between the composables and the lifecycle owner that hosts that Compose code (either Activity or Fragment).
+Composables don't have their own ViewModel instances, the same instance is need to share from Fragment/Activity to the ComposeView.
 * Pass the `ViewModel` from Activity/Fragment to `Composable Fn` as parameter.
 
-* When the `ViewModel` is injected to a Composable, LiveData is available too. Use `LiveData.observeAsState()` to observe changes. It will represent State.
+* When the `ViewModel` is injected to a Composable, LiveData is available too. Use `LiveData.observeAsState()` to observe changes. It will represent its values as a `State` object.
+
+### Using LiveData with ComposeView:
+As values emitted by the LiveData can be null, you'd need to wrap its usage in a null check. Because of that, and for reusability, it's best to split the LiveData consumption and listening in different composable.

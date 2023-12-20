@@ -9,7 +9,7 @@
 
 ### Add Keyboard Custom Shortcuts:
 `Ctrl + Comma` - to toggle running device
-### Android Studio Custom Configuration:
+### Android Studio Custom Configuration
 1. `Allow Logcat Automatically` allow this form Bottom `Run` tab's setting -> miscellaneous to see what's happening and fast check runtime errors.
 ### Compose
 - typing `wc` in editor for column template

@@ -28,6 +28,7 @@ import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -37,6 +38,8 @@ import com.google.samples.apps.sunflower.data.Plant
 import com.google.samples.apps.sunflower.databinding.FragmentPlantDetailBinding
 import com.google.samples.apps.sunflower.utilities.InjectorUtils
 import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * A fragment representing a single Plant detail screen.
@@ -66,7 +69,10 @@ class PlantDetailFragment : Fragment() {
                 override fun add(plant: Plant?) {
                     plant?.let {
                         hideAppBarFab(fab)
-                        plantDetailViewModel.addPlantToGarden()
+//                        viewLifecycleOwner.lifecycleScope.launch (Dispatchers.IO) {
+                            plantDetailViewModel.addPlantToGarden()
+//                        }
+
                         Snackbar.make(root, R.string.added_plant_to_garden, Snackbar.LENGTH_LONG)
                             .show()
                     }
