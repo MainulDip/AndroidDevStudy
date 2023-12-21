@@ -61,9 +61,19 @@ fun getItems(): LiveData<List<T>>
 
 /* 2. Observe in View (Activity/Fragment/Compose) from the viewModel */
 
+
+/* Inside Compose ----------- */
 val item: Item? by someViewModel.item.observeAsState() // observing form Compose
 
-// with no DataBinding inside Activity/Fragment, Build an Observe
+item?.let {
+    // do something with the item (it) when data gets updated.
+}
+
+// when not using the `by` delegation, LiveData<T>.value : T? can be used to read updates
+
+/* ---------------------- */
+
+/* with no DataBinding inside Activity/Fragment, Build an Observe */
 
 val itemObserver = Observer<T> {
     // someTextView.text = it.name

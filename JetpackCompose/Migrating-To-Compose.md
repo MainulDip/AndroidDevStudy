@@ -69,4 +69,75 @@ Composables don't have their own ViewModel instances, the same instance is need 
 * When the `ViewModel` is injected to a Composable, LiveData is available too. Use `LiveData.observeAsState()` to observe changes. It will represent its values as a `State` object.
 
 ### Using LiveData with ComposeView:
-As values emitted by the LiveData can be null, you'd need to wrap its usage in a null check. Because of that, and for reusability, it's best to split the LiveData consumption and listening in different composable.
+As values emitted by the LiveData can be null (.value: T?), you'd need to wrap its usage in a null check. Because of that, and for reusability, it's best to split the LiveData consumption and listening in different composable.
+```kotlin
+val plant: Plant? by plantDetailViewModel.plant.observeAsState()
+plant?.let {
+    PlantDetailContent(it)
+}
+
+// without delegation `by` assignment, LiveData<T>.value : T? can be used
+```
+
+### Applying String/Dimension/Plural Resources:
+`stringResource(R.string.string_name)` is used for strings
+
+`pluralStringResource()` and `dimensionResource()` can be used too in compose.
+
+```kotlin
+val normalPadding = dimensionResource(R.dimen.margin_normal)
+
+Text(
+    text = stringResource(R.string.watering_needs_prefix),
+    modifier = centerWithPaddingModifier.padding(top = normalPadding)
+)
+
+val wateringIntervalText = pluralStringResource(
+    R.plurals.watering_needs_suffix, wateringInterval, wateringInterval
+)
+
+/* xml for plurals */ /*
+<plurals name="watering_needs_suffix">
+        <item quantity="one" translation_description="Detail Description">every day</item>
+        <item quantity="other" translation_description="Detail Description">every %d days</item>
+</plurals>
+*/
+
+```
+### Creating AndroidView (xml) programmatically to feed compose:
+Some thing are not available to Compose yet, like `rendering html`, etc.
+
+Like this type of cases, we can create view programmatically or use viewBinding with xml view to feed the compose.
+
+`AndroidView `allows to construct a View in its factory lambda. It also provides an update lambda which gets invoked when the View has been inflated and on subsequent recompositions. ViewBinding can also be used when using the `xml` view.
+
+```kotlin
+@Composable
+private fun PlantDescription(description: String) {
+    // Remembers the HTML formatted description. Re-executes on a new description
+    val htmlDescription = remember(description) {
+        HtmlCompat.fromHtml(description, HtmlCompat.FROM_HTML_MODE_COMPACT)
+    }
+
+    // Displays the TextView on the screen and updates with the HTML description when inflated
+    // Updates to htmlDescription will make AndroidView recompose and update the text
+    AndroidView(
+        factory = { context ->
+            TextView(context).apply {
+                movementMethod = LinkMovementMethod.getInstance()
+            }
+        },
+        update = {
+            it.text = htmlDescription
+        }
+    )
+}
+
+@Preview
+@Composable
+private fun PlantDescriptionPreview() {
+    MaterialTheme {
+        PlantDescription("HTML<br><br>description")
+    }
+}
+```

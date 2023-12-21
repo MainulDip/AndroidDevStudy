@@ -77,6 +77,12 @@ class PlantDetailFragment : Fragment() {
                     }
                 }
             }
+
+            /**
+             *  When not using compose view
+             */
+
+            /*
             val plant = Observer<Plant> {
                  // someTextView.text = it.name
             }
@@ -89,6 +95,7 @@ class PlantDetailFragment : Fragment() {
                 println(plant.toString())
                 // do something when the pant value is updated in the viewModel
             }
+            */
 
             var isToolbarShown = false
 
