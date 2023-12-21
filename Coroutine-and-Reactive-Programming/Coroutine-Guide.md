@@ -36,4 +36,60 @@ viewLifecycleOwner.lifecycleScope.launch (Dispatchers.IO) {
 
 ```
 
-### CoroutineContext == CoroutineDispatchers:s
+### CoroutineContext == CoroutineDispatchers
+
+### Working with LiveData and Nul Safety:
+LiveData initialization is not Nullable. `LiveData<T>`, there is no `<T?>`. But to read the (set) the value or observe of changes, it requires null safety.
+
+Signatures ->
+`public fun <T> LiveData<T>.observeAsState(): State<T?>` && `LiveData<T>.getValue() : T?` (getValue is assessable through value?.prop)
+
+Little refresh of the LiveData
+```kotlin
+/* 1. Initialize the LiveData with empty initial value/state, usually inside ViewModel or in Room's DAO */
+
+val currentName: MutableLiveData<T> by lazy {
+    MutableLiveData<T>() // with empty initial state
+} // inside ViewModel
+
+// Inside Room's DAO
+@Query("SELECT * FROM items")
+fun getItems(): LiveData<List<T>>
+
+// -----------------------------------------------
+
+
+/* 2. Observe in View (Activity/Fragment/Compose) from the viewModel */
+
+val item: Item? by someViewModel.item.observeAsState() // observing form Compose
+
+// with no DataBinding inside Activity/Fragment, Build an Observe
+
+val itemObserver = Observer<T> {
+    // someTextView.text = it.name
+}
+
+// start observing from the main thread
+someViewModel.item.observe( viewLifecycleOwner, itemObserver)
+
+// or use direct callback option with the observer
+someViewModel.item.observe(viewLifecycleOwner) { item ->
+    println(item.toString())
+    // do something when the item value is updated in the viewModel
+}
+
+// ------------ 2way Data Binding -----------------
+
+// With 2 way data binding, we pass the whose viewModel into the xml view. So no need to Observe, it's included inside DataBinding Library
+
+
+// -----------------------------------------------
+
+
+/* 3. Updating LiveData */
+button.setOnClickListener {
+    val anotherName = "John Doe"
+    viewModel.name.setValue(anotherName)
+}
+```
+

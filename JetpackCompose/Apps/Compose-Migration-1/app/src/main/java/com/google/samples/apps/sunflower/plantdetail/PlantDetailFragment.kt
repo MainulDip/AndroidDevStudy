@@ -28,6 +28,7 @@ import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
@@ -69,14 +70,24 @@ class PlantDetailFragment : Fragment() {
                 override fun add(plant: Plant?) {
                     plant?.let {
                         hideAppBarFab(fab)
-//                        viewLifecycleOwner.lifecycleScope.launch (Dispatchers.IO) {
-                            plantDetailViewModel.addPlantToGarden()
-//                        }
+                        plantDetailViewModel.addPlantToGarden()
 
                         Snackbar.make(root, R.string.added_plant_to_garden, Snackbar.LENGTH_LONG)
                             .show()
                     }
                 }
+            }
+            val plant = Observer<Plant> {
+                 // someTextView.text = it.name
+            }
+
+            // start observing from the main thread
+            plantDetailViewModel.plant.observe( viewLifecycleOwner, plant)
+
+            // or use direct callback option with the observer
+            plantDetailViewModel.plant.observe(viewLifecycleOwner) { plant ->
+                println(plant.toString())
+                // do something when the pant value is updated in the viewModel
             }
 
             var isToolbarShown = false

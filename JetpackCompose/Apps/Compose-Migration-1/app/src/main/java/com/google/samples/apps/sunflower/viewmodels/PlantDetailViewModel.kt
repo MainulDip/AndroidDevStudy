@@ -16,9 +16,12 @@
 
 package com.google.samples.apps.sunflower.viewmodels
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.samples.apps.sunflower.data.GardenPlantingRepository
+import com.google.samples.apps.sunflower.data.Plant
 import com.google.samples.apps.sunflower.data.PlantRepository
 import com.google.samples.apps.sunflower.plantdetail.PlantDetailFragment
 import kotlinx.coroutines.CoroutineScope
@@ -35,7 +38,11 @@ class PlantDetailViewModel(
 ) : ViewModel() {
 
     val isPlanted = gardenPlantingRepository.isPlanted(plantId)
-    val plant = plantRepository.getPlant(plantId)
+    val plant: LiveData<Plant> = plantRepository.getPlant(plantId)
+
+    init {
+        Log.d("PlantDetailViewModel", "plant LiveData<Plant> : ${plant.value?.name} ")
+    }
 
     fun addPlantToGarden() {
         viewModelScope.launch (Dispatchers.IO) {
