@@ -141,3 +141,4 @@ private fun PlantDescriptionPreview() {
     }
 }
 ```
+* Webview is a better solution as html and inline CSS
