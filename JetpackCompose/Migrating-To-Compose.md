@@ -142,3 +142,26 @@ private fun PlantDescriptionPreview() {
 }
 ```
 * Webview is a better solution as html and inline CSS
+
+### ComposeView and setViewCompositionStrategy:
+When integration ComposeView the xml layout from Fragment/Activity, the Compose disposes the Composition (will not recompose if state changes) when ever the `ComposeView` becomes detached form the window (out of window by scrolling). 
+
+So the `State` behind the Composable will miss behave, also it will not follow the container's (fragment/Activity) lifecycle. 
+
+To override this, use ComposeView's `setViewCompositionStrategy` callback and set `ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed`. This will Dispose the Composition when the view's LifecycleOwner will be destroyed.
+
+```kotlin
+/* Inside Fragment */
+composeView.apply {
+    // Dispose the Composition when the view's LifecycleOwner
+    // is destroyed
+    setViewCompositionStrategy(
+        ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
+    )
+    setContent {
+        MaterialTheme {
+            SomeComposable(someViewModel)
+        }
+    }
+}
+```
