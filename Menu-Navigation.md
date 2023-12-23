@@ -141,7 +141,7 @@ Ex: tapping a notification can open an app's exact destination/page. Or tapping 
 
 NavigationUI has a `NavDeepLinkBuilder` class to construct a `PendingIntent` that will take the user to a specific destination.
 
-### A Widget With DeepLinked:
+### A Widget With DeepLinked
 Building a Widget that can be used by user to launch the app's specific destination:
 
 To do, first add necessary tag in manifest.xml. The receiver class declared in manifest is the entrypoint which will setup a Widget that will be available to use by user and tapping on it will open the exact destination of the app. Signature => `class DeepLinkAppWidgetProvider : AppWidgetProvider() {...}`

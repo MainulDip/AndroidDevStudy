@@ -38,6 +38,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.samples.apps.sunflower.R
 import com.google.samples.apps.sunflower.data.Plant
 import com.google.samples.apps.sunflower.databinding.FragmentPlantDetailBinding
+import com.google.samples.apps.sunflower.theme.SunflowerTheme
 import com.google.samples.apps.sunflower.utilities.InjectorUtils
 import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel
 import kotlinx.coroutines.Dispatchers
@@ -145,7 +146,7 @@ class PlantDetailFragment : Fragment() {
                 )
 
                 setContent {
-                    MaterialTheme {
+                    SunflowerTheme {
                         PlantDetailDescription(plantDetailViewModel)
                     }
                 }

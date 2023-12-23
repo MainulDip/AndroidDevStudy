@@ -165,3 +165,79 @@ composeView.apply {
     }
 }
 ```
+
+### Testing Compose Integration in Fragment/Activity:
+When an activity or fragment uses compose, instead of using `ActivityScenarioRule`, you need to use `createAndroidComposeRule` that integrates ActivityScenarioRule with a ComposeTestRule that lets you test Compose code.
+```kotlin
+@RunWith(AndroidJUnit4::class)
+class PlantDetailFragmentTest {
+
+    @Rule
+    @JvmField
+    val composeTestRule = createAndroidComposeRule(GardenActivity::class.java)
+    /* Replacing to test composeUI from Fragment/Activity instead of xml view */
+//    val activityTestRule = ActivityScenarioRule(GardenActivity::class.java)
+
+    // Note that keeping these references is only safe if the activity is not recreated.
+    private lateinit var activity: ComponentActivity
+
+    @Before
+    fun jumpToPlantDetailFragment() {
+        populateDatabase()
+
+        // activityTestRule.scenario.onActivity // non compose way
+        /* Hooking the composeTestRule and setting the scenario */
+        composeTestRule.activityRule.scenario.onActivity { gardenActivity ->
+            activity = gardenActivity
+
+            val bundle = Bundle().apply { putString("plantId", "malus-pumila") }
+            findNavController(activity, R.id.nav_host).navigate(R.id.plant_detail_fragment, bundle)
+        }
+    }
+
+    @Test
+    fun testPlantName() {
+
+        /* replacing xml view test assertion with composeTestRule's onNodeWithText */
+        composeTestRule.onNodeWithText("Apple").assertIsDisplayed()
+//        onView(ViewMatchers.withText("Apple"))
+//            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+
+    @Test
+    fun testShareTextIntent() {
+        val shareText = activity.getString(R.string.share_text_plant, testPlant.name)
+
+        Intents.init()
+        onView(withId(R.id.action_share)).perform(click())
+        intended(
+            chooser(
+                allOf(
+                    hasAction(Intent.ACTION_SEND),
+                    hasType("text/plain"),
+                    hasExtra(Intent.EXTRA_TEXT, shareText)
+                )
+            )
+        )
+        Intents.release()
+
+        // dismiss the Share Dialog
+        InstrumentationRegistry.getInstrumentation()
+            .uiAutomation
+            .performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK)
+    }
+
+    // TODO: This workaround is needed due to the real database being used in tests.
+    //  A fake database created with a Room.inMemoryDatabaseBuilder should be used instead.
+    //  That's difficult to do in the current state of the project since there are no
+    //  dependency injection best practices in place.
+    private fun populateDatabase() {
+        val request = TestListenableWorkerBuilder<SeedDatabaseWorker>(
+            InstrumentationRegistry.getInstrumentation().targetContext.applicationContext
+        ).build()
+        runBlocking {
+            request.doWork()
+        }
+    }
+}
+```
