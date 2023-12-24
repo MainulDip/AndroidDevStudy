@@ -7,16 +7,16 @@ https://developer.android.com/jetpack/compose/bom
 ```kotlin
 android {
     //...
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-    buildFeatures {
-        //...
-        compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.3.2'
-    }
+    // kotlinOptions {
+    //     jvmTarget = '1.8'
+    // }
+    // buildFeatures {
+    //     //...
+    //     compose true
+    // }
+    // composeOptions {
+    //     kotlinCompilerExtensionVersion '1.3.2'
+    // }
 }
 
 dependencies {
@@ -90,11 +90,22 @@ fun GreetingPreview() {
     }
 }
 ```
-### Layout Basic:
+### Layouts:
 - Column : arrange elements vertically
 - Row : arrange items horizontally
 - Box : For Stacking Components
 - Spacer : provide horizontal spacing
+- Scaffold (Slot API) : its a Material Component, provide quick structure that includes -> topBar, bottomBar, floatingActionButton, etc
+
+### Lazy Layouts:
+- lazyHorizontalGrid (multi rows)
+- lazyColumn
+- lazyRow
+- lazyGrid (multi columns)
+- Staggered grids
+    - lazyVerticalStaggeredGrid
+    - lazyHorizontalStaggeredGrid
+
 
 ### Theming and Color Scheme and Surface:
 inside `setContent:AppNameTheme` the Surface( color = MaterialTheme.colorScheme.background ) {...} wrapper Set the background color (if Theme.kt has any background property) and if the colorScheme has `onBackground` property defined, the text be that
@@ -115,7 +126,8 @@ Choose `androidx.compose.*` for compiler and runtime classes `androidx.compose.u
 ### Modifier List:
 https://developer.android.com/jetpack/compose/modifiers-list
 
-- `Modifier.weight(1f)` : The weight modifier makes the element fill all available space, making it flexible, effectively pushing away the other elements that don't have a weight, which are called inflexible. it kinda opposite of `fillMaxWidth()`
+- `Modifier.weight(1f)` : The weight modifier makes the element fill all available space, making it flexible, effectively pushing away the other elements that don't have a weight. Like this, if 3 row children have 1F/2F/1F weight, the middle one will be twice (2x) as other two.
+- `fillMaxWidth()` - will take entire available space.
 - `Modifier.verticalScroll(state: rememberScrollState(),...)` : Modify element to allow to scroll vertically when height of the content is bigger than max constraints allow.
 
 ### Recomposition and State:

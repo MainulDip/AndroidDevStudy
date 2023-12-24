@@ -6,6 +6,7 @@
 - `alt + enter` to import
 - `alt + enter` inside a typo (word with curly underling) will fix
 - `r` will refresh xml layout design
+- `ctrl + q` to preview function/code signature
 
 ### Add Keyboard Custom Shortcuts:
 `Ctrl + Comma` - to toggle running device
