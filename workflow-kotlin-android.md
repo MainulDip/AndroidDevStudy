@@ -116,3 +116,59 @@ dependencies {
 https://stackoverflow.com/questions/26521836/how-to-add-classpath-in-an-android-studio-project
 
 3. Reflection (Kotlin Reflect): It helps learning the name or the type of a property or function at `runtime` when used with Reactive Programming (`Async`)
+
+
+### Argument passing using Lambda:
+```kotlin
+fun main() {
+    A { str ->
+        println("The passed arg is $str")
+    }
+    
+    // will print "The passed arg is ArgB"
+    
+    
+    /* argument as `it` when there is only one argument */
+    A {
+        println(it) // will print "ArgB"
+    }
+}
+
+fun A(funA: (String) -> Unit) {
+    // B { arg -> funA(arg)}
+    B (funB = funA)
+}
+
+fun B(funB: (String) -> Unit) {
+    funB("ArgB")
+}
+```
+
+### Function as return type:
+```kotlin
+fun main() {
+  // free delivery of order above 499
+  val productPrice1 = 600; 
+  // not eligible for free delivery
+  val productPrice2 = 300; 
+  val totalCost1 = totalCost(productPrice1)
+  val totalCost2 = totalCost(productPrice2)
+   
+  println("Total cost for item 1 is ${totalCost1 (productPrice1) }")
+  println ("Total cost for item 2 is ${totalCost2 (productPrice2) }")
+}
+ 
+fun totalCost(productCost: Int) : (Int) -> Int {
+  if (productCost > 499) {
+    return { x -> x }
+  }
+  else {
+    return { x -> x + 50 }
+  }
+}
+
+/** outputs
+ * Total cost for item 1 is 600
+ * Total cost for item 2 is 350
+*/
+```
