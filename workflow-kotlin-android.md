@@ -118,7 +118,7 @@ https://stackoverflow.com/questions/26521836/how-to-add-classpath-in-an-android-
 3. Reflection (Kotlin Reflect): It helps learning the name or the type of a property or function at `runtime` when used with Reactive Programming (`Async`)
 
 
-### Argument passing using Lambda:
+### Argument passing using Lambdas
 ```kotlin
 fun main() {
     A { str ->
