@@ -374,7 +374,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ComposeApp(windowSize: WindowSizeClass) {
     when (windowSize.widthSizeClass) {
-        WindowWidthSizeClass.Compact -> LLayoutPortrait()
+        WindowWidthSizeClass.Compact -> LayoutPortrait()
         else -> LayoutLandscape()
     }
 }
