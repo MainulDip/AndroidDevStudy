@@ -16,7 +16,7 @@ When a state changes, Compose re-executes the affected composable functions with
 
 * Initial composition: creation of a Composition by running composables the first time.
 
-* Recomposition: re-running composables to update the Composition when data changes.
+* Recomposition: re-running composables to update the Composition when data changes
 
 To be able to do this `Recompose`, Compose needs to know what state to track, so that when it receives an update it can schedule the recomposition.
 

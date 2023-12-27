@@ -30,11 +30,15 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
@@ -79,9 +83,14 @@ fun ReplyEmailListItem(
                     Text(
                         text = email.sender.firstName,
                     )
-                    Text(
-                        text = email.createdAt,
-                    )
+
+                    // testing CompositionLocal, if this were a custom composable, all descendants will use the specified LocalContentColor
+                    var sth = LocalView.current.toString()
+                    CompositionLocalProvider (LocalContentColor provides Color.Red) {
+                        Text(
+                            text = email.createdAt,
+                        )
+                    }
                 }
                 IconButton(
                     onClick = { /*Click Implementation*/ },
