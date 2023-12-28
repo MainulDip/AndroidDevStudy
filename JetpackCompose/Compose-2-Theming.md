@@ -270,3 +270,47 @@ Text(
    style = MaterialTheme.typography.labelMedium
 )
 ```
+### Shapes:
+Material surfaces can be displayed in different shapes. Shapes direct attention, identify components, communicate state, and express brand.
+
+Compose provides the Shapes class with expanded parameters to implement new M3 shapes.
+
+* There are different sizes of shapes in the shape scale. Shapes should defined in a separate file `Shape.kt`, similar to `Type.kt` and `Color.kt`. And include that in Material initialization. 
+
+```kotlin
+// Define shape in Shape.kt
+val shapes = Shapes(
+   extraSmall = RoundedCornerShape(4.dp),
+   small = RoundedCornerShape(8.dp),
+   medium = RoundedCornerShape(16.dp),
+   large = RoundedCornerShape(24.dp),
+   extraLarge = RoundedCornerShape(32.dp)
+)
+
+// include shape while initializing Material Theme
+@Composable
+fun AppTheme(
+   useDarkTheme: Boolean = isSystemInDarkTheme(),
+   content: @Composable() () -> Unit
+) {
+  // dynamic theming content
+   MaterialTheme(
+       colorScheme = colors,
+       typography = typography,
+       shapes = shapes,
+       content = content
+   )
+}
+```
+
+* Like typography and color, use reference shape with `MaterialTheme.shapes.<shapeName>`
+
+
+```kotlin
+Card(shape = MaterialTheme.shapes.medium) { /* card content */ }
+FloatingActionButton(shape = MaterialTheme.shapes.large) { /* fab content */}
+```
+
+* There are two other shapes available to use — `RectangleShape` and `CircleShape` — which are part of Compose. Rectangle shape has no border radius, and circle shape shows full circled edges.
+
+* You can also apply shape to your Components using Modifiers that take shapes, like `Modifier.clip`, `Modifier.background`, and `Modifier.border`.

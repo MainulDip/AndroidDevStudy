@@ -32,10 +32,10 @@ val typography = Typography(
         letterSpacing = 0.sp
     ),
     titleLarge = TextStyle(
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 18.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
+        lineHeight = 32.sp,
+        letterSpacing = 0.0.sp
     ),
     bodyLarge = TextStyle(
         fontWeight = FontWeight.Normal,
