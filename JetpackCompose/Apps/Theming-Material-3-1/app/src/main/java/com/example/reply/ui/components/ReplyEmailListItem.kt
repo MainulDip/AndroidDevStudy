@@ -82,6 +82,7 @@ fun ReplyEmailListItem(
                 ) {
                     Text(
                         text = email.sender.firstName,
+                        style = MaterialTheme.typography.labelMedium
                     )
 
                     // testing CompositionLocal, if this were a custom composable, all descendants will use the specified LocalContentColor
@@ -89,6 +90,7 @@ fun ReplyEmailListItem(
                     CompositionLocalProvider (LocalContentColor provides Color.Red) {
                         Text(
                             text = email.createdAt,
+                            style = MaterialTheme.typography.labelMedium
                         )
                     }
                 }
@@ -107,11 +109,13 @@ fun ReplyEmailListItem(
 
             Text(
                 text = email.subject,
+                style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
             )
             Text(
                 text = email.body,
                 maxLines = 2,
+                style = MaterialTheme.typography.bodyLarge,
                 overflow = TextOverflow.Ellipsis
             )
         }

@@ -259,3 +259,14 @@ if (!view.isInEditMode) {
 }
 ```
 ### Typography Material3 Design:
+If not specified, all text fields uses `Typography.bodyLarge` (`LocalTextStyle.curren`) by default.
+
+Once `typography` parameter is set when initializing Material Component, the defined type can be used directly using `Material.typography.<name>`.
+
+```kotlin
+// applying defined typography
+Text(
+   text = "Something"
+   style = MaterialTheme.typography.labelMedium
+)
+```

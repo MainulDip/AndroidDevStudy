@@ -120,13 +120,12 @@ fun ReplyTheme(
                 // .setAppearanceLightStatusBars(useDarkTheme) // can also be use
             /* Note: Status bar icon color can be light or dark, no custom color setting is available */
         }
-        Launch
 
     }
 
     MaterialTheme(
         colorScheme = colors,
         content = content,
-        typography = Typography
+        typography = typography
     )
 }
