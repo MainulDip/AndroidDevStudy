@@ -314,3 +314,12 @@ FloatingActionButton(shape = MaterialTheme.shapes.large) { /* fab content */}
 * There are two other shapes available to use — `RectangleShape` and `CircleShape` — which are part of Compose. Rectangle shape has no border radius, and circle shape shows full circled edges.
 
 * You can also apply shape to your Components using Modifiers that take shapes, like `Modifier.clip`, `Modifier.background`, and `Modifier.border`.
+
+
+### Emphasis:
+Emphasis in the UI helps you to highlight some content over the other.
+
+There are two ways to add emphasis
+1. Using surface, surface-variant, and background alongside on-surface and on-surface-variants colors from the defined M3 color system.
+
+2. Using different font weights for text. You can provide custom weights to your type scale for providing different emphasis.

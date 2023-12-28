@@ -306,7 +306,7 @@ Another slot-based layout `Scaffold` provides slots for the most common top-leve
 Docs : https://developer.android.com/jetpack/compose/layouts/basics#slot-based-layouts
 
 
-### Navigation (NavigationBar/NavigationBarItem and NavigationRail/NavigationRailItem):
+### Navigation (NavigationBar/NavigationBarItem and NavigationRail/NavigationRailItem)
 Inside `NavigationBar` (From Compose Material library) navigation item can be assigned horizontally using `NavigationBarItem`, which will get styled automatically by Material Lib.
 
 ```kotlin

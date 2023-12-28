@@ -166,7 +166,7 @@ class GameViewModel: ViewModel() {}
 
  * ViewModel is responsible for holding and processing all the data needed for the UI. It should never access the view hierarchy (like view binding object) or hold a reference to the activity or the fragment. It will only process and deliver the data to the UI controllers.
 
- ### ViewBindings:
+ ### ViewBindings
 View binding is a feature that allows you to more easily access views in code. It generates a binding class for each XML layout file. An instance of a binding class contains direct references to all views that have an ID in the corresponding layout.
 
 * Binding is accomplished by inflating the layout file with the activity/fragment Binding object. Binding is also a View Object.
