@@ -396,7 +396,7 @@ public class FactoryPatternDemo {
    }
 }
 ```
-### Inversion of Control (IoC):
+### Inversion of Control (IoC)
 Inversion of Control (IoC) means to create instances of dependencies first and latter instance of a class (optionally injecting them through constructor), instead of creating an instance of the class first and then the class instance creating instances of dependencies. Thus, inversion of control inverts the flow of control of the program. Instead of the callee controlling the flow of control (while creating dependencies), the caller controls the flow of control of the program.
 Event-driven programming is often implemented using IoC so that the custom code need only be concerned with the handling of events, while the event loop and dispatch of events/messages is handled by the framework or the runtime environment. In web server application frameworks, dispatch is usually called routing, and handlers may be called endpoints.
 
