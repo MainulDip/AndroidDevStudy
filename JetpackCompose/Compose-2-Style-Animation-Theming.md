@@ -323,3 +323,24 @@ There are two ways to add emphasis
 1. Using surface, surface-variant, and background alongside on-surface and on-surface-variants colors from the defined M3 color system.
 
 2. Using different font weights for text. You can provide custom weights to your type scale for providing different emphasis.
+
+### Font Styling:
+- Prefetching Font
+
+- Font Variation API
+
+- BuildAnnotatedString for adding different text style/highlighter to a portion of a text-block.
+
+- TextField's `textFieldColor` and `outlinedTextFieldColor` targeting `focusedIndicatorColor` and `unfocusedIndicatorColor`
+
+- BasicText and BasicTextField for non-styled alternative that can be more customizable.
+
+### Material and Foundation Layer:
+Material Theme has Styled layer as `Material Layer` (ie, Text, TextField) and unStyled layer (with more control) as `Foundation Layer` (ie, BasicText, BasicTextField).
+
+#### ---------------- Compose Animation ---------------------
+
+- `animate*AsState()`: This API should be used when animating State changes. ie, `animateColorAsState`, 
+
+
+- `animateVisibility(boolean)`:  runs its animation every time the specified Boolean value changes. `AnimatedVisibility( visible = Boolean, enter = fnIn(), exit = fnOut())`
