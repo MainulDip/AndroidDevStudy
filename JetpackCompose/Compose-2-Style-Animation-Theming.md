@@ -340,7 +340,37 @@ Material Theme has Styled layer as `Material Layer` (ie, Text, TextField) and un
 
 #### ---------------- Compose Animation ---------------------
 
-- `animate*AsState()`: This API should be used when animating State changes. ie, `animateColorAsState`, 
+### `animate*AsState()` | Value Based Animation:
+The animate*AsState functions are the simplest animation APIs in Compose for animating a single value. You only provide the target value (or end value), and the API starts animation from the current value to the specified value.. ie, `animateColorAsState`, `animateFloatAsState`.
+
+Out of the box, Float, Color, Dp, Size, Offset, Rect, Int, IntOffset, and IntSize are available. Support animation for custom data types by providing a `TwoWayConverter` to `animateValueAsState` that takes a generic type
+
+```kotlin
+private enum class TabPage { Home, Work }
+var tabPage by remember { mutableStateOf(TabPage.Home) }
+
+/* animateColorAsState will animate the color if the target value changed (only on re-compose) */
+val backgroundColor by animateColorAsState(targetValue = if (tabPage == TabPage.Home) Purple100 else Green300,
+    label = "background color", finishedListener = { (color) ->
+        Log.d("BackgroundColor", "Changing Background Color to $color")
+    })
+```
+
+Docs: https://developer.android.com/jetpack/compose/animation/value-based#animate-as-state
+
+### `updateTransition` | Value Based Animation:
+creates a transition object that can manage multiple animating values and run them based on a state change.
+
+Docs: https://developer.android.com/jetpack/compose/animation/value-based#updateTransition
+
+### `transition` with `AnimatedVisibility` and `AnimatedContent` | Value Based Animation:
+Docs: https://developer.android.com/jetpack/compose/animation/value-based#use-transition-with-animatedvisibility-and-animatedcontent
+
+### `rememberInfiniteTransition` | Value Based Animation:
+is similar to `updateTransition`, but it creates an infinite transition that can manage multiple animations that keep on running indefinitely. 
+
+Docs: https://developer.android.com/jetpack/compose/animation/value-based#rememberinfinitetransition
 
 
-- `animateVisibility(boolean)`:  runs its animation every time the specified Boolean value changes. `AnimatedVisibility( visible = Boolean, enter = fnIn(), exit = fnOut())`
+### `animateVisibility(boolean)`:
+runs its animation every time the specified Boolean value changes. `AnimatedVisibility( visible = Boolean, enter = fnIn(), exit = fnOut())`

@@ -8,6 +8,12 @@
 - `r` will refresh xml layout design
 - `ctrl + q` to preview function/code signature
 
+### Compose Specific Task:
+- refresh preview
+- build and refresh preview `ctrl + shift + f5`
+- preview interactive mode - `right top of the preview`
+- preview run - `right top of the preview` - run the preview in device
+
 ### Add Keyboard Custom Shortcuts:
 `Ctrl + Comma` - to toggle running device
 ### Android Studio Custom Configuration
@@ -91,3 +97,6 @@ in the Project Opening section, choose `Open project in new window` & save.
 
 ### Migration from kapt to ksp :
 https://developer.android.com/build/migrate-to-ksp
+
+### Android Studio Code Lens on ScrollBar:
+code lens to show a small portion of code by hovering on the scrollbar of a file can be enabled/stop through -> right click while on vertical scrollbar and choose `show code lens on scrollbar hover`

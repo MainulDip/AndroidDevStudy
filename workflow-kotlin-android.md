@@ -144,7 +144,7 @@ fun B(funB: (String) -> Unit) {
 }
 ```
 
-### Function as return type:
+### Function as return type (Function returning Function):
 ```kotlin
 fun main() {
   // free delivery of order above 499

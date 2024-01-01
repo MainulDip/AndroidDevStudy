@@ -16,7 +16,11 @@
 
 package com.example.android.codelab.animation.ui.home
 
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.splineBasedDecay
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -65,12 +69,15 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.currentCompositionLocalContext
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCompositionContext
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -83,6 +90,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.input.pointer.util.VelocityTracker
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -99,6 +107,7 @@ import com.example.android.codelab.animation.ui.Green300
 import com.example.android.codelab.animation.ui.Green800
 import com.example.android.codelab.animation.ui.Purple100
 import com.example.android.codelab.animation.ui.Purple700
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -158,7 +167,14 @@ fun Home() {
 
     // The background color. The value is changed by the current tab.
     // TODO 1: Animate this color change.
-    val backgroundColor = if (tabPage == TabPage.Home) Purple100 else Green300
+    // val backgroundColor = if (tabPage == TabPage.Home) Purple100 else Green300
+    /**
+     * animateColorAsState will animate the color if the target value changed (only on re-compose)
+     */
+    val backgroundColor by animateColorAsState(targetValue = if (tabPage == TabPage.Home) Purple100 else Green300,
+        label = "background color", finishedListener = { (color) ->
+            Log.d("BackgroundColor", "Changing Background Color to $color")
+        })
 
     // The coroutine scope for event handlers calling suspend functions.
     val coroutineScope = rememberCoroutineScope()
@@ -415,6 +431,12 @@ private fun HomeTabBar(
         selectedTabIndex = tabPage.ordinal,
         backgroundColor = backgroundColor,
         indicator = { tabPositions ->
+//            val context = LocalContext.current
+//            LaunchedEffect(backgroundColor) {
+//                launch {
+//                    Toast.makeText(context, "$tabPositions", Toast.LENGTH_SHORT).show()
+//                }
+//            }
             HomeTabIndicator(tabPositions, tabPage)
         }
     ) {
@@ -455,8 +477,7 @@ private fun HomeTabIndicator(
             .padding(4.dp)
             .fillMaxSize()
             .border(
-                BorderStroke(2.dp, color),
-                RoundedCornerShape(4.dp)
+                BorderStroke(2.dp, color), RoundedCornerShape(4.dp)
             )
     )
 }
