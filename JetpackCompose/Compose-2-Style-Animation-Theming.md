@@ -373,4 +373,28 @@ Docs: https://developer.android.com/jetpack/compose/animation/value-based#rememb
 
 
 ### `animateVisibility(boolean)`:
-runs its animation every time the specified Boolean value changes. `AnimatedVisibility( visible = Boolean, enter = fnIn(), exit = fnOut())`
+runs its animation every time the specified Boolean State value changes. `AnimatedVisibility( visible = Boolean, enter = fnIn(), exit = fnOut())`
+```kotlin
+// Use `FloatingActionButton` rather than `ExtendedFloatingActionButton` for full control on how it should animate.
+// onClick will be supplied from top level caller as Uni-directional-data-flow (State passed down, events goes up)
+FloatingActionButton(onClick = onClick) {
+    Row(
+        modifier = Modifier.padding(horizontal = 16.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Default.Edit,
+            contentDescription = null
+        )
+
+        // note: extended is coming form parent (hoisted) state
+        // Toggle the visibility of the content with animation.
+        AnimatedVisibility (extended) { // just changing if (Boolean) to AnimatedVisibility (Boolean) will make the view animate
+            Text(
+                text = stringResource(R.string.edit),
+                modifier = Modifier
+                    .padding(start = 8.dp, top = 3.dp)
+            )
+        }
+    }
+}
+```

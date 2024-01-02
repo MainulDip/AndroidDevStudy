@@ -126,7 +126,7 @@ fun WellnessScreen(modifier: Modifier = Modifier, wellnessViewModel: WellnessVie
 
 Note: To track any changes on data, it needs to be defined as `MutableState<T>`. Or sometime (for modification) removing the value and reassigning can force Compose to track the item, but this is an expensive task.
 
-### Demystifying `remember`, `mutableStateOf` and `derivedStateOf`:
+### Demystifying `remember`, `mutableStateOf` and `derivedStateOf`
 - `remember` -> usually when a function re-renders, the local variables go back to it's initial state. But in Composable function, `remember` block stores the last calculated/updated value and provide that on re-render/re-compose.
 
 * Note: `remember` is like `lazy` in non-compose world. As docs stated `The first call to lazy's get() executes the lambda passed to lazy() and remembers the result. Subsequent calls to get() simply return the remembered result.`
