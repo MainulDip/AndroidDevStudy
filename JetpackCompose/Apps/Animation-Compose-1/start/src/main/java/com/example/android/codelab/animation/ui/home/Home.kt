@@ -164,6 +164,7 @@ fun Home() {
     }
 
     val lazyListState = rememberLazyListState()
+    // Log.d("rememberLazyListState", "lazyListState.isScrollInProgress => ${lazyListState.isScrollInProgress}")
 
     // The background color. The value is changed by the current tab.
     // TODO 1: Animate this color change.

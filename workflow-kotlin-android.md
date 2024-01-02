@@ -172,3 +172,19 @@ fun totalCost(productCost: Int) : (Int) -> Int {
  * Total cost for item 2 is 350
 */
 ```
+
+### fn(*arr) | Variable number of arguments (varargs) injecting:
+If you already have an array and want to pass its contents to the function that accepts varags param, use the spread operator (prefix the array with *)
+```kotlin
+val a = arrayOf(1, 2, 3)
+val list = asList(-1, 0, *a, 4)
+
+fun <T> asList(vararg ts: T): List<T> {
+    val result = ArrayList<T>()
+    for (t in ts) // ts is an Array
+        result.add(t)
+    return result
+}
+```
+
+Docs: https://kotlinlang.org/docs/functions.html#variable-number-of-arguments-varargs
