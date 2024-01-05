@@ -374,6 +374,9 @@ Docs: https://developer.android.com/jetpack/compose/animation/value-based#rememb
 
 ### `animateVisibility(boolean)`:
 runs its animation every time the specified Boolean State value changes. `AnimatedVisibility( visible = Boolean, enter = fnIn(), exit = fnOut())`
+
+Animation in RowScope's default is `enter: EnterTransition = fadeIn() + expandHorizontally()` and `exit: ExitTransition = fadeOut() + shrinkHorizontally()`. This can be changed as necessary like `slideInVertically()` or `slideOutVertically()` (which are ColumnScopes default cases)
+
 ```kotlin
 // Use `FloatingActionButton` rather than `ExtendedFloatingActionButton` for full control on how it should animate.
 // onClick will be supplied from top level caller as Uni-directional-data-flow (State passed down, events goes up)
@@ -388,7 +391,7 @@ FloatingActionButton(onClick = onClick) {
 
         // note: extended is coming form parent (hoisted) state
         // Toggle the visibility of the content with animation.
-        AnimatedVisibility (extended) { // just changing if (Boolean) to AnimatedVisibility (Boolean) will make the view animate
+        AnimatedVisibility (extended) { // just changing if (Boolean) to AnimatedVisibility (Boolean) will make the view revealing animate
             Text(
                 text = stringResource(R.string.edit),
                 modifier = Modifier
@@ -397,4 +400,62 @@ FloatingActionButton(onClick = onClick) {
         }
     }
 }
+
+/*
+// applying enter and exit
+AnimatedVisibility(
+    visible = shown,
+    enter = slideInVertically(
+        // Enters by sliding down from offset -fullHeight to 0.
+        initialOffsetY = { fullHeight -> -fullHeight },
+        animationSpec = tween(durationMillis = 150, easing = LinearOutSlowInEasing)
+    ),
+    exit = slideOutVertically(
+        // Exits by sliding up from offset 0 to -fullHeight.
+        targetOffsetY = { fullHeight -> -fullHeight },
+        animationSpec = tween(durationMillis = 250, easing = FastOutLinearInEasing)
+    )
+)
+*/
 ```
+
+### ColumnScope and RowScope:
+Custom Composable can be set desired scope using `<ScopeName>.CustomComposable(){...}` pattern. Also when calling, The custom composable should wrapped with the Scope. 
+```kotlin
+// calling
+Column {
+    CustomComposable()
+}
+
+// defining
+@Composable
+private fun ColumnScope.CustomComposable() {}
+```
+### Animation Using `Modifier.animateContentSize()`:
+When a Column/Row Scopes Content Size changes (expand/shrink), `animatedContentSize()` can be used for quick animation
+```kotlin
+Column(
+    modifier = Modifier
+        .fillMaxWidth()
+        .padding(16.dp)
+        .animateContentSize()
+) {
+
+    Icon(
+        imageVector = Icons.Default.Info,
+        contentDescription = null
+    )
+
+    Spacer(modifier = Modifier.width(16.dp))
+
+    if (expanded) {
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = stringResource(R.string.lorem_ipsum),
+            textAlign = TextAlign.Justify
+        )
+    }
+}
+```
+
+### Animate multiple values:

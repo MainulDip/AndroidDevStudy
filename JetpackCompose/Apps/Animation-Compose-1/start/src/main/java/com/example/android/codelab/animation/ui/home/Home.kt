@@ -21,6 +21,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.splineBasedDecay
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -31,6 +32,7 @@ import androidx.compose.foundation.gestures.horizontalDrag
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -261,7 +263,10 @@ fun Home() {
                 }
             }
         }
-        EditMessage(editMessageShown)
+        Column {
+            EditMessage(editMessageShown) // sibling of lazyColumn, hence show top of it
+        }
+
     }
 }
 
@@ -286,7 +291,10 @@ private fun HomeFloatingActionButton(
                 imageVector = Icons.Default.Edit,
                 contentDescription = null
             )
-            // Toggle the visibility of the content with animation.
+            /**
+             * Toggle the visibility of the content with revealing animation using AnimatedVisibility
+             * the revealing orientation will vary on its position (before or after fixed elements)
+             */
             // TODO 2-1: Animate this visibility change.
             AnimatedVisibility (extended) { // changing if (Boolean) to AnimatedVisibility (Boolean)
                 Text(
@@ -303,7 +311,7 @@ private fun HomeFloatingActionButton(
  * Shows a message that the edit feature is not available.
  */
 @Composable
-private fun EditMessage(shown: Boolean) {
+private fun ColumnScope.EditMessage(shown: Boolean) {
     // TODO 2-2: The message should slide down from the top on appearance and slide up on
     //           disappearance.
     AnimatedVisibility(
@@ -381,6 +389,7 @@ private fun TopicRow(topic: String, expanded: Boolean, onClick: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
+                .animateContentSize()
         ) {
             Row {
                 Icon(

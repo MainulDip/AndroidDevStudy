@@ -166,7 +166,7 @@ composeView.apply {
 }
 ```
 
-### Testing Compose Integration in Fragment/Activity:
+### Testing Compose Integration in Fragment/Activity
 When an activity or fragment uses compose, instead of using `ActivityScenarioRule`, you need to use `createAndroidComposeRule` that integrates ActivityScenarioRule with a ComposeTestRule that lets you test Compose code.
 ```kotlin
 @RunWith(AndroidJUnit4::class)
