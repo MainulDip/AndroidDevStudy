@@ -188,3 +188,18 @@ fun <T> asList(vararg ts: T): List<T> {
 ```
 
 Docs: https://kotlinlang.org/docs/functions.html#variable-number-of-arguments-varargs
+
+### Solve this | Rewrite this :
+```kotlin
+fun main() {
+	val result = someFun("hello")
+    
+    // this works, but how to do it in single line expression
+    println(result({v -> v}))
+}
+
+fun someFun(a: String) = { b: (a: String) -> String ->
+    val c = b(a)
+    c
+}
+```

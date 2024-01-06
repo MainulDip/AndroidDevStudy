@@ -1,7 +1,7 @@
 ## So what's next to the Advanced Android Journey:
 NB: Topics followed by *** are to check first.
 * *** Dagger-Hilt, android project structures
-* *** Android Notification
+* *** Android Notification.
 * *** RX-Java, RX-Android and Retrofit
 * *** AGP: Android Gradle Plugin
 * Android Manifest Merge Conflict [Create intentional merge conflict and then resolve it].
