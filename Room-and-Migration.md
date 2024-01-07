@@ -140,7 +140,7 @@ abstract class UserDatabase: RoomDatabase() {
 }
 ```
 
-### Manual Migration
+### Manual Migration:
 When the auto migration will not work (ie, adding a new @Entity or changing RelationShip, etc), we need to do manual Migration.
 
 1. After making the changes (or adding new table/relations) using @Entity, first the up the version number of the @Database

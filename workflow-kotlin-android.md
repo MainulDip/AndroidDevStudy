@@ -189,17 +189,25 @@ fun <T> asList(vararg ts: T): List<T> {
 
 Docs: https://kotlinlang.org/docs/functions.html#variable-number-of-arguments-varargs
 
-### Solve this | Rewrite this :
+### Closure with different style like JS (not common, not best practice):
 ```kotlin
 fun main() {
-	val result = someFun("hello")
-    
-    // this works, but how to do it in single line expression
-    println(result({v -> v}))
+	val result = someFun("Hello")
+    println(result({v -> v}, ":-)")) 
+    // Hello :-)
+
+    // or
+    val result2 = someFun("World")({it}, ":-)")
+    println(result2)
+    // World :-)
 }
 
-fun someFun(a: String) = { b: (a: String) -> String ->
-    val c = b(a)
-    c
+fun someFun(a: String) = { b: (a: String) -> String, c: String ->
+    val d = b(a)+ " " + c
+    d
 }
+
+// Note "function types, like anonymous functions (i.e. lambda expressions and fun blocks without name) 
+// are not allowed to specify default values for their parameters"
+// like c: String = "Default Value" here is not allowed
 ```
