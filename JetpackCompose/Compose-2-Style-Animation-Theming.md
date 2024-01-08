@@ -458,5 +458,207 @@ Column(
 }
 ```
 
+### TabRow in Scaffold:
+We can place TabRow in Scaffold's `topBar` callback param.
+See more on <a href="./Apps/Animation-Compose-1/">Animation Compose Example</a>
+```kotlin
+private enum class TabPage {
+    Home, Work
+}
+
+@Composable
+fun Home() {
+    // ....
+    var tabPage by remember { mutableStateOf(TabPage.Home) }
+    // ....
+    Scaffold(
+        topBar = {
+            HomeTabBar(
+                backgroundColor = backgroundColor,
+                tabPage = tabPage,
+                onTabSelected = { tabPage = it }
+            )
+        },
+        // ....
+){}
+}
+
+@Composable
+private fun HomeTabBar(
+    backgroundColor: Color,
+    tabPage: TabPage,
+    onTabSelected: (tabPage: TabPage) -> Unit
+) {
+    TabRow(
+        selectedTabIndex = tabPage.ordinal,
+        backgroundColor = backgroundColor,
+        indicator = { tabPositions ->
+//            val context = LocalContext.current
+//            LaunchedEffect(backgroundColor) {
+//                launch {
+//                    Toast.makeText(context, "$tabPositions", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+            HomeTabIndicator(tabPositions, tabPage)
+        }
+    ) {
+        HomeTab(
+            icon = Icons.Default.Home,
+            title = stringResource(R.string.home),
+            onClick = { onTabSelected(TabPage.Home) }
+        )
+        HomeTab(
+            icon = Icons.Default.AccountBox,
+            title = stringResource(R.string.work),
+            onClick = { onTabSelected(TabPage.Work) }
+        )
+    }
+}
+
+@Composable
+private fun HomeTabIndicator(
+    tabPositions: List<TabPosition>,
+    tabPage: TabPage
+) {
+    // TODO 4: Animate these value changes.
+    val indicatorLeft = tabPositions[tabPage.ordinal].left
+    val indicatorRight = tabPositions[tabPage.ordinal].right
+    val color = if (tabPage == TabPage.Home) Purple700 else Green800
+    Box(
+        Modifier
+            .fillMaxSize()
+            .wrapContentSize(align = Alignment.BottomStart)
+            .offset(x = indicatorLeft)
+            .width(indicatorRight - indicatorLeft)
+            .padding(4.dp)
+            .fillMaxSize()
+            .border(
+                BorderStroke(2.dp, color), RoundedCornerShape(4.dp)
+            )
+    )
+}
+
+@Composable
+private fun HomeTab(
+    icon: ImageVector,
+    title: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .clickable(onClick = onClick)
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Text(text = title)
+    }
+}
+```
+
 ### Animate multiple values using `Transition` API:
 `Transition` API allows us to track when all animations on a Transition are finished, which is not possible when using individual `animate*AsState` APIs. This also allows us to define different `transitionSpec`'s when transitioning between different states.
+
+To animate multiple values (like left and right position) simultaneousl, a Transition can be created with the `updateTransition` function.
+
+Each animating value can be declared with the `animate* `extension functions of Transition, like `animateDp` and `animateColor`, those take lambda block and we can inject state there. 
+
+```kotlin
+//@SuppressLint("UnusedTransitionTargetStateParameter")
+@Composable
+private fun HomeTabIndicator(
+    tabPositions: List<TabPosition>,
+    tabPage: TabPage
+) {
+    // TODO 4: Animate these value changes.
+    val transition = updateTransition(targetState = tabPage, label = "Tab Indicator Animation")
+
+    val indicatorLeft by transition.animateDp(label = "Indicator left") {
+        // tabPositions[tabPage.ordinal].left // state is passed as it, so no need to use global state, it also require a suppress warning for unused state param 
+        tabPositions[it.ordinal].left
+    }
+    val indicatorRight by transition.animateDp(label = "Indicator right") {
+        tabPositions[it.ordinal].right
+    }
+    val color by transition.animateColor (label = "Border Color") {
+        if (it == TabPage.Home) Purple700 else Green800
+    }
+    Box(
+        Modifier
+            .fillMaxSize()
+            .wrapContentSize(align = Alignment.BottomStart)
+            .offset(x = indicatorLeft)
+            .width(indicatorRight - indicatorLeft)
+            .padding(4.dp)
+            .fillMaxSize()
+            .border(
+                BorderStroke(2.dp, color), RoundedCornerShape(4.dp)
+            )
+    )
+}
+```
+
+* with transitionSpec
+
+```kotlin
+//@SuppressLint("UnusedTransitionTargetStateParameter")
+@Composable
+private fun HomeTabIndicator(
+    tabPositions: List<TabPosition>,
+    tabPage: TabPage
+) {
+    // TODO 4: Animate these value changes.
+    val transition = updateTransition(targetState = tabPage, label = "Tab Indicator Animation")
+
+    val indicatorLeft by transition.animateDp(transitionSpec = {
+        if (TabPage.Home isTransitioningTo TabPage.Work) {
+            // Indicator moves to the right
+            // The right edge moves faster than the left edge.
+            spring(stiffness = Spring.StiffnessMedium)
+        } else {
+            // Indicator moves to the left.
+            // The right edge moves slower than the left edge.
+            spring(stiffness = Spring.StiffnessVeryLow)
+        }
+    },
+        label = "Indicator left") {
+        // tabPositions[tabPage.ordinal].left // state is passed as it, so no need to use global state, it also require a suppress warning for unused state param
+        tabPositions[it.ordinal].left
+    }
+    val indicatorRight by transition.animateDp(transitionSpec = {
+        if (TabPage.Home isTransitioningTo TabPage.Work) {
+            // Indicator moves to the right
+            // The right edge moves faster than the left edge.
+            spring(stiffness = Spring.StiffnessMedium)
+        } else {
+            // Indicator moves to the left.
+            // The right edge moves slower than the left edge.
+            spring(stiffness = Spring.StiffnessVeryLow)
+        }
+    },
+        label = "Indicator right") {
+        tabPositions[it.ordinal].right
+    }
+    val color by transition.animateColor (label = "Border Color") {
+        if (it == TabPage.Home) Purple700 else Green800
+    }
+    Box(
+        Modifier
+            .fillMaxSize()
+            .wrapContentSize(align = Alignment.BottomStart)
+            .offset(x = indicatorLeft)
+            .width(indicatorRight - indicatorLeft)
+            .padding(4.dp)
+            .fillMaxSize()
+            .border(
+                BorderStroke(2.dp, color), RoundedCornerShape(4.dp)
+            )
+    )
+}
+```

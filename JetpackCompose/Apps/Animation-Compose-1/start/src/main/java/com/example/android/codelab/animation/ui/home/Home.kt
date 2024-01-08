@@ -16,12 +16,18 @@
 
 package com.example.android.codelab.animation.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColor
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.splineBasedDecay
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -469,15 +475,47 @@ private fun HomeTabBar(
  * @param tabPositions The list of [TabPosition]s from a [TabRow].
  * @param tabPage The [TabPage] that is currently selected.
  */
+//@SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
 private fun HomeTabIndicator(
     tabPositions: List<TabPosition>,
     tabPage: TabPage
 ) {
     // TODO 4: Animate these value changes.
-    val indicatorLeft = tabPositions[tabPage.ordinal].left
-    val indicatorRight = tabPositions[tabPage.ordinal].right
-    val color = if (tabPage == TabPage.Home) Purple700 else Green800
+    val transition = updateTransition(targetState = tabPage, label = "Tab Indicator Animation")
+
+    val indicatorLeft by transition.animateDp(transitionSpec = {
+        if (TabPage.Home isTransitioningTo TabPage.Work) {
+            // Indicator moves to the right
+            // The right edge moves faster than the left edge.
+            spring(stiffness = Spring.StiffnessMedium)
+        } else {
+            // Indicator moves to the left.
+            // The right edge moves slower than the left edge.
+            spring(stiffness = Spring.StiffnessVeryLow)
+        }
+    },
+        label = "Indicator left") {
+        // tabPositions[tabPage.ordinal].left // state is passed as it, so no need to use global state, it also require a suppress warning for unused state param
+        tabPositions[it.ordinal].left
+    }
+    val indicatorRight by transition.animateDp(transitionSpec = {
+        if (TabPage.Home isTransitioningTo TabPage.Work) {
+            // Indicator moves to the right
+            // The right edge moves faster than the left edge.
+            spring(stiffness = Spring.StiffnessMedium)
+        } else {
+            // Indicator moves to the left.
+            // The right edge moves slower than the left edge.
+            spring(stiffness = Spring.StiffnessVeryLow)
+        }
+    },
+        label = "Indicator right") {
+        tabPositions[it.ordinal].right
+    }
+    val color by transition.animateColor (label = "Border Color") {
+        if (it == TabPage.Home) Purple700 else Green800
+    }
     Box(
         Modifier
             .fillMaxSize()

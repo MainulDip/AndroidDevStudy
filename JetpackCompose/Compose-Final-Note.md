@@ -18,4 +18,8 @@ Log.d("rememberLazyListState", "lazyListState.isScrollInProgress => ${lazyListSt
 
 - `rememberLazyListState` -> Creates a LazyListState that is remembered across compositions (re-compositions). 
 
+### @Composable vs @UIComposable and @ComposableTarget + ect:
+- @Composable only -> Custom Composable
+- @Composable + @UIComposable + other -> Composables coming from Libs
+
 ### Compose use Uni-Directional/One-Way Data Flow vs Bi-Directional 2 way data binding:

@@ -211,3 +211,5 @@ fun someFun(a: String) = { b: (a: String) -> String, c: String ->
 // are not allowed to specify default values for their parameters"
 // like c: String = "Default Value" here is not allowed
 ```
+
+### Enum.ordinal:
