@@ -17,3 +17,5 @@ Log.d("rememberLazyListState", "lazyListState.isScrollInProgress => ${lazyListSt
 ```
 
 - `rememberLazyListState` -> Creates a LazyListState that is remembered across compositions (re-compositions). 
+
+### Compose use Uni-Directional/One-Way Data Flow vs Bi-Directional 2 way data binding:

@@ -429,7 +429,7 @@ Column {
 
 // defining
 @Composable
-private fun ColumnScope.CustomComposable() {}
+private fun ColumnScope.CustomComposable() {/*....*/}
 ```
 ### Animation Using `Modifier.animateContentSize()`:
 When a Column/Row Scopes Content Size changes (expand/shrink), `animatedContentSize()` can be used for quick animation
@@ -458,4 +458,5 @@ Column(
 }
 ```
 
-### Animate multiple values:
+### Animate multiple values using `Transition` API:
+`Transition` API allows us to track when all animations on a Transition are finished, which is not possible when using individual `animate*AsState` APIs. This also allows us to define different `transitionSpec`'s when transitioning between different states.

@@ -371,7 +371,7 @@ private fun Header(
  * Shows a row for one topic.
  *
  * @param topic The topic title.
- * @param expanded Whether the row should be shown expanded with the topic body.
+ * @param expanded Whether the row should be shown expanded with the topic body
  * @param onClick Called when the row is clicked.
  */
 @OptIn(ExperimentalMaterialApi::class)
