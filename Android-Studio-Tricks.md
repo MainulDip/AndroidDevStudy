@@ -13,6 +13,7 @@
 - build and refresh preview `ctrl + shift + f5`
 - preview interactive mode - `right top of the preview`
 - preview run - `right top of the preview` - run the preview in device
+- animation preview - `next to the interactive preview`
 
 ### Add Keyboard Custom Shortcuts:
 `Ctrl + Comma` - to toggle running device

@@ -18,8 +18,13 @@ Log.d("rememberLazyListState", "lazyListState.isScrollInProgress => ${lazyListSt
 
 - `rememberLazyListState` -> Creates a LazyListState that is remembered across compositions (re-compositions). 
 
-### @Composable vs @UIComposable and @ComposableTarget + ect:
+### @Composable vs @UIComposable, @ComposableTarget, ect:
+There can be exception scenario, but usually
 - @Composable only -> Custom Composable
 - @Composable + @UIComposable + other -> Composables coming from Libs
 
 ### Compose use Uni-Directional/One-Way Data Flow vs Bi-Directional 2 way data binding:
+
+
+### inline, noinline, crossinline:
+https://medium.com/android-news/inline-noinline-crossinline-what-do-they-mean-b13f48e113c2

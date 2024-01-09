@@ -662,3 +662,40 @@ private fun HomeTabIndicator(
     )
 }
 ```
+
+### Alpha (Opacity) Infinite animation:
+```kotlin
+val alpha by rememberInfiniteTransition(label = "rememberInfiniteTransition of alpha").animateFloat(
+    initialValue = 0.3f,
+    targetValue = 1f,
+    animationSpec = infiniteRepeatable(repeatMode = RepeatMode.Reverse ,animation = keyframes {
+        durationMillis = 1000
+        0.7f at 500 // infix function
+        0.9f.at(700) // can write this way too
+    }),
+    label = "infinite alpha animation"
+)
+```
+
+### TransitionSpec and AnimationSpec:
+
+### keyframe animation:
+
+### `Animatable` (Lowest level animation API) and Gesture animation:
+Custom Modifier can be created with `Animatable API` to handle Gesture animation.
+Though this can be achieve using Material's `SwipeToDismiss` layout without building custom modifier.
+
+Animatable comes form `androidx.compose.animation.core.Animatable`,
+It's a low level animation API. For gesture animation it has the ability to snap instantly to the new value coming in from a gesture and stop any ongoing animation when a new touch event is triggered.
+
+### Common Delegated Property in Jetpack Compose:
+`var someState by remember { mutableStateOf(SomeThing) }`
+
+`var someComputedState by remember { derivedStateOf(/*process and return some computation based on another state*/) }`
+
+`val lazyListState = rememberLazyListState()`: Creates a LazyListState that is remembered across compositions.
+
+`val backgroundColor by animateColorAsState(/*....*/)`
+
+`val alpha by rememberInfiniteTransition(label = "infinite animation").animateFloat(....)`
+
