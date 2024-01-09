@@ -29,6 +29,7 @@ import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.calculateTargetValue
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.rememberInfiniteTransition
@@ -39,8 +40,10 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.DraggableState
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.horizontalDrag
+import androidx.compose.foundation.gestures.verticalDrag
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -61,6 +64,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
@@ -125,6 +129,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
+import kotlin.math.roundToInt
 
 private enum class TabPage {
     Home, Work
@@ -269,6 +275,7 @@ fun Home() {
                     key(task) {
                         TaskRow(
                             task = task,
+                            key = rememberScrollState(),
                             onRemove = { tasks.remove(task) }
                         )
                     }
@@ -645,11 +652,11 @@ private fun LoadingRow() {
  * @param onRemove Called when the task is swiped away and removed.
  */
 @Composable
-private fun TaskRow(task: String, onRemove: () -> Unit) {
+private fun TaskRow(task: String, key: Any, onRemove: () -> Unit) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .swipeToDismiss(onRemove),
+            .swipeToDismiss(key, onRemove),
         elevation = 2.dp
     ) {
         Row(
@@ -676,27 +683,39 @@ private fun TaskRow(task: String, onRemove: () -> Unit) {
  * @param onDismissed Called when the element is swiped to the edge of the screen.
  */
 private fun Modifier.swipeToDismiss(
+    key: Any,
     onDismissed: () -> Unit
 ): Modifier = composed {
     // TODO 6-1: Create an Animatable instance for the offset of the swiped element.
 
     val offsetX = remember { Animatable(0f) }
 
-    pointerInput(Unit) {
+    pointerInput(key) {
         // Used to calculate a settling position of a fling animation.
         val decay = splineBasedDecay<Float>(this)
         // Wrap in a coroutine scope to use suspend functions for touch events and animation.
         coroutineScope {
             while (true) {
-                // Wait for a touch down event.
+                // Wait for a touch down event on the caller/attached composable
                 val pointerId = awaitPointerEventScope { awaitFirstDown().id }
                 // TODO 6-2: Touch detected; the animation should be stopped.
+                offsetX.stop() // cancel any on-going animations
+
                 // Prepare for drag events and record velocity of a fling.
                 val velocityTracker = VelocityTracker()
                 // Wait for drag events.
                 awaitPointerEventScope {
                     horizontalDrag(pointerId) { change ->
                         // TODO 6-3: Apply the drag change to the Animatable offset.
+                        val horizontalDragOffset = offsetX.value + change.positionChange().x
+                        println(change.positionChange().y)
+
+                        launch {
+                            // Instantly set the Animable to the dragOffset to ensure its moving
+                            // as the user's finger moves
+                            offsetX.snapTo(horizontalDragOffset)
+                        }
+
                         // Record the velocity of the drag.
                         velocityTracker.addPosition(change.uptimeMillis, change.position)
                         // Consume the gesture event, not passed to external
@@ -707,18 +726,34 @@ private fun Modifier.swipeToDismiss(
                 val velocity = velocityTracker.calculateVelocity().x
                 // TODO 6-4: Calculate the eventual position where the fling should settle
                 //           based on the current offset value and velocity
+                val targetOffsetX = decay.calculateTargetValue(offsetX.value, velocity)
                 // TODO 6-5: Set the upper and lower bounds so that the animation stops when it
                 //           reaches the edge.
+
+                offsetX.updateBounds(
+                    lowerBound = - size.width.toFloat(), // size is comming form PointerInputScope
+                    upperBound = size.width.toFloat() // or this@pointerInput.size.width.toFloat()
+                )
+
                 launch {
                     // TODO 6-6: Slide back the element if the settling position does not go beyond
                     //           the size of the element. Remove the element if it does.
+                    if (targetOffsetX.absoluteValue <= this@pointerInput.size.width) {
+                        // Not enough velocity; Slide back.
+                        offsetX.animateTo(targetValue = 0f, initialVelocity = velocity)
+                    } else {
+                        // Enough velocity to slide away the element to the edge.
+                        offsetX.animateDecay(velocity, decay)
+                        // The element was swiped away.
+                        onDismissed() // calling the deletion callbacks
+                    }
                 }
             }
         }
     }
         .offset {
             // TODO 6-7: Use the animating offset value here.
-            IntOffset(0, 0)
+            IntOffset(offsetX.value.roundToInt(), 0)
         }
 }
 

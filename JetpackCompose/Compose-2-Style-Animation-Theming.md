@@ -688,6 +688,85 @@ Though this can be achieve using Material's `SwipeToDismiss` layout without buil
 Animatable comes form `androidx.compose.animation.core.Animatable`,
 It's a low level animation API. For gesture animation it has the ability to snap instantly to the new value coming in from a gesture and stop any ongoing animation when a new touch event is triggered.
 
+```kotlin
+/**
+ * The modified element can be horizontally swiped away.
+ *
+ * @param onDismissed Called when the element is swiped to the edge of the screen.
+ */
+
+private fun Modifier.swipeToDismiss( onDismissed: () -> Unit ): Modifier = composed { // can be written `Modifier.composed{}` as well
+    // TODO 6-1: Create an Animatable instance for the offset of the swiped element.
+
+    val offsetX = remember { Animatable(0f) }
+
+    pointerInput(Unit) {
+        // Used to calculate a settling position of a fling animation.
+        val decay = splineBasedDecay<Float>(this)
+        // Wrap in a coroutine scope to use suspend functions for touch events and animation.
+        coroutineScope {
+            while (true) {
+                // Wait for a touch down event on the caller/attached composable
+                val pointerId = awaitPointerEventScope { awaitFirstDown().id }
+                // TODO 6-2: Touch detected; the animation should be stopped.
+                offsetX.stop() // cancel any on-going animations
+
+                // Prepare for drag events and record velocity of a fling.
+                val velocityTracker = VelocityTracker()
+                // Wait for drag events.
+                awaitPointerEventScope {
+                    horizontalDrag(pointerId) { change ->
+                        // TODO 6-3: Apply the drag change to the Animatable offset.
+                        val horizontalDragOffset = offsetX.value + change.positionChange().x
+
+                        launch {
+                            // Instantly set the Animable to the dragOffset to ensure its moving
+                            // as the user's finger moves
+                            offsetX.snapTo(horizontalDragOffset)
+                        }
+
+                        // Record the velocity of the drag.
+                        velocityTracker.addPosition(change.uptimeMillis, change.position)
+                        // Consume the gesture event, not passed to external
+                        if (change.positionChange() != Offset.Zero) change.consume()
+                    }
+                }
+                // Dragging finished. Calculate the velocity of the fling.
+                val velocity = velocityTracker.calculateVelocity().x
+                // TODO 6-4: Calculate the eventual position where the fling should settle
+                //           based on the current offset value and velocity
+                val targetOffsetX = decay.calculateTargetValue(offsetX.value, velocity)
+                // TODO 6-5: Set the upper and lower bounds so that the animation stops when it
+                //           reaches the edge.
+
+                offsetX.updateBounds(
+                    lowerBound = - size.width.toFloat(), // size is comming form PointerInputScope
+                    upperBound = size.width.toFloat() // or this@pointerInput.size.width.toFloat()
+                )
+
+                launch {
+                    // TODO 6-6: Slide back the element if the settling position does not go beyond
+                    //           the size of the element. Remove the element if it does.
+                    if (targetOffsetX.absoluteValue <= this@pointerInput.size.width) {
+                        // Not enough velocity; Slide back.
+                        offsetX.animateTo(targetValue = 0f, initialVelocity = velocity)
+                    } else {
+                        // Enough velocity to slide away the element to the edge.
+                        offsetX.animateDecay(velocity, decay)
+                        // The element was swiped away.
+                        onDismissed() // calling the deletion callbacks
+                    }
+                }
+            }
+        }
+    }
+        .offset {
+            // TODO 6-7: Use the animating offset value here.
+            IntOffset(offsetX.value.roundToInt(), 0)
+        }
+}
+```
+
 ### Common Delegated Property in Jetpack Compose:
 `var someState by remember { mutableStateOf(SomeThing) }`
 

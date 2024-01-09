@@ -27,4 +27,10 @@ There can be exception scenario, but usually
 
 
 ### inline, noinline, crossinline:
-https://medium.com/android-news/inline-noinline-crossinline-what-do-they-mean-b13f48e113c2
+- `inline` Fn: will include the lambda into call site (without creating a Function Object) when compiled. Lambdas inside inline fn are allowed for `non-local return (return will be the return of enclosed/calling fn)`. But the inline fn can not access private members/methods of the enclosing class unless those members/methods are declared `internal` and annotated with @PublishedApi.
+
+- inline fn with `noinline` param lambda: the lambda will not be inlined and cannot `return` to the calling function. 
+
+- inline fn with `crossinline`: the lambda will be inlined in compiled call site but cannot return as non-local. 
+
+https://medium.com/android-news/inline-noinline-crossinline-what-do-they-mean-b13f48e113c2 
