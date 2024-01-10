@@ -340,6 +340,9 @@ Material Theme has Styled layer as `Material Layer` (ie, Text, TextField) and un
 
 #### ---------------- Compose Animation ---------------------
 
+Compose animation id done using 1. value based (animate*AsState), 2. Transition Based
+
+
 ### `animate*AsState()` | Value Based Animation:
 The animate*AsState functions are the simplest animation APIs in Compose for animating a single value. You only provide the target value (or end value), and the API starts animation from the current value to the specified value.. ie, `animateColorAsState`, `animateFloatAsState`.
 
@@ -747,7 +750,8 @@ private fun Modifier.swipeToDismiss( onDismissed: () -> Unit ): Modifier = compo
                 launch {
                     // TODO 6-6: Slide back the element if the settling position does not go beyond
                     //           the size of the element. Remove the element if it does.
-                    if (targetOffsetX.absoluteValue <= this@pointerInput.size.width) {
+                    // size.with is same as this@pointerInput.size.width
+                    if (targetOffsetX.absoluteValue <= size.width) {
                         // Not enough velocity; Slide back.
                         offsetX.animateTo(targetValue = 0f, initialVelocity = velocity)
                     } else {
@@ -767,6 +771,7 @@ private fun Modifier.swipeToDismiss( onDismissed: () -> Unit ): Modifier = compo
 }
 ```
 
+
 ### Common Delegated Property in Jetpack Compose:
 `var someState by remember { mutableStateOf(SomeThing) }`
 
@@ -778,3 +783,48 @@ private fun Modifier.swipeToDismiss( onDismissed: () -> Unit ): Modifier = compo
 
 `val alpha by rememberInfiniteTransition(label = "infinite animation").animateFloat(....)`
 
+### JetPack Compose Phases:
+Compose workflow: Data -> Composition(What?) -> Layout(Where?) -> Drawing(How?) -> Final UI
+
+Here the `Composition`, `Layout` and `Drawing` are considered Compose Phases.
+https://developer.android.com/jetpack/compose/phases
+
+
+### Layout In Depth:
+https://developer.android.com/jetpack/compose/layouts
+
+Layout in Compose represents different meaning
+`Layout Phase`: one of three phases of compose. Measurement and placement of each layout node in the UI tree happen during this phase. Others are Composition and Drawing Phase.
+
+`A layout`: abstract term for any Compose UI element
+
+`A layout-node`: visual representation of an UI element in the UI tree (result of Composition)
+
+`Layout Composable`: creates a `layout node`  in the UI tree
+
+`Layout Function`: start of placement in the layout phase (second sub-step of layout phase). Places children in a parent layout ????
+
+`Layout Modifier`: wraps a single layout node to size and place it individually
+
+
+### Custom Layouts and Graphics:
+https://developer.android.com/jetpack/compose/layouts/custom
+
+1. Layout phase: How to enter it and Measurement and placement for building custom layout
+2. SubCompose layout
+3. Intrinsic (`of or relating to the essential nature of a thing; inherent.`) measurement
+
+### Constraints and Modifier order:
+Compose in Android doesn't work like Modifier Ordering in SwiftUI. In compose there is `Constrains`, which sets the minimum and maximum size of a/a-group of compose element/s inside of a parent composable. `Constrains` are passed down from Parent to Child, and the child will report back to the parent of the used space (parent then re-calculate the constrains and passed to another children)
+
+* if child component size is smaller or greater than the passed constraints, it will follow either `nearest min` or `nearest max` of the constrains min/max value.
+
+`size` Modifier: it sets the min and max both to same and matches with parent's provided constraints nearest min/max. setting multiple size modifiers one after another doesn't change the upper constrains, so doesn't work.
+
+`requiredSize`: it can override the upper constrains and set the specified size.
+
+`fillMaxWidth`: it resets/sets the upper constrains min/max both same to available maximum space.
+
+`wrapContent`: upper constrains is resets to min=0 and max=available space
+
+`clip`: does not change the constraints

@@ -73,3 +73,13 @@ NB: Topics followed by *** are to check first.
 ```kotlin
 println("Cachedir : ${applicationContext.cacheDir} and External Cache Dir : ${applicationContext.externalCacheDir}")
 ```
+
+### Compose Layout Next:
+- https://developer.android.com/jetpack/compose/phases
+- https://developer.android.com/jetpack/compose/layouts
+- https://developer.android.com/jetpack/compose/layouts/custom
+
+### Animation:
+- TransitionSpec and AnimationSpec
+- keyframes
+- animatable
