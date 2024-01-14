@@ -379,3 +379,70 @@ fun ComposeApp(windowSize: WindowSizeClass) {
     }
 }
 ```
+
+### Modifiers (Scoped, Extracting/Reusing and Chaining using `.then()`):s
+Some modifiers are Scoped, like `weight` modifier is a scoped to `Column` or `Row`, and only work within those.
+
+Scoped modifiers can be extracted to the highest possible level to reuse in that scope.
+
+```kotlin
+Column(/*...*/) {
+    val reusableItemModifier = Modifier
+        .padding(bottom = 12.dp)
+        // Align Modifier.Element requires a ColumnScope
+        .align(Alignment.CenterHorizontally)
+        .weight(1f)
+    Text1(
+        modifier = reusableItemModifier,
+        // ...
+    )
+    Text2(
+        modifier = reusableItemModifier
+        // ...
+    )
+    // ...
+}
+```
+
+Modifiers can be chained using `.then()`
+
+```kotlin
+val reusableModifier = Modifier
+    .fillMaxWidth()
+    .background(Color.Red)
+    .padding(12.dp)
+
+// Append to your reusableModifier
+reusableModifier.clickable { /*...*/ }
+
+// Append your reusableModifier
+otherModifier.then(reusableModifier)
+```
+
+### Constraints and Constraints affecting Modifiers:
+`Constraints` is the `minimum` and `maximum` allowed size defined by a Container node to it's child node (node is a composable view/layout). The child node also reports back to the container node about it's used size, Then container node defines a new `Constraints` for next child and so on.
+
+
+* Some modifiers can override the parents `Constrains`. Like, `requiredSize`.
+
+### Pager Layout in Compose:
+https://developer.android.com/jetpack/compose/layouts/pager
+
+### Flow Layout in Compose:
+`FlowRow` and `FlowColumn` can be used to create multiple rows or columns where items can flow into the next line when the container runs out of space. Good to build responsive layouts. Using a combination of `maxItemsInEach*` with `Modifier.weight(weight)` can help build layouts that fill/expand the width of a row or column when needed.
+https://developer.android.com/jetpack/compose/layouts/flow
+
+<img src="./images/flow_row.png"/>
+
+```kotlin
+@Composable
+private fun FlowRowSimpleUsageExample() {
+    FlowRow(modifier = Modifier.padding(8.dp)) {
+        ChipItem("Price: High to Low")
+        ChipItem("Avg rating: 4+")
+        ChipItem("Free breakfast")
+        ChipItem("Free cancellation")
+        ChipItem("£50 pn")
+    }
+}
+```

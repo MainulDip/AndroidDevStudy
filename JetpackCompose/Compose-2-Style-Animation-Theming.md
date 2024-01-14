@@ -791,7 +791,7 @@ https://developer.android.com/jetpack/compose/phases
 
 
 ### Layout In Depth:
-https://developer.android.com/jetpack/compose/layouts
+https://developer.android.com/jetpack/compose/layouts.
 
 Layout in Compose represents different meaning
 `Layout Phase`: one of three phases of compose. Measurement and placement of each layout node in the UI tree happen during this phase. Others are Composition and Drawing Phase.
