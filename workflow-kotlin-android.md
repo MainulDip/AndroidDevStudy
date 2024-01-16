@@ -250,3 +250,36 @@ enum class IntArithmetics  {
     abstract fun sth(t: Int, u: Int): Int
 }
 ```
+
+### `this then` and appending custom Modifiers (infix notation):
+All modifiers (built-in or customs) are chainable and the order of chaining matters. customModifiers.otherModifiers (`prepending[beginning]`) and otherModifier.then(reusableModifier) `appending [end]` pattern are used.
+
+To create a custom modifier utilizing `Intrinsic` measurement, `this then object : LayoutModifier {}` pattern is common. its like `this(then(object : LayoutModifier {}))`
+
+```kotlin
+// creating a custom chainable modifier by utilizing intrinsic measurement by implementing LayoutModifier interface
+// infix notation is used instead of this(then(object: LayoutModifier {}))
+fun Modifier.myCustomModifier(/* ... */) = this then object : LayoutModifier {
+
+    override fun MeasureScope.measure(
+        measurable: Measurable,
+        constraints: Constraints
+    ): MeasureResult {
+        // Measure and layout here
+        // ...
+    }
+
+    override fun IntrinsicMeasureScope.minIntrinsicWidth(
+        measurable: IntrinsicMeasurable,
+        height: Int
+    ): Int {
+        // Logic here
+        // ...
+    }
+
+    // Other intrinsics related methods have a default value,
+    // you can override only the methods that you need.
+}
+```
+
+more on Intrinsic implementation: https://developer.android.com/jetpack/compose/layouts/intrinsic-measurements#intrinsics-in-action

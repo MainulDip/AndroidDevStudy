@@ -806,13 +806,67 @@ Layout in Compose represents different meaning
 
 `Layout Modifier`: wraps a single layout node to size and place it individually
 
+### Custom layout Modifier and Layout Lambda:
+Custom Laying out each node in the UI tree is a three step process. Each node must:
 
-### Custom Layouts and Graphics:
+1. Measure any children
+2. Decide its own size
+3. Place its children (actual laying out)
+
+* layout lambda as Modifier, and `layout()` for placement
+
+```kotlin
+fun Modifier.customLayoutModifier(vararg p1: Any) =
+    layout { measurable, constraints ->
+        // Measure the composable from the passed parameters
+        // Do other Measurement with function's parameter p1, p2, p3
+        // Commit actual laying out by calling layout(width, height) {....}
+    }
+```
+
+* Layout Composable for Custom Layout
+
+```kotlin
+// Creating custom Layout composable like the builtin Column{} composable 
+@Composable
+fun MyBasicColumn(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    Layout(
+        modifier = modifier,
+        content = content
+    ) { measurables, constraints ->
+
+        // Measure the composable from the passed parameters
+        // Do other Measurement with function's parameter p1, p2, p3
+        // Commit actual laying out by calling layout(width, height) {....}
+    }
+}
+```
+Docs/Guide -> https://developer.android.com/jetpack/compose/layouts/custom
+
+### Custom Layouts with SubCompose and Intrinsic Measurement:
 https://developer.android.com/jetpack/compose/layouts/custom
 
 1. Layout phase: How to enter it and Measurement and placement for building custom layout
 2. SubCompose layout
 3. Intrinsic (`of or relating to the essential nature of a thing; inherent.`) measurement
+
+### Intrinsic Measurement:
+When building custom Layout Composable or layout modifier, children can be measured only once measuring children twice throws a runtime exception. Intrinsic measurement can be utilize before the actual measurement without breaking then single-passed measurement rules.
+
+* Intrinsics lets query children before they're actually measured
+
+`IntrinsicSize` can be used inside built in modifier like `Modifier.height(IntrinsicSize.Min)` to get/set children's minimum height before the final measurement.
+
+```kotlin
+Row(modifier = modifier.height(IntrinsicSize.Min)) {/* other built in composable */}
+```
+
+Custom Layout and layout modifier utilize this by implementing `MeasurePolicy` object (for Layout Composable) and `LayoutModifier` object (for custom Modifier) and overriding necessary method.
+
+Guide: https://developer.android.com/jetpack/compose/layouts/intrinsic-measurements#intrinsics-in-layouts
 
 ### Constraints and Modifier order:
 Compose in Android doesn't work like Modifier Ordering in SwiftUI. In compose there is `Constrains`, which sets the minimum and maximum size of a/a-group of compose element/s inside of a parent composable. `Constrains` are passed down from Parent to Child, and the child will report back to the parent of the used space (parent then re-calculate the constrains and passed to another children)
