@@ -18,6 +18,8 @@ Log.d("rememberLazyListState", "lazyListState.isScrollInProgress => ${lazyListSt
 
 - `rememberLazyListState` -> Creates a LazyListState that is remembered across compositions (re-compositions). 
 
+- `rememberScaffoldState`
+
 ### @Composable vs @UIComposable, @ComposableTarget, ect:
 There can be exception scenario, but usually
 - @Composable only -> Custom Composable

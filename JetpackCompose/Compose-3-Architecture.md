@@ -61,6 +61,15 @@ interface UiState<T : Result<T>> {
 ```
 Docs: https://developer.android.com/jetpack/compose/lifecycle
 
+### Simple State in Composable Functions:
+
+### State holder class (plain kotlin class to hold complex UI logics):
+
+### ViewModel State Holder (Business Logic States):
+
+
+### Navigation in Compose
+
 ### Compose Effects and Side Effects:
 An `effect` is a composable function that doesn't emit UI and causes side effects to run when a composition completes.
 

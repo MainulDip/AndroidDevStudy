@@ -4,7 +4,7 @@ NB: Topics followed by *** are to check first.
 * *** Android Notification.
 * *** RX-Java, RX-Android and Retrofit
 * *** AGP: Android Gradle Plugin
-* Android Manifest Merge Conflict [Create intentional merge conflict and then resolve it].
+* Android Manifest Merge Conflict [Create intentional merge conflict and then resolve it]
 * Data Structure and Algorithm:
     - Sort
         - Bubble Sort
