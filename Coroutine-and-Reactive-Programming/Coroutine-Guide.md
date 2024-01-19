@@ -38,7 +38,7 @@ viewLifecycleOwner.lifecycleScope.launch (Dispatchers.IO) {
 
 ### CoroutineContext == CoroutineDispatchers
 
-### Working with LiveData and Nul Safety:
+### LiveData (Build Outside UI and consume by Observe inside UI) and Nul Safety:
 LiveData initialization is not Nullable. `LiveData<T>`, there is no `<T?>`. But to read the (set) the value or observe of changes, it requires null safety.
 
 Signatures ->
@@ -103,3 +103,92 @@ button.setOnClickListener {
 }
 ```
 
+### Flow (Builder/flow{....} to fetch & emit data | Collect data inside consumer/UI):
+
+
+* Flow Builders
+
+- `flowOf(...)` functions to create a flow from a fixed set of values.
+
+- `asFlow()` extension functions on various types to convert them into flows.
+
+- `flow { ... }` builder function to construct arbitrary flows from sequential calls to emit function.
+
+- `channelFlow { ... }` builder function to construct arbitrary flows from potentially concurrent calls to the send function.
+
+- `MutableStateFlow` and `MutableSharedFlow` define the corresponding constructor functions to create a hot flow that can be directly updated.
+
+`StateFlow vs Flow` -> https://stackoverflow.com/questions/69551675/android-flow-vs-stateflow
+
+
+### Flow Intermediaries operators to modify the stream of data:
+These operators are functions that, when applied to a stream of data, set up a chain of operations that aren't executed until the values are consumed in the future
+
+```kotlin
+val flowA = flowOf(1, 2, 3)
+    .map { it + 1 } // Will be executed in ctxA
+    .flowOn(ctxA) // Changes the upstream context: flowOf and map
+
+// Now we have a context-preserving flow: it is executed somewhere but this information is encapsulated in the flow itself
+
+val filtered = flowA // ctxA is encapsulated in flowA
+   .filter { it == 3 } // Pure operator without a context yet
+
+withContext(Dispatchers.Main) {
+    // All non-encapsulated operators will be executed in Main: filter and single
+    val result = filtered.single()
+    myUi.text = result
+}
+```
+docs -> https://developer.android.com/kotlin/flow
+docs -> https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/
+
+
+### Flow collectors (Terminal Operators):
+Terminal operators are functions that initiate the collection of data from the Flow.
+
+* `Collect` -> start collection from flow. Its a suspend function and can be called from another suspend fn.
+
+```kotlin
+val numbersFlow = flowOf(1, 2, 3, 4, 5)
+
+// collect is a suspend fun
+numbersFlow.collect { number -> 
+    println("Received number: $number")
+}
+```
+
+* `toList` and `toSet` -> collect flow the data into a list or a set
+
+```kotlin
+val numbersFlow = flowOf(1, 2, 3, 4, 5)
+
+val numbersList = numbersFlow.toList()
+println(numbersList) // prints: [1, 2, 3, 4, 5]
+```
+* `first` -> collects the data until the first item that matches a given condition is found. Then it stops the collection and returns that item
+
+```kotlin
+val numbersFlow = flowOf(1, 2, 3, 4, 5)
+
+val firstEvenNumber = numbersFlow.first { it % 2 == 0 }
+println(firstEvenNumber) // prints: 2
+```
+
+* reduce -> aggregate the flow data in specified way
+
+```kotlin
+val numbersFlow = flowOf(1, 2, 3, 4, 5)
+
+val product = numbersFlow.reduce { accumulator, number -> accumulator * number }
+println(product) // prints: 120
+```
+
+
+
+
+
+
+
+### StateFlow vs Flow:
+https://stackoverflow.com/questions/69551675/android-flow-vs-stateflow

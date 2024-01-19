@@ -1,4 +1,4 @@
-## Birds Eye view (Overviw):
+## Birds Eye view (Overviews):
 Building Android/Spring (Java/Kotlin) Apps from scratch should have some standardized workflow to build it quickly, more systemically, also maintain and running Tests. Here are some personalized workflow docs and why cases.
 
 

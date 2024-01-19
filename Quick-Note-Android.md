@@ -91,7 +91,7 @@ DataBinding Guide: https://developer.android.com/topic/libraries/data-binding#us
 
 ### Binding Adapters:
 
-### Activity to Activity, Fragment to Activity and Fragment to Fragment Navigation:
+### Activity to Activity, Fragment to Activity and Fragment to Fragment Navigation
 Navigation can be done without using Navigation Graph.
 
 * Note: Fragment can assess it's Activity's fn using `(requireActivity() as MainActivity).<activityFn>`

@@ -43,6 +43,8 @@ val count: MutableState<Int> by remember { mutableStateOf(0) }
 ### Compose State with Other Observable:
 using other observable types like LiveData, StateFlow, Flow, and RxJava's Observable to store state in an app. To allow Compose to use this state and automatically recompose when the state changes you need to map these to a State<T>.
 
+* Key Point -> Flow(`emit/collect`) and Livedata(`initialize/observe`)
+
 Docs : https://developer.android.com/jetpack/compose/libraries
 ### State persistence by rememberSaveable:
 `rememberSaveable` automatically saves any value that can be saved in a Bundle (A mapping from String keys to various Parcelable values). For other values, you can pass in a custom saver object using (https://developer.android.com/jetpack/compose/state#restore-ui-state)
