@@ -61,11 +61,13 @@ interface UiState<T : Result<T>> {
 ```
 Docs: https://developer.android.com/jetpack/compose/lifecycle
 
-### Simple State in Composable Functions:
+### Observable State holders (StateFlow | LiveData):
 
-### State holder class (plain kotlin class to hold complex UI logics):
+### 1. Simple State in Composable Functions:
 
-### ViewModel State Holder (Business Logic States):
+### 2. State holder class (plain kotlin class to hold complex UI logics):
+
+### 3. ViewModel State Holder (Business Logic States):
 
 
 ### Navigation in Compose
