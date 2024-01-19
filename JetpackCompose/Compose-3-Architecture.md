@@ -67,7 +67,7 @@ interface UiState<T : Result<T>> {
 ```
 Docs: https://developer.android.com/jetpack/compose/lifecycle
 
-### Observable State holders (mutableStateOf | Flow | LiveData):
+### Observable State holders (mutableStateOf | StateFlow (Flow) | LiveData):
 ```kotlin
 class MyViewModel : ViewModel() {
     // private val _uiState = mutableStateOf<UiState>(UiState.SignedOut)
