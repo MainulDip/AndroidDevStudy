@@ -273,7 +273,7 @@ fun main() {
 
 
 ### `this then` and appending custom Modifiers (infix notation):
-All modifiers (built-in or customs) are chainable and the order of chaining matters. customModifiers.otherModifiers (`prepending[beginning]`) and otherModifier.then(reusableModifier) `appending [end]` pattern are used.
+All modifiers (built-in or customs) are chainable and the order of chaining matters. customModifiers.otherModifiers (`prepending[beginning]`) and otherModifier.then(reusableModifier) `appending [end]` pattern are used
 
 To create a custom modifier utilizing `Intrinsic` measurement, `this then object : LayoutModifier {}` pattern is common. its like `this(then(object : LayoutModifier {}))`
 

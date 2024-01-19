@@ -94,7 +94,7 @@ Note : rememberSaveable with List<CustomType> will not work, need to provide cus
 
 
 Docs for saving ui state : https://developer.android.com/topic/libraries/architecture/saving-states#onsaveinstancestate
-### Compose state and ViewModels:
+### Compose state and ViewModels
 ViewModels provide the UI state and access to the business logic located in other layers of the app. ViewModels survive configuration changes, so they have a longer lifetime than the Composition (Composable/Views).
 * So in Compose (With viewModel) there is no need to use `remember` fn.
 

@@ -689,7 +689,7 @@ Custom Modifier can be created with `Animatable API` to handle Gesture animation
 Though this can be achieve using Material's `SwipeToDismiss` layout without building custom modifier.
 
 Animatable comes form `androidx.compose.animation.core.Animatable`,
-It's a low level animation API. For gesture animation it has the ability to snap instantly to the new value coming in from a gesture and stop any ongoing animation when a new touch event is triggered.
+It's a low level animation API. For gesture animation it has the ability to snap instantly to the new value coming in from a gesture and stop any ongoing animation when a new touch event is triggered
 
 ```kotlin
 /**

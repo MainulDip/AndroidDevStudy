@@ -1,10 +1,16 @@
 ### Architecture of JetPack Compose UI:
 It's a quick magnet part of the Architecture part of https://developer.android.com/jetpack/compose/documentation docs.
 
+### Composition and Node Tree:
+Composition can be described as a node tree, where each node is a Composable function.
+Composition is the first part of UI phases (Composition, Layout and Drawing)
+
 ### Compose Lifecycle:
 The lifecycle of a composable is defined by the following events: entering the Composition, getting recomposed 0 or more times, and leaving the Composition.
 
 A Composition can only be produced by an initial composition and updated by recomposition. The only way to modify a Composition is through recomposition.
+
+Composition disposal: https://stackoverflow.com/questions/77076623/what-does-composition-exactly-mean-in-jetpack-compose
 
 #### Recomposition and `key` for Smart recomposition
 Recomposition will only trigger if @Composable's inputs are changed (Started by any state changes form parent Composable). For non-Stable types, it's always recompose, see Stable Section Below.
@@ -61,7 +67,23 @@ interface UiState<T : Result<T>> {
 ```
 Docs: https://developer.android.com/jetpack/compose/lifecycle
 
-### Observable State holders (StateFlow | LiveData):
+### Observable State holders (mutableStateOf | Flow | LiveData):
+```kotlin
+class MyViewModel : ViewModel() {
+    // private val _uiState = mutableStateOf<UiState>(UiState.SignedOut)
+    private val _uiState = MutableLiveData<UiState>(UiState.SignedOut)
+    val uiState: LiveData<UiState>
+        get() = _uiState
+
+    // ...
+}
+
+@Composable
+fun MyComposable(viewModel: MyViewModel) {
+    val uiState = viewModel.uiState.observeAsState()
+    // ...
+}
+```
 
 ### 1. Simple State in Composable Functions:
 
