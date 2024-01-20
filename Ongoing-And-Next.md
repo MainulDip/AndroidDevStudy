@@ -83,3 +83,65 @@ println("Cachedir : ${applicationContext.cacheDir} and External Cache Dir : ${ap
 - TransitionSpec and AnimationSpec
 - keyframes
 - animatable
+### Next:
+1. StateFlow, SharedFlow, cold/hot flow, shareIn -> https://developer.android.com/kotlin/flow/stateflow-and-sharedflow
+
+2. Sealed class with inner data class and StateFlow use -> https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#stateflow
+
+
+```kotlin
+class LatestNewsViewModel(
+    private val newsRepository: NewsRepository
+) : ViewModel() {
+
+    // Backing property to avoid state updates from other classes
+    private val _uiState = MutableStateFlow(LatestNewsUiState.Success(emptyList()))
+    // The UI collects from this StateFlow to get its state updates
+    val uiState: StateFlow<LatestNewsUiState> = _uiState
+
+    init {
+        viewModelScope.launch {
+            newsRepository.favoriteLatestNews
+                // Update View with the latest favorite news
+                // Writes to the value property of MutableStateFlow,
+                // adding a new element to the flow and updating all
+                // of its collectors
+                .collect { favoriteNews ->
+                    _uiState.value = LatestNewsUiState.Success(favoriteNews)
+                }
+        }
+    }
+}
+
+
+// Represents different states for the LatestNews screen
+sealed class LatestNewsUiState {
+    data class Success(val news: List<ArticleHeadline>): LatestNewsUiState()
+    data class Error(val exception: Throwable): LatestNewsUiState()
+}
+
+class LatestNewsActivity : AppCompatActivity() {
+    private val latestNewsViewModel = // getViewModel()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        ...
+        // Start a coroutine in the lifecycle scope
+        lifecycleScope.launch {
+            // repeatOnLifecycle launches the block in a new coroutine every time the
+            // lifecycle is in the STARTED state (or above) and cancels it when it's STOPPED.
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Trigger the flow and start listening for values.
+                // Note that this happens when lifecycle is STARTED and stops
+                // collecting when the lifecycle is STOPPED
+                latestNewsViewModel.uiState.collect { uiState ->
+                    // New value received
+                    when (uiState) {
+                        is LatestNewsUiState.Success -> showFavoriteNews(uiState.news)
+                        is LatestNewsUiState.Error -> showError(uiState.exception)
+                    }
+                }
+            }
+        }
+    }
+}
+```

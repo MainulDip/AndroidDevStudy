@@ -4,7 +4,7 @@
 - `ctrl + o` override/implement fn suggestion in side class
 - typing `this.` + `ctrl + space` inside a lambda block (scope) will suggest more precisely
 - `alt + enter` to import
-- `alt + enter` inside a typo (word with curly underling) will fix.
+- `alt + enter` inside a typo (word with curly underling) will fix
 - `r` will refresh xml layout design
 - `ctrl + q` to preview function/code signature
 
