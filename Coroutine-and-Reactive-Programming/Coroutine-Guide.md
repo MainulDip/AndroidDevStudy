@@ -190,7 +190,7 @@ println(product) // prints: 120
 
 
 
-### MutableStateFlow(value) (StateFlow) vs Flow:
+### MutableStateFlow(value), StateFlow vs Flow:
 1. StateFlow used with `collectAsStateWithLifecycle()` ( `Lifecycle.repeatOnLifecycle` in non Compose) will automatically Stop collection when the reader view/composition-node is removed/disposed. Flow/StateFlow on its own will not stop emitting when the app is in the background.
 
 2. A StateFlow is useful for representing state (such as properties in a ViewModels). Flow is not for maintaining a value, its for emitting (like button-pressed/event)
@@ -200,8 +200,52 @@ https://stackoverflow.com/questions/69551675/android-flow-vs-stateflow
 ### Next:
 1. StateFlow, SharedFlow, cold/hot flow, shareIn -> https://developer.android.com/kotlin/flow/stateflow-and-sharedflow
 
-2. Sealed class with inner data class and StateFlow use -> https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#stateflow
 
+### StateFlow with ViewModel and SealedClass Example:
+
+<details>
+
+<summary>Sealed Class With Inner Data Class and Outer inheritance</summary>
+
+```kotlin
+sealed class LatestNewsUiState {
+    data class Success(val news: List<String>): LatestNewsUiState()
+    data class Error(val exception: String): LatestNewsUiState()
+}
+
+fun handleResponse(call: LatestNewsUiState) {
+    when (call) {
+        is LatestNewsUiState.Error -> println(call.exception)
+        is LatestNewsUiState.Success -> println(call.news.joinToString(", "))
+        is Processing -> println(call.status)
+    }
+}
+
+fun main() {
+    val networkCallProcessing = Processing()
+    handleResponse(networkCallProcessing)
+
+    val netWorkCallSuccess = LatestNewsUiState.Success(listOf("News One", "News Two", "News Three", "News Four"))
+    handleResponse(netWorkCallSuccess)
+
+    val newWorkCallError = LatestNewsUiState.Error("Bad Request")
+    handleResponse(newWorkCallError)
+
+    println("Type Checking with `is`=> 7 is an Int: ${7 is Int}")
+}
+
+class Processing: LatestNewsUiState() {
+    val status = "Network call is being processed now"
+}
+```
+
+</details>
+
+
+
+<details>
+
+<summary>StateFlow with ViewModel and SealedClass Example</summary>
 
 ```kotlin
 class LatestNewsViewModel(
@@ -259,3 +303,5 @@ class LatestNewsActivity : AppCompatActivity() {
     }
 }
 ```
+
+</details>

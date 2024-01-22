@@ -36,3 +36,44 @@ There can be exception scenario, but usually
 - inline fn with `crossinline`: the lambda will be inlined in compiled call site but cannot return as non-local. 
 
 https://medium.com/android-news/inline-noinline-crossinline-what-do-they-mean-b13f48e113c2 
+
+### `in` and `out` with Generic Classes and Functions:
+https://kotlinlang.org/docs/generics.html
+
+* mnemonic: `PECS` stands for `Producer-Extends`, `Consumer-Super`.
+
+`out T` is for returning the Type from a function. mimics javas wildcard `<? extends T`>, where any class that T extends from (`upper bound`). Here T is called `covariance` in kt
+
+`in T` is for consuming the type from a function, also like `<? super T>` in java, where all the child classes of T are allowed here. Or classes where T is the base/super class of those. Here T is called `contra variance` in kt
+
+```kotlin
+class A {}
+class B : A {}
+class C : B {}
+
+// out example
+interface Produce<out T> {
+    fun next(): T
+    // T must be returned, not for consuming
+}
+
+fun outDemo(b: Produce<B>) {
+    val objects: Produce<A> = b // OK, classes B extends form
+    val objects: Produce<Any> = b // OK, as Any is the base/super class of everything in kt
+    // but C is not allowed here, as B is upper bound here
+}
+
+// in example
+interface Consume<in T> {
+    fun next(T): Int 
+    // T must be consumed, not for returning
+}
+
+fun inDemo(b: Consume<B>) {
+    val y: Consume<C> = b // OK
+    // but A is not allowed here, as classes who's super class is B. B is the lower limit.
+    // val y: Consume<Any> = b // Not OK
+}
+```
+
+Kotlin type system -> https://medium.com/@m.sandovalcalvo/kotlin-type-system-unveiling-the-mystery-50613f0db893

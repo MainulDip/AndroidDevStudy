@@ -32,6 +32,12 @@ Abstract classes can’t be final because the main reason they exist is for othe
 
 - If we are designing small, concise bits of functionality, use interfaces. If we are designing large functional units, use an abstract class.
 
+
+### kotlin `Any` and `Nothing` and in-between:
+All classes in kotlin comes from Any. So `Any` is the super/base class of everything.
+
+And `Nothing` extends all classes (built-in and customs). Nothing is a error type (runtime error). It can't be instantiated. `Nothing?` is the special type for `null` in kotlin.
+
 ### Map For Kotlin Interface, Abstract Class and JUnit Testing With Spring Boot:
 Task: make the full map of the kotlin springboot repository (That is inside of the KotlinEveryday Spring Repository)
 
