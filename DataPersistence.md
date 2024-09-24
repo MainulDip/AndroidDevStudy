@@ -9,7 +9,7 @@ All about Data Persistance in Android.
 - "=" single equal is for comparison
 - "!=" -> not equal operator
 - where: is used to filter results based on one or more columns
-- AND / OR : boolean operator to add more than one condition
+- AND / OR : boolean operator to add more than one condition.
 ### Database Inspector and SQL query in Android Studio:
 - View > Tool Windows > App Inspection the select database tab
 Then select the table and run sql query by "open new query tab"

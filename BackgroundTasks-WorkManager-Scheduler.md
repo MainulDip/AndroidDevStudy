@@ -118,7 +118,7 @@ workManager.beginWith(cleanupRequest)
     .enqueue()
 ```
 ### unique work for workmanager:
-to ensure the first data sync finish before starting a new one
+to ensure the first data sync finish before starting a new one.
 beginUniqueWork is used with the workManager instance
 ```kotlin
 // change beginWith with beginUniqueWork
