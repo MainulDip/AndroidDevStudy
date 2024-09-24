@@ -1,6 +1,10 @@
 ## Overview
 This is a personalized study repo to jump-start Android app development using Kotlin, Android API and or some Java
 
+### Guides on Readme:
+Android Traditional: Start with 100
+Android JetPack Compose: See the JetPack Compose Directory
+
 ### Android DataStore (jetpack exclusive)
 Jetpack DataStore is a data storage option using key-value pairs (Preferences DataStore) or typed objects with protocol buffers. It uses coroutines and Flows to store data asynchronously, consistently, and transactionally.
 
