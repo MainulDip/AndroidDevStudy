@@ -149,7 +149,7 @@ const val KEY_DESSERT_SOLD = "dessert_sold_key"
 ```
 
 ### Fragments:
-it's simply a reusable piece of app's ui. Like activities, fragments have a lifecycle and can respond to user input. A fragment is always contained within the view hierarchy of an activity when it is shown onscreen. Each fragment manages its own separate lifecycle.
+it's simply a reusable piece of app's ui. Like activities, fragments have a lifecycle and can respond to user input. A fragment is always contained within the view hierarchy of an activity when it is shown onscreen. Each fragment manages its own separate lifecycle
 
 * Fragment lifecycle: The fragment lifecycle has five states, represented by the Lifecycle.State enum.
  - INITIALIZED: A new instance of the fragment has been instantiated.

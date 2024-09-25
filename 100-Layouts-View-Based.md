@@ -118,11 +118,15 @@ Note: Material 2 to 3 => Theme.MaterialComponents.* become Theme.Material3.* for
 ### Extending Theme or calling other resource files attribute:
 Themes default value can be changed by defining inside theme file (usually themes.xml). Theme's name is defined inside resources' style "name" attribute, and usually there will be a parent theme like "<style name="Theme.UITesting" parent="Theme.MaterialComponents.DayNight.DarkActionBar">". The Theme is hooked by the AndroidManifest.xml application attribute's android:theme="@style/Theme.UITesting" entry.
 
+Different themes available from the Support Library to extend. The best place to see the available themes is the library's `themes.xml` file. Like appcompat exposed themes can be inspected from https://chromium.googlesource.com/android_tools/+/HEAD/sdk/extras/android/support/v7/appcompat/res/values/themes.xml
+
+Docs : https://developer.android.com/develop/ui/views/theming/themes
+
 Gradle will enlist all defined attributes inside res directory, filename can be anything (stick with best practice) but attribute name should be specific like style, dimen, bool, color, etc. When referencing from other xml files, use @attributetype/attribute_unique_name convention. 
 
 Docs : Resources Type https://developer.android.com/guide/topics/resources/more-resources
 
-* Widget : For a specific view type, widget can also be defined to extend the style at component basis. Widget name should be on "Widget.AppName.ViewName" convension where parent name is "Widget.MaterialComponent.ViewName". Several attributes can be set once for a targeted view and can be reused maintaining DRY principle.
+* Widget : For a specific view type, widget can also be defined to extend the style at component basis. Widget name should be on "Widget.AppName.ViewName" convention where parent name is "Widget.MaterialComponent.ViewName". Several attributes can be set once for a targeted view and can be reused maintaining DRY principle.
 
 ### Activity xml's parent view:
 Parent view should define the xml namespaces
@@ -155,7 +159,7 @@ view.apply {
     }
 }
 
-// inside the class
+// inside the class | hide keyboard when `enter/return` is pressed
 private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
         if (keyCode == KeyEvent.KEYCODE_ENTER) {
             // Hide the keyboard
