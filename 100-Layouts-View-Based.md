@@ -129,7 +129,7 @@ Docs : Resources Type https://developer.android.com/guide/topics/resources/more-
 * Widget : For a specific view type, widget can also be defined to extend the style at component basis. Widget name should be on "Widget.AppName.ViewName" convention where parent name is "Widget.MaterialComponent.ViewName". Several attributes can be set once for a targeted view and can be reused maintaining DRY principle.
 
 ### Activity xml's parent view:
-Parent view should define the xml namespaces
+Parent view should define the xml namespaces.
 ```xml
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"

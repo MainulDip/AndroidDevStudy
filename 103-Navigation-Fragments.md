@@ -203,7 +203,7 @@ With app selected in the Project Navigator, add the following fragments (File > 
  The navigation component simply refers to the collection of tools for implementing navigation, particularly between fragments.
 
 The Navigation component has three key parts
-1. Navigation Graph: its is a virtual mapping of app's navigation described in xml file like layout, it consists of destinations which correspond to individual activities and fragments, also actions between them to navigate from one destination to another. 
+1. Navigation Graph: its is a virtual mapping of app's navigation described in xml file like layout, it consists of `destinations` which correspond to individual activities and fragments, also `actions` between them to navigate from one destination to another. 
 
 Note: (Navigation Graph -> NavGraph, accessed by FragmentContainerView) Behind the scenes, this actually creates a new instance of the NavGraph class. However, destinations from the navigation graph are displayed to the user by the FragmentContainerView.
 ```xml

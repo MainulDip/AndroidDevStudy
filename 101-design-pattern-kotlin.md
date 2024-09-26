@@ -414,7 +414,7 @@ Pragma is short for pragmatic information. Pragmatic means "sensible and practic
 It's a programmable pattern that translates a certain sequence of input into a preset sequence of output. In the general world, a macro can be a keyboard shortcut/hotkey to do multiple tasks (not a single task).
 In programming, A macro is a name given to a block of C statements as a pre-processor directive. Being a pre-processor, the block of code is communicated to the compiler before entering into the actual coding (main () function). A macro is defined with the pre-processor directive.
 
-* Macro vs Functins: Macros are pre-processed which means that all the macros would be processed before your program compiles. However, functions are not preprocessed but compiled.
+* Macro vs Functions: Macros are pre-processed which means that all the macros would be processed before your program compiles. However, functions are not preprocessed but compiled.
 
 ```c
 // macro

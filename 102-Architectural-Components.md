@@ -107,7 +107,7 @@ android:text="@{gameViewModel.currentScrambledWord}"
  
  - instantiate binding as DataBindingUtil on "onCreateView" (for fragment) lifecycle method
     - like => binding = DataBindingUtil.inflate(inflater, R.layout.game_fragment, container, false)
-    - instade of viewBinding => binding = GameFragmentBinding.inflate(inflater, container, false)
+    - instead of viewBinding => binding = GameFragmentBinding.inflate(inflater, container, false)
     - Note: the lateinit declaration of the ViewModel will remain same like ViewBinding => private val viewModel: GameViewModel by viewModels()
 
 - bind the layout variables and lifecycleOwner with the binding object in onCreateView (for fragment) lifecycle method. Like
