@@ -40,7 +40,7 @@ NB: Topics followed by *** are to check first.
     - JNI (Java Native Interface): https://www.baeldung.com/jni
         - https://www.baeldung.com/java-native
 - Android AR/VR/3d.
-### Next Android Specific:
+### Next Android Specifics:
 - Dagger-Hilt and Dagger2
     - Ongoing : Dagger-CodeLab-1
     - Brushing-Up Navigation, NavControllers and Menu (Menu-Navigation.md, Munu-Apps)
