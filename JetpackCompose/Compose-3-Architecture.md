@@ -19,7 +19,7 @@ The instance of a composable in Composition is identified by its call site. Inte
 
 - if child composable are different function, only the function that's input had been changed will recompose. Other children's instance will be preserved. 
 
-- if children are same function (like looping) with different param/inputs, when inserting/deleting a new item any places other than last of a list, a unique key (id) should be used to skip recomposition for those that's not been changed. 
+- if children are same function (like looping) with different param/inputs, when inserting/deleting a new item any places other than last of a list, a unique key (id) should be used to skip recomposition for those that's not been changed
 Its the `Smart` recomposition.
 
 ```kotlin

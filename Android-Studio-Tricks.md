@@ -1,7 +1,7 @@
 ### General Keyboard Helpers:
-- `ctrl + p` inside fn will suggest all the params
+- `ctrl + p` or mac `cmd + p` inside fn will suggest all the params
 - `ctrl + space` will suggest
-- `ctrl + o` override/implement fn suggestion in side class
+- `ctrl + o` or mac `cmd + o` override/implement fn suggestion in side class
 - typing `this.` + `ctrl + space` inside a lambda block (scope) will suggest more precisely
 - `alt + enter` to import
 - `alt + enter` inside a typo (word with curly underling) will fix
@@ -14,6 +14,7 @@
 - preview interactive mode - `right top of the preview`
 - preview run - `right top of the preview` - run the preview in device
 - animation preview - `next to the interactive preview`
+- Generate Code - mac `cmd + j`
 
 ### Add Keyboard Custom Shortcuts:
 `Ctrl + Comma` - to toggle running device

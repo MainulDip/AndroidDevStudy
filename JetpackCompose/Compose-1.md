@@ -43,7 +43,7 @@ dependencies {
 * Composable functions:
 @Composable annotation makes it into a composable function, it's the building block of JetPack Compose. It describe the UI/Views and provide data dependencies. Any function including a @Composable function needs to be itself @Composable
 * Theme:
-All the theming (Material) files are inside ui.theme (on default compose template). The main theme function is a composable. And there is a @Composable "Surface" from Material 3, usually all other components go inside this.
+All the theming (Material) files are inside ui.theme (on default compose template). The main theme function is a composable. And there is a @Composable "Surface" from Material 3, usually all other components go inside this
 * @Preview:
 @Preview annotation can display the composable functions call without building the project and running on an emulator.
 
